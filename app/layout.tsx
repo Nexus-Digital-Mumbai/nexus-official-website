@@ -1,9 +1,32 @@
 import type { Metadata } from 'next';
+import { Newsreader, Inter, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageLoader from '../components/PageLoader';
 import ScrollToTop from '../components/ScrollToTop';
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-serif',
+  weight: ['400', '500', '600', '700'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plex-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Nexus — IT Solutions, NexLock & NexWarranty',
@@ -27,16 +50,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-paper text-slate-900 font-body antialiased">
+    <html
+      lang="en"
+      className={`${newsreader.variable} ${inter.variable} ${ibmPlexMono.variable}`}
+    >
+      <body className="bg-canvas text-slate-900 font-body antialiased">
         <ScrollToTop />
         <PageLoader />
         <Navbar />
