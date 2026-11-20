@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageLoader from '../components/PageLoader';
 import ScrollToTop from '../components/ScrollToTop';
+import SmoothScroll from '../components/motion/SmoothScroll';
+import CursorGlow from '../components/motion/CursorGlow';
 
 const newsreader = Newsreader({
   subsets: ['latin'],
@@ -54,12 +56,15 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${inter.variable} ${ibmPlexMono.variable}`}
     >
-      <body className="bg-canvas text-slate-900 font-body antialiased">
-        <ScrollToTop />
-        <PageLoader />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+      <body className="bg-canvas text-slate-900 font-body antialiased selection:bg-primary-electric/20 selection:text-navy">
+        <SmoothScroll>
+          <CursorGlow />
+          <ScrollToTop />
+          <PageLoader />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

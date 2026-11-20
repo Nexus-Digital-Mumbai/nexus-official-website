@@ -6,6 +6,17 @@ import GlassCard from '../../components/GlassCard';
 import Button from '../../components/Button';
 import Chip from '../../components/Chip';
 import Eyebrow from '../../components/Eyebrow';
+import Reveal from '../../components/motion/Reveal';
+import TiltCard from '../../components/motion/TiltCard';
+import Magnetic from '../../components/motion/Magnetic';
+import CountUp from '../../components/motion/CountUp';
+import SplitText from '../../components/reactbits/SplitText';
+import BlurText from '../../components/reactbits/BlurText';
+import ShinyText from '../../components/reactbits/ShinyText';
+import SpotlightCard from '../../components/reactbits/SpotlightCard';
+import ScrollVelocity from '../../components/reactbits/ScrollVelocity';
+import Dock from '../../components/reactbits/Dock';
+import GlassIcons from '../../components/reactbits/GlassIcons';
 
 export const metadata: Metadata = {
   title: 'Nexus Design System & Token Lab',
@@ -196,33 +207,28 @@ export default function DesignSystemPage() {
           />
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Glass Card */}
             <div className="glass-card p-6">
               <span className="text-xs font-mono uppercase text-primary-electric font-semibold">.glass-card</span>
               <h4 className="mt-2 text-lg font-serif font-semibold text-text-navy">Interactive Card</h4>
               <p className="mt-2 text-sm text-text-body">
-                Features dual light refraction borders (top/left 0.95 white, bottom/right 0.45 blue), 24px blur, and hover lift.
+                Features dual light refraction borders, 24px blur, and hover lift.
               </p>
-              <div className="mt-4 text-xs font-mono text-text-muted">Hover over me to see lift & glow</div>
             </div>
 
-            {/* Glass Panel */}
             <div className="glass-panel p-6 rounded-2xl">
               <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">.glass-panel</span>
               <h4 className="mt-2 text-lg font-serif font-semibold text-text-navy">Structural Panel</h4>
               <p className="mt-2 text-sm text-text-body">
-                Luminous sheet for larger backgrounds, modals, tables, and nested content zones.
+                Luminous sheet for larger backgrounds, modals, and content zones.
               </p>
-              <div className="mt-4 text-xs font-mono text-text-muted">Static non-lifting elevation</div>
             </div>
 
-            {/* Glass Pill */}
             <div className="flex flex-col justify-between p-6 rounded-2xl border border-white/60 bg-white/40">
               <div>
                 <span className="text-xs font-mono uppercase text-accent-violet font-semibold">.glass-pill</span>
                 <h4 className="mt-2 text-lg font-serif font-semibold text-text-navy">Floating Pill</h4>
                 <p className="mt-2 text-sm text-text-body">
-                  High-saturation ultra-blurred capsule used for floating navbars, filter pills, and quick tags.
+                  High-saturation ultra-blurred capsule used for floating navbars.
                 </p>
               </div>
               <div className="mt-4 flex items-center gap-2">
@@ -232,192 +238,241 @@ export default function DesignSystemPage() {
               </div>
             </div>
 
-            {/* Glass Dark */}
             <div className="glass-dark p-6 rounded-2xl">
               <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">.glass-dark</span>
               <h4 className="mt-2 text-lg font-serif font-semibold text-white">Dark High-Tech Glass</h4>
               <p className="mt-2 text-sm text-slate-300">
-                Deep navy glass container with top specular razor highlight, used in code windows and footer CTAs.
+                Deep navy glass container with top specular razor highlight.
               </p>
-              <div className="mt-4 font-mono text-xs text-cyan-400">01 // STATUS: SECURE</div>
             </div>
           </div>
         </section>
 
-        {/* 4. COMPONENT LIBRARY */}
+        {/* 4. MOTION LAYER PRIMITIVES */}
         <section className="mb-20">
           <SectionHeading
-            eyebrow="Components / 04"
-            code="CMP"
-            title="Primitive Component Suite"
-            accent="& Interactive States"
-            description="Standardized reusable building blocks engineered for the full website redesign."
-          />
-
-          <div className="mt-10 space-y-10">
-            {/* Button Component Showcase */}
-            <GlassCard padding="lg">
-              <h3 className="text-lg font-serif font-bold text-text-navy mb-2">
-                1. Button Component (`Button.tsx`)
-              </h3>
-              <p className="text-sm text-text-muted mb-6">
-                Supports `variant` (dark-pill, primary, outline-glass, ghost), `size` (sm, md, lg), animated arrow toggle, custom icons, and `href` (Next.js Link integration).
-              </p>
-
-              <div className="space-y-6">
-                <div>
-                  <span className="text-xs font-mono uppercase text-text-muted block mb-3">Variants</span>
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button variant="dark-pill">Dark Pill (Default)</Button>
-                    <Button variant="primary">Electric Blue CTA</Button>
-                    <Button variant="outline-glass">Outline Frosted Glass</Button>
-                    <Button variant="ghost">Ghost Button</Button>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-xs font-mono uppercase text-text-muted block mb-3">Sizes</span>
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button variant="dark-pill" size="sm">Small Action</Button>
-                    <Button variant="dark-pill" size="md">Medium Standard</Button>
-                    <Button variant="dark-pill" size="lg">Large Hero CTA</Button>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-xs font-mono uppercase text-text-muted block mb-3">Arrow Toggled Off / Disabled</span>
-                  <div className="flex flex-wrap items-center gap-4">
-                    <Button variant="primary" arrow={false}>Without Arrow</Button>
-                    <Button variant="dark-pill" disabled>Disabled State</Button>
-                  </div>
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* Chip Component Showcase */}
-            <GlassCard padding="lg">
-              <h3 className="text-lg font-serif font-bold text-text-navy mb-2">
-                2. Chip Component (`Chip.tsx`)
-              </h3>
-              <p className="text-sm text-text-muted mb-6">
-                Used for live status indicators, metadata tags, and floating UI notification chips.
-              </p>
-
-              <div className="space-y-6">
-                <div>
-                  <span className="text-xs font-mono uppercase text-text-muted block mb-3">Status Indicator Dots</span>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Chip dot="cyan" variant="glass">Cyan Active (NexLock)</Chip>
-                    <Chip dot="blue" variant="glass">Electric Blue (Platform)</Chip>
-                    <Chip dot="teal" variant="glass">Teal Shield (NexWarranty)</Chip>
-                    <Chip dot="pink" variant="glass">Pink Accent</Chip>
-                    <Chip dot="emerald" variant="glass">System Operational</Chip>
-                    <Chip dot="amber" variant="glass">EMI Due Notice</Chip>
-                    <Chip dot="navy" variant="glass">Corporate Node</Chip>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-xs font-mono uppercase text-text-muted block mb-3">Variants & Real-world Scenarios</span>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Chip variant="mono">NX–ITS CODE</Chip>
-                    <Chip variant="tinted">Live Product</Chip>
-                    <Chip variant="outline">Client Partnership</Chip>
-                    <Chip variant="alert" dot="amber">Device restricted</Chip>
-                    <Chip variant="glass" dot="cyan">SIM swap detected</Chip>
-                    <Chip variant="glass" dot="teal">One QR scan</Chip>
-                  </div>
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* Eyebrow & SectionHeading Showcase */}
-            <GlassCard padding="lg">
-              <h3 className="text-lg font-serif font-bold text-text-navy mb-2">
-                3. Eyebrow & SectionHeading (`Eyebrow.tsx`, `SectionHeading.tsx`)
-              </h3>
-              <p className="text-sm text-text-muted mb-6">
-                Standardizes section openers with pink accent line, optional monospace code block, and high-contrast italic accent title styling.
-              </p>
-
-              <div className="space-y-8">
-                <div className="p-6 rounded-xl bg-canvas-alt border border-navy/5">
-                  <SectionHeading
-                    eyebrow="Pillars of Nexus"
-                    code="01/03"
-                    title="One company."
-                    accent="Three pillars."
-                    description="From custom enterprise software to hardware lock firmware and extended warranty administration."
-                  />
-                </div>
-
-                <div className="p-6 rounded-xl bg-navy text-white">
-                  <SectionHeading
-                    onDark
-                    eyebrow="Enterprise Protection"
-                    code="NX-SEC"
-                    title="Hardware-enforced control"
-                    accent="for mobile retailers."
-                    description="NexLock gives retailers zero-evasion EMI enforcement with multi-stage locks and tamper detection."
-                  />
-                </div>
-              </div>
-            </GlassCard>
-          </div>
-        </section>
-
-        {/* 5. 3D & MOTION UTILITIES */}
-        <section className="mb-20">
-          <SectionHeading
-            eyebrow="Motion / 05"
+            eyebrow="Motion Layer / 04"
             code="MOT"
-            title="Atmospheric & Dimensional"
-            accent="Utilities"
-            description="CSS 3D orbital rings, luminous ambient glow, and animated aurora gradients."
+            title="Interactive Motion Primitives"
+            accent="& Physics-Based Dynamics"
+            description="Built using Framer Motion, GSAP ScrollTrigger, and Lenis smooth scrolling with strict reduced-motion adherence."
           />
 
-          <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Aurora Background */}
-            <div className="bg-aurora p-8 rounded-2xl border border-white/80 shadow-glass flex flex-col justify-between min-h-[260px]">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* TiltCard Demo */}
+            <TiltCard glare maxTilt={12} scale={1.03} className="glass-card p-6 rounded-2xl">
+              <span className="text-xs font-mono uppercase text-primary-electric font-semibold">&lt;TiltCard&gt;</span>
+              <h4 className="mt-2 text-lg font-serif font-bold text-text-navy">3D Tilt & Specular Sheen</h4>
+              <p className="mt-2 text-sm text-text-body">
+                Move cursor across this card. Interactive 3D perspective rotation with dynamic cursor-tracking specular glare.
+              </p>
+              <div className="mt-4">
+                <Chip size="sm" variant="tinted" dot="blue">Active Physics</Chip>
+              </div>
+            </TiltCard>
+
+            {/* Magnetic Button Demo */}
+            <GlassCard padding="md" className="flex flex-col justify-between">
               <div>
-                <span className="text-xs font-mono uppercase text-primary-electric font-semibold">.bg-aurora</span>
-                <h4 className="mt-2 text-xl font-serif font-bold text-text-navy">Luminous Mesh Aurora</h4>
+                <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">&lt;Magnetic&gt;</span>
+                <h4 className="mt-2 text-lg font-serif font-bold text-text-navy">Magnetic Pull Button</h4>
                 <p className="mt-2 text-sm text-text-body">
-                  Subtle shifting radial mesh gradient blending cyan, electric blue, and soft pink.
+                  Hover near this button to feel elastic spring pull towards your cursor.
                 </p>
               </div>
               <div className="mt-4">
-                <Chip variant="glass" dot="blue">Ambient Drift Active</Chip>
+                <Magnetic strength={0.4}>
+                  <Button variant="dark-pill" size="sm">
+                    Hover Near Me
+                  </Button>
+                </Magnetic>
               </div>
-            </div>
+            </GlassCard>
 
-            {/* Orbital Rings */}
-            <div className="glass-card p-8 rounded-2xl flex flex-col items-center justify-center min-h-[260px] relative overflow-hidden">
-              <span className="absolute top-4 left-4 text-xs font-mono uppercase text-text-muted">.orbit-ring</span>
-              <div className="relative w-36 h-36 flex items-center justify-center">
-                <div className="absolute inset-0 orbit-ring animate-[orbit-spin_20s_linear_infinite]" />
-                <div className="absolute inset-3 orbit-ring-solid animate-[orbit-spin-rev_15s_linear_infinite]" />
-                <div className="w-12 h-12 rounded-full bg-primary-electric/15 flex items-center justify-center border border-primary-electric/30 soft-glow">
-                  <span className="font-serif font-bold text-primary-electric text-xl">N</span>
+            {/* CountUp Demo */}
+            <GlassCard padding="md">
+              <span className="text-xs font-mono uppercase text-accent-teal font-semibold">&lt;CountUp&gt;</span>
+              <h4 className="mt-2 text-lg font-serif font-bold text-text-navy">Numeric Counter</h4>
+              <div className="mt-4 space-y-3">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs font-mono text-text-muted">Retail Stores</span>
+                  <span className="text-2xl font-serif font-bold text-text-navy">
+                    <CountUp to={19} duration={2} suffix="+" />
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs font-mono text-text-muted">Pillars</span>
+                  <span className="text-2xl font-serif font-bold text-primary-electric">
+                    <CountUp to={3} duration={1.5} />
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs font-mono text-text-muted">Experience</span>
+                  <span className="text-2xl font-serif font-bold text-text-navy">
+                    <CountUp to={10} duration={2} suffix=" Years" />
+                  </span>
                 </div>
               </div>
-              <span className="mt-4 text-xs font-mono text-text-muted">Celestial Gyroscopic Rings</span>
-            </div>
+            </GlassCard>
 
-            {/* Soft Glow */}
-            <div className="glass-dark p-8 rounded-2xl flex flex-col justify-between min-h-[260px]">
+            {/* Reveal Demo */}
+            <GlassCard padding="md" className="flex flex-col justify-between">
               <div>
-                <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">.soft-glow</span>
-                <h4 className="mt-2 text-xl font-serif font-bold text-white">Luminous Nodes</h4>
-                <p className="mt-2 text-sm text-slate-300">
-                  Neon drop shadow filters that cast diffuse light onto translucent glass layers.
+                <span className="text-xs font-mono uppercase text-accent-pink font-semibold">&lt;Reveal&gt;</span>
+                <h4 className="mt-2 text-lg font-serif font-bold text-text-navy">Fade-Up & Blur-In</h4>
+                <p className="mt-2 text-sm text-text-body">
+                  Framer Motion intersection trigger for staggered entrance animations.
                 </p>
               </div>
-              <div className="flex items-center gap-4 mt-4">
-                <div className="h-10 w-10 rounded-full bg-primary-electric soft-glow" />
-                <div className="h-10 w-10 rounded-full bg-accent-cyan soft-glow-cyan" />
-                <div className="h-10 w-10 rounded-full bg-accent-pink shadow-[0_0_20px_rgba(236,72,153,0.5)]" />
+              <div className="mt-4">
+                <Reveal effect="blur-in">
+                  <span className="text-xs font-mono px-3 py-1 bg-navy/5 text-navy rounded border border-navy/10 inline-block">
+                    ✓ Blurred Entrance Verified
+                  </span>
+                </Reveal>
               </div>
+            </GlassCard>
+          </div>
+        </section>
+
+        {/* 5. REACT BITS COMPONENT SUITE */}
+        <section className="mb-20">
+          <SectionHeading
+            eyebrow="React Bits / 05"
+            code="BITS"
+            title="Curated React Bits Suite"
+            accent="& Micro-Interactions"
+            description="Verified components from reactbits.dev (MIT License) tailored for Nexus: SplitText, BlurText, ShinyText, SpotlightCard, ScrollVelocity, Dock, and GlassIcons."
+          />
+
+          <div className="mt-10 space-y-8">
+            {/* Text Animations Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <GlassCard padding="md">
+                <span className="text-xs font-mono uppercase text-primary-electric font-semibold">SplitText</span>
+                <div className="mt-3">
+                  <h4 className="text-xl font-serif font-bold text-text-navy">
+                    <SplitText text="We build software for businesses" delay={0.03} />
+                  </h4>
+                </div>
+                <p className="mt-3 text-xs text-text-muted">
+                  Staggers individual words with spring physics on viewport entry.
+                </p>
+              </GlassCard>
+
+              <GlassCard padding="md">
+                <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">BlurText</span>
+                <div className="mt-3">
+                  <h4 className="text-xl font-serif font-bold text-text-navy">
+                    <BlurText text="High-security EMI lock firmware" delay={0.04} />
+                  </h4>
+                </div>
+                <p className="mt-3 text-xs text-text-muted">
+                  Words seamlessly translate and de-blur into razor sharpness.
+                </p>
+              </GlassCard>
+
+              <GlassCard padding="md">
+                <span className="text-xs font-mono uppercase text-accent-pink font-semibold">ShinyText</span>
+                <div className="mt-3">
+                  <h4 className="text-xl font-serif font-bold">
+                    <ShinyText text="Extended Warranty Protection" speed={2.5} />
+                  </h4>
+                </div>
+                <p className="mt-3 text-xs text-text-muted">
+                  High-speed specular sheen sweep across brand typography.
+                </p>
+              </GlassCard>
+            </div>
+
+            {/* SpotlightCard & Dock */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <SpotlightCard
+                spotlightColor="rgba(37, 99, 235, 0.2)"
+                className="p-8 rounded-2xl flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono uppercase text-primary-electric font-semibold">
+                      SpotlightCard (React Bits)
+                    </span>
+                    <Chip dot="cyan" size="sm">Hover to illuminate</Chip>
+                  </div>
+                  <h4 className="text-2xl font-serif font-bold text-text-navy">
+                    Dynamic Cursor Spotlight Surface
+                  </h4>
+                  <p className="mt-3 text-sm text-text-body">
+                    A smooth radial gradient spotlight tracks the exact cursor position within the glass card boundaries, illuminating the frosted texture.
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-3">
+                  <Button variant="dark-pill" size="sm">Explore Pillar</Button>
+                </div>
+              </SpotlightCard>
+
+              <GlassCard padding="lg" className="flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-mono uppercase text-accent-violet font-semibold mb-2 block">
+                    Interactive Dock (React Bits)
+                  </span>
+                  <h4 className="text-xl font-serif font-bold text-text-navy mb-4">
+                    macOS Magnifying Dock
+                  </h4>
+                  <p className="text-sm text-text-body mb-6">
+                    Move your cursor over the icons below to see smooth physics-based proximity magnification.
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <Dock
+                    items={[
+                      { label: 'IT Solutions', icon: '💻' },
+                      { label: 'NexLock', icon: '🔒' },
+                      { label: 'NexWarranty', icon: '🛡️' },
+                      { label: 'Brands', icon: '🏷️' },
+                      { label: 'Contact', icon: '📞' },
+                    ]}
+                  />
+                </div>
+              </GlassCard>
+            </div>
+
+            {/* GlassIcons */}
+            <GlassCard padding="lg">
+              <span className="text-xs font-mono uppercase text-text-muted mb-2 block">
+                GlassIcons (React Bits)
+              </span>
+              <h4 className="text-xl font-serif font-bold text-text-navy mb-4">
+                Prismatic Dimensional Tiles
+              </h4>
+              <GlassIcons
+                items={[
+                  { label: 'NX–ITS', icon: '⚡', color: '#2563EB' },
+                  { label: 'NX–LCK', icon: '🔐', color: '#06B6D4' },
+                  { label: 'NX–WRT', icon: '🛡️', color: '#0D9488' },
+                  { label: 'API CORE', icon: '🔌', color: '#6366F1' },
+                  { label: 'HARDWARE', icon: '📱', color: '#EC4899' },
+                ]}
+              />
+            </GlassCard>
+
+            {/* ScrollVelocity for Ticker */}
+            <div className="glass-panel p-6 rounded-2xl overflow-hidden">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs font-mono uppercase text-primary-electric font-semibold">
+                  ScrollVelocity Ticker (React Bits)
+                </span>
+                <span className="text-xs font-mono text-text-muted">Scroll the page to accelerate ticker speed</span>
+              </div>
+              <ScrollVelocity baseVelocity={1.5} className="py-2 font-serif text-lg font-semibold text-text-navy">
+                <span className="inline-flex items-center gap-6 px-4">
+                  <span>Nexus IT Solutions</span>
+                  <span className="text-primary-electric">•</span>
+                  <span>NexLock EMI Protection</span>
+                  <span className="text-accent-cyan">•</span>
+                  <span>NexWarranty Care</span>
+                  <span className="text-accent-teal">•</span>
+                </span>
+              </ScrollVelocity>
             </div>
           </div>
         </section>
@@ -429,37 +484,41 @@ export default function DesignSystemPage() {
             code="SYN"
             title="Integrated Component Synthesis"
             accent="Sample Preview"
-            description="Demonstration of how the design system tokens, typography, and primitives compose into a complete section."
+            description="Demonstration of how the design system tokens, typography, and motion primitives compose into a complete section."
           />
 
           <div className="mt-10 max-w-xl mx-auto">
-            <GlassCard glow="blue" padding="lg">
-              <div className="flex items-center justify-between">
-                <Chip dot="cyan" variant="glass">NX–LCK</Chip>
-                <span className="text-xs font-mono text-text-muted">B2B FIRMWARE</span>
-              </div>
+            <TiltCard maxTilt={6} scale={1.02} glare>
+              <GlassCard glow="blue" padding="lg">
+                <div className="flex items-center justify-between">
+                  <Chip dot="cyan" variant="glass">NX–LCK</Chip>
+                  <span className="text-xs font-mono text-text-muted">B2B FIRMWARE</span>
+                </div>
 
-              <h3 className="mt-4 text-2xl font-serif font-bold text-text-navy">
-                NexLock — <span className="serif-italic-accent">Hardware Security</span>
-              </h3>
+                <h3 className="mt-4 text-2xl font-serif font-bold text-text-navy">
+                  NexLock — <span className="serif-italic-accent">Hardware Security</span>
+                </h3>
 
-              <p className="mt-3 text-sm text-text-body leading-relaxed">
-                Zero-evasion EMI enforcement for mobile retailers. Built to protect device financed sales with hardware-level security.
-              </p>
+                <p className="mt-3 text-sm text-text-body leading-relaxed">
+                  Zero-evasion EMI enforcement for mobile retailers. Built to protect device financed sales with hardware-level security.
+                </p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                <Chip variant="tinted" size="sm">One QR scan</Chip>
-                <Chip variant="tinted" size="sm">SIM swap detected</Chip>
-                <Chip variant="tinted" size="sm">Device restricted</Chip>
-              </div>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <Chip variant="tinted" size="sm">One QR scan</Chip>
+                  <Chip variant="tinted" size="sm">SIM swap detected</Chip>
+                  <Chip variant="tinted" size="sm">Device restricted</Chip>
+                </div>
 
-              <div className="mt-8 pt-6 border-t border-navy/8 flex items-center justify-between">
-                <span className="text-xs font-mono text-text-muted">STATUS: OPERATIONAL</span>
-                <Button variant="dark-pill" size="sm" href="/nexlock">
-                  Explore NexLock
-                </Button>
-              </div>
-            </GlassCard>
+                <div className="mt-8 pt-6 border-t border-navy/8 flex items-center justify-between">
+                  <span className="text-xs font-mono text-text-muted">STATUS: OPERATIONAL</span>
+                  <Magnetic strength={0.3}>
+                    <Button variant="dark-pill" size="sm" href="/nexlock">
+                      Explore NexLock
+                    </Button>
+                  </Magnetic>
+                </div>
+              </GlassCard>
+            </TiltCard>
           </div>
         </section>
       </Container>
