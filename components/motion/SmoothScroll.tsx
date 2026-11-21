@@ -20,30 +20,45 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       return;
     }
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.8,
-    });
+    try {
+      const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.8,
+      });
 
-    // Synchronize Lenis scroll events with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+      // Synchronize Lenis scroll events with GSAP ScrollTrigger
+      // Wrapped in an anonymous zero-argument function to prevent Lenis event object
+      // from colliding with GSAP ScrollTrigger.update(reset, all) parameters
+      const onScroll = () => {
+        ScrollTrigger.update();
+      };
 
-    const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+      lenis.on('scroll', onScroll);
 
-    gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
+      const updateLenis = (time: number) => {
+        lenis.raf(time * 1000);
+      };
 
-    return () => {
-      gsap.ticker.remove(updateLenis);
-      lenis.destroy();
-    };
+      gsap.ticker.add(updateLenis);
+      gsap.ticker.lagSmoothing(0);
+
+      return () => {
+        try {
+          lenis.off('scroll', onScroll);
+          gsap.ticker.remove(updateLenis);
+          lenis.destroy();
+        } catch {
+          // graceful cleanup
+        }
+      };
+    } catch (err) {
+      console.warn('SmoothScroll skipped:', err);
+    }
   }, []);
 
   return <>{children}</>;

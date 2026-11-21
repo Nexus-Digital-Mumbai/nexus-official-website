@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /* ─── Icon marks ───────────────────────────────────────────────────────── */
 function ITMark() {
@@ -86,7 +87,7 @@ export function PillarBadge({ kind = 'product', onDark = false, className = '' }
           : 'border-navy/15 bg-white/70 text-navy hover:border-navy/40'
       } ${className}`}
     >
-      <img src="/favicon-32.png" alt="" className="h-3.5 w-3.5" />
+      <Image src="/favicon-32.png" alt="" width={14} height={14} className="h-3.5 w-3.5" />
       {label}
     </Link>
   );

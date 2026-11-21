@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const ROUTE_MS = 550; // brief brand beat when moving between pages
 
@@ -32,10 +33,13 @@ export default function PageLoader() {
           <div className="absolute inset-0 rounded-full border border-primary-electric/25 animate-[orbit-spin_4s_linear_infinite]" />
           <div className="absolute inset-2 rounded-full border-t border-b border-accent-cyan/60 animate-[orbit-spin-rev_3s_linear_infinite]" />
           <div className="absolute inset-4 rounded-full bg-white/70 backdrop-blur-md shadow-inner flex items-center justify-center border border-white/80">
-            <img
+            <Image
               className="w-12 h-12 object-contain"
               src="/favicon-180.png"
               alt="Nexus"
+              width={48}
+              height={48}
+              priority
             />
           </div>
         </div>

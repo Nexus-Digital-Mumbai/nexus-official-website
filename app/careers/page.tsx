@@ -1,12 +1,27 @@
-'use client';
-
-import HeroSection from '../../components/HeroSection';
+import React from 'react';
+import type { Metadata } from 'next';
+import PageHeader from '../../components/PageHeader';
 import PhotoBand from '../../components/PhotoBand';
-import CertCard from '../../components/CertCard';
 import Container from '../../components/Container';
 import Eyebrow from '../../components/Eyebrow';
-import useScrollReveal from '../../hooks/useScrollReveal';
-import useTiltEffect from '../../hooks/useTiltEffect';
+import Reveal from '../../components/motion/Reveal';
+import TiltCard from '../../components/motion/TiltCard';
+import SpotlightCard from '../../components/reactbits/SpotlightCard';
+
+export const metadata: Metadata = {
+  title: 'Careers — Build With Nexus',
+  description:
+    'Build software for our clients and the products we run ourselves — NexLock and NexWarranty. Explore open roles in engineering, sales, and operations.',
+  alternates: {
+    canonical: '/careers',
+  },
+  openGraph: {
+    title: 'Careers at Nexus Digital',
+    description:
+      'Build software for our clients and the products we run ourselves — NexLock and NexWarranty. Explore open roles in engineering, sales, and operations.',
+    url: 'https://nexusdig.in/careers',
+  },
+};
 
 const CAREERS_EMAIL = 'careers@nexusdig.in';
 const applyHref = (role: string) =>
@@ -14,81 +29,134 @@ const applyHref = (role: string) =>
     `Hi Nexus team,\n\nI'd like to apply for the ${role} role. My resume is attached.\n\nName:\nPhone:\n`
   )}`;
 
-export default function Careers() {
-  useScrollReveal();
-  useTiltEffect();
+const JOBS = [
+  {
+    icon: '🤝',
+    title: 'Sales on Ground',
+    description:
+      'We are looking for energetic ground sales executives to expand our market reach and onboard new retail partners for NexWarranty and NexLock.',
+    code: 'NX-JOB-01',
+    role: 'Sales on Ground',
+  },
+  {
+    icon: '💻',
+    title: 'Software Developer',
+    description:
+      'Join our engineering team to build client software through Nexus IT Solutions, and the platforms behind NexLock and our CRM systems.',
+    code: 'NX-JOB-02',
+    role: 'Software Developer',
+  },
+  {
+    icon: '⚙️',
+    title: 'Operations Coordinator',
+    description:
+      'Manage partner onboarding, retailer support, and daily operations across our device security and warranty networks.',
+    code: 'NX-JOB-03',
+    role: 'Operations Coordinator',
+  },
+  {
+    icon: '🎨',
+    title: 'UI/UX Designer',
+    description:
+      'Design clean, functional interfaces for client software, partner dashboards, and consumer-facing warranty registration flows.',
+    code: 'NX-JOB-04',
+    role: 'UI/UX Designer',
+  },
+];
 
+export default function Careers() {
   return (
     <>
-      <HeroSection
+      <PageHeader
         compact={true}
-        eyebrow="JOIN US"
-        title={<><span className="text-gradient-brand">Careers</span> at Nexus</>}
+        breadcrumbs={[{ label: 'Careers' }]}
+        eyebrow="JOIN THE TEAM"
+        code="HIRING"
+        title="Careers at"
+        accentText="Nexus."
         lede="Build software for our clients and the products we run ourselves — NexLock and NexWarranty."
-        style={{ minHeight: '40vh', paddingTop: '120px', paddingBottom: '2rem' }}
       />
 
       <PhotoBand
-        backgroundImage="/assets/nexus-team.jpg"
-        stamp="NX · LIFE AT NEXUS"
-        eyebrow="SMALL TEAM, REAL OWNERSHIP"
-        heading="We're still small enough that your work is visible."
-        description="Every hire sits close to the work — client projects and our own products are built by the same team."
-        style={{ minHeight: '38vh' }}
+        backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?fm=jpg&q=80&w=1800&auto=format&fit=crop"
+        stamp="NX · TALENT"
+        eyebrow="GROW WITH US"
+        heading="Software engineers and retail specialists under one roof."
       />
 
-      <section className="pt-8 pb-28">
-        <Container>
-          <div className="mb-12">
-            <Eyebrow>OPEN POSITIONS</Eyebrow>
-            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Current Openings</h2>
-            <p className="max-w-[60ch] text-slate-600">
-              To apply, send your resume to{' '}
-              <a href="mailto:careers@nexusdig.in" className="font-semibold text-navy underline decoration-pink-500/60 underline-offset-4 hover:text-pink-700">
-                careers@nexusdig.in
-              </a>{' '}
-              with the role you're applying for in the subject line — or use the Apply Now button on any opening.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            <CertCard
-              icon="🤝"
-              title="Sales on Ground"
-              description="We are looking for energetic ground sales executives to expand our market reach and onboard new retail partners for NexWarranty and NexLock."
-              code="NX-JOB-01"
-              actionLabel="Apply Now"
-              actionHref={applyHref('Sales on Ground')}
-            />
-            <CertCard
-              icon="💻"
-              title="Software Developer"
-              description="Join our engineering team to build client software through Nexus IT Solutions, and the platforms behind NexLock and our CRM systems."
-              code="NX-JOB-02"
-              actionLabel="Apply Now"
-              actionHref={applyHref('Software Developer')}
-            />
-            <CertCard
-              icon="📊"
-              title="Data Analysis"
-              description="Analyze trends, customer behavior, and device failure rates to help us optimize our warranty plans and business strategies."
-              code="NX-JOB-03"
-              actionLabel="Apply Now"
-              actionHref={applyHref('Data Analysis')}
-            />
+      <section className="py-24 sm:py-32 bg-canvas relative">
+        <Container size="wide">
+          <Reveal effect="fade-up">
+            <div className="mb-14 sm:mb-18 max-w-[620px]">
+              <Eyebrow code="POSITIONS">OPEN ROLES</Eyebrow>
+              <h2 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-text-navy tracking-tight">
+                Current <span className="serif-italic-accent">openings.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-text-body leading-relaxed">
+                We're always looking for capable, ambitious people who want to build real products. Send your resume directly to our hiring team.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {JOBS.map((j, i) => (
+              <Reveal key={j.code} effect="fade-up" delay={i * 0.1}>
+                <TiltCard maxTilt={4} scale={1.01} className="h-full">
+                  <SpotlightCard
+                    spotlightColor="rgba(37, 99, 235, 0.12)"
+                    className="h-full rounded-3xl glass-card bg-white/85 hover:bg-white p-8 border border-white/95 shadow-glass flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-md border border-navy/5 text-2xl group-hover:scale-110 transition-transform">
+                          {j.icon}
+                        </span>
+                        <span className="font-mono text-xs tracking-wider text-primary-electric uppercase font-bold bg-primary-electric/10 px-3 py-1 rounded-full">
+                          {j.code}
+                        </span>
+                      </div>
+
+                      <h3 className="mb-3 font-serif text-2xl font-bold text-text-navy group-hover:text-primary-electric transition-colors">
+                        {j.title}
+                      </h3>
+                      <p className="text-base text-text-body leading-relaxed mb-6">
+                        {j.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-6 border-t border-navy/5">
+                      <a
+                        href={applyHref(j.role)}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary-electric hover:underline"
+                      >
+                        Apply for this role &rarr;
+                      </a>
+                    </div>
+                  </SpotlightCard>
+                </TiltCard>
+              </Reveal>
+            ))}
           </div>
 
-          <div className="mt-14 flex flex-col items-start justify-between gap-5 rounded-2xl bg-ink px-7 py-8 text-slate-50 sm:flex-row sm:items-center sm:px-10">
-            <div>
-              <p className="mb-1 font-mono text-[0.7rem] tracking-[0.14em] text-cyan-400 uppercase">Don't see your role?</p>
-              <p className="font-display text-[1.2rem]">Send your resume to careers@nexusdig.in — we're always glad to hear from good people.</p>
+          {/* General Application Banner */}
+          <Reveal effect="fade-up" delay={0.2} className="mt-14">
+            <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-white/90 shadow-glass-lg flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h3 className="font-serif text-2xl font-bold text-text-navy mb-2">
+                  Don't see your role?
+                </h3>
+                <p className="text-text-body text-base max-w-[50ch]">
+                  We're always open to meeting skilled engineers, operations leads, and sales executives. Send an open application with your portfolio or resume.
+                </p>
+              </div>
+              <a
+                href={`mailto:${CAREERS_EMAIL}?subject=${encodeURIComponent('Open Application — General')}`}
+                className="btn-shimmer whitespace-nowrap px-8 py-4 rounded-full bg-navy text-white font-medium text-sm hover:bg-navy-dark transition-colors shadow-lg"
+              >
+                Send Open Application &rarr;
+              </a>
             </div>
-            <a
-              href="mailto:careers@nexusdig.in?subject=Resume%20%E2%80%94%20General%20application"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-ink transition hover:bg-cyan-400"
-            >
-              Email your resume &rarr;
-            </a>
-          </div>
+          </Reveal>
         </Container>
       </section>
     </>

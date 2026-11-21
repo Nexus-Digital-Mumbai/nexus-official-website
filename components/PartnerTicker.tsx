@@ -1,5 +1,9 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import { brands } from '../data/brands';
+import ScrollVelocity from './reactbits/ScrollVelocity';
 
 export default function PartnerTicker() {
   const items = brands.map((b) => ({
@@ -7,30 +11,35 @@ export default function PartnerTicker() {
     to: `/brands/${b.slug}`,
     text: `Nexus has collaborated with ${b.name} for ${b.partner}`,
   }));
+
   if (!items.length) return null;
 
-  const REPEATS = 4;
-  const copy = (hidden: boolean) =>
-    Array.from({ length: REPEATS }, (_, r) =>
-      items.map((it) => (
-        <Link
-          key={`${hidden ? 'b' : 'a'}-${r}-${it.key}`}
-          href={it.to}
-          aria-hidden={hidden || undefined}
-          tabIndex={hidden ? -1 : undefined}
-          className="flex items-center gap-6 whitespace-nowrap px-6 text-[0.8rem] font-semibold tracking-[0.06em] text-white transition hover:text-cyan-300 sm:px-10"
-        >
-          {it.text}
-          <span className="text-[10px] text-cyan-400" aria-hidden="true">&#9670;</span>
-        </Link>
-      ))
-    );
-
   return (
-    <div className="absolute inset-x-0 top-[104px] z-[500] h-9 overflow-hidden border-y border-white/10 bg-navy" role="region" aria-label="Partner news">
-      <div className="marquee-track h-full items-center">
-        {copy(false)}
-        {copy(true)}
+    <div
+      className="relative z-30 w-full pt-24 sm:pt-28 pb-1"
+      role="region"
+      aria-label="Partner news"
+    >
+      <div className="mx-auto max-w-[1060px] px-4 sm:px-6">
+        <div className="glass-pill px-4 py-1.5 border border-white/85 shadow-sm backdrop-blur-xl bg-white/70 overflow-hidden flex items-center">
+          <ScrollVelocity baseVelocity={1.1} className="text-xs sm:text-[0.8rem] font-medium text-text-navy">
+            {items.map((it) => (
+              <Link
+                key={it.key}
+                href={it.to}
+                className="inline-flex items-center gap-3.5 transition-colors hover:text-primary-electric px-4 group"
+              >
+                <span className="font-mono text-[0.65rem] px-1.5 py-0.5 rounded bg-primary-electric/10 text-primary-electric uppercase tracking-wider font-semibold group-hover:bg-primary-electric group-hover:text-white transition-colors shrink-0">
+                  PARTNERSHIP
+                </span>
+                <span className="whitespace-nowrap">{it.text}</span>
+                <span className="text-[8px] text-accent-cyan shrink-0" aria-hidden="true">
+                  ◆
+                </span>
+              </Link>
+            ))}
+          </ScrollVelocity>
+        </div>
       </div>
     </div>
   );

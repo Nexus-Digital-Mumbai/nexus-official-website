@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PILLARS } from '../data/pillars';
 import { PillarIcon, Wordmark } from './PillarMarks';
 
@@ -15,7 +16,7 @@ export function CompanyMap() {
   return (
     <div className="relative w-full max-w-[460px]">
       <div className="glass-panel relative z-10 mx-auto flex w-fit items-center gap-3 rounded-2xl px-5 py-3 shadow-glass-lg">
-        <img src="/favicon-180.png" alt="" className="h-9 w-9" />
+        <Image src="/favicon-180.png" alt="" width={36} height={36} className="h-9 w-9" />
         <div className="text-left">
           <p className="font-display text-lg leading-none font-bold tracking-[0.18em] text-navy">NEXUS</p>
           <p className="mt-1 font-mono text-[0.62rem] tracking-[0.14em] text-slate-500 uppercase">Technology company</p>

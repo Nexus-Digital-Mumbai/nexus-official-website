@@ -33,10 +33,10 @@
   --color-text-muted: #64748B;
 
   /* Typography Stacks */
-  --font-serif: var(--font-serif), "Newsreader", "Source Serif 4", Georgia, serif;
-  --font-body: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: var(--font-serif), "Newsreader", "Source Serif 4", Georgia, serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", Menlo, monospace;
+  --font-serif: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-mono: "IBM Plex Mono", Menlo, monospace;
 
   /* Shadows & Glass Depth */
   --shadow-glass: 0 12px 32px -4px rgba(37, 99, 235, 0.08), 0 4px 12px -2px rgba(9, 33, 71, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
@@ -86,7 +86,7 @@
   :focus-visible {
     outline: 2px solid var(--color-primary-electric);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -94,6 +94,32 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
+    }
+  }
+
+  /* Accessibility & High Contrast: Fallback for environments lacking backdrop-filter */
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-panel {
+      background-color: #ffffff !important;
+      background-image: none !important;
+      border-color: rgba(9, 33, 71, 0.14) !important;
+      box-shadow: 0 10px 30px -5px rgba(9, 33, 71, 0.08) !important;
+    }
+    .glass-card {
+      background-color: #ffffff !important;
+      background-image: none !important;
+      border-color: rgba(9, 33, 71, 0.16) !important;
+      box-shadow: 0 12px 36px -4px rgba(9, 33, 71, 0.1) !important;
+    }
+    .glass-pill {
+      background-color: #ffffff !important;
+      background-image: none !important;
+      border-color: rgba(9, 33, 71, 0.18) !important;
+    }
+    .glass-dark {
+      background-color: #0b192c !important;
+      background-image: none !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
     }
   }
 }

@@ -1,112 +1,203 @@
-'use client';
-
+import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import Container from '../../components/Container';
 import Eyebrow from '../../components/Eyebrow';
+import PageHeader from '../../components/PageHeader';
 import { PillarIcon, Wordmark } from '../../components/PillarMarks';
 import { PILLARS } from '../../data/pillars';
-import useScrollReveal from '../../hooks/useScrollReveal';
+import Reveal from '../../components/motion/Reveal';
+import TiltCard from '../../components/motion/TiltCard';
+import SpotlightCard from '../../components/reactbits/SpotlightCard';
 
-const reveal =
-  'translate-y-6 opacity-0 transition-all duration-700 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100';
+export const metadata: Metadata = {
+  title: 'About Us — Operators & Engineers',
+  description:
+    'Industry operators and software engineers under one roof — building software for clients, and running NexLock and NexWarranty ourselves.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About Nexus — Operators & Software Engineers',
+    description:
+      'Industry operators and software engineers under one roof — building software for clients, and running NexLock and NexWarranty ourselves.',
+    url: 'https://nexusdig.in/about',
+    images: [
+      {
+        url: '/nexus-team.jpg',
+        width: 1200,
+        height: 800,
+        alt: 'The Nexus team at headquarters',
+      },
+    ],
+  },
+};
 
 const leadership = [
-  { name: 'Sagar', role: 'Chief Executive Officer', bio: 'Working for the past 10 years in IT and Business Development fields.', photo: '/assets/team-sagar.jpg', focus: 'center 20%' },
-  { name: 'Kunal Kurmi', role: 'Chief Operating Officer', bio: 'B.Tech graduate of Thakur College of Engineering and Technology. Experienced with Spectrum, driving OnAssist and VWarranty.', photo: '/assets/team-kunal.jpg', focus: 'center 25%' },
-  { name: 'Ketan', role: 'Chief Strategy Officer', bio: 'Worked with Onsitego, bringing 8 years of deep expertise in the extended warranty field.', photo: '/assets/team-ketan.jpg', focus: 'center 20%', crop: 1.07 },
-  { name: 'Vivek Gupta', role: 'Lead Software Developer', bio: 'The architect behind the tech — driving digital platforms, web systems, and engineering infrastructure.', photo: '/assets/team-vivek.jpg', focus: 'center 18%' },
-  { name: 'Ashish', role: 'Chief Financial Officer / Advisor', bio: 'Our dedicated financial advisor, ensuring robust economic growth and stability.', photo: '/assets/team-ashish.jpg', focus: 'center 25%' },
-  { name: 'Janak Shah', role: 'Investor', bio: 'Strategic investor backing our vision for the future of IT and EMI security.', photo: '/assets/team-janak.jpg', focus: 'center 20%' },
+  {
+    name: 'Sagar',
+    role: 'Chief Executive Officer',
+    bio: 'Working for the past 10 years in IT and Business Development fields.',
+    photo: '/team-sagar.jpg',
+    focus: 'center 20%',
+  },
+  {
+    name: 'Kunal Kurmi',
+    role: 'Chief Operating Officer',
+    bio: 'B.Tech graduate of Thakur College of Engineering and Technology. Experienced with Spectrum, driving OnAssist and VWarranty.',
+    photo: '/team-kunal.jpg',
+    focus: 'center 25%',
+  },
+  {
+    name: 'Vivek Sharma',
+    role: 'Chief Technology Officer',
+    bio: 'MCA graduate from NMIMS. Expertise in modern web technologies, cloud infrastructure, and software architecture.',
+    photo: '/team-vivek.jpg',
+    focus: 'center 25%',
+  },
+  {
+    name: 'Ashish Vishwakarma',
+    role: 'Chief Product Officer',
+    bio: 'BE graduate in Electronics and Telecommunication from Mumbai University.',
+    photo: '/team-ashish.jpg',
+    focus: 'center 20%',
+  },
+  {
+    name: 'Janak',
+    role: 'Head of Sales',
+    bio: 'Heading on-ground sales and partner operations across retail networks.',
+    photo: '/team-janak.jpg',
+    focus: 'center 20%',
+    crop: 1.15,
+  },
+  {
+    name: 'Ketan',
+    role: 'Legal and Operations Head',
+    bio: 'Leading compliance, regulatory affairs, and core operational execution.',
+    photo: '/team-ketan.jpg',
+    focus: 'center 20%',
+  },
 ];
 
 export default function About() {
-  useScrollReveal();
-
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden pt-[150px] pb-20">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-40 -left-40 h-130 w-130 animate-drift rounded-full bg-cyan-500 opacity-20 mix-blend-multiply blur-[120px]" />
-          <div className="absolute -right-30 bottom-0 h-110 w-110 animate-drift rounded-full bg-pink-500 opacity-15 mix-blend-multiply blur-[130px] [animation-delay:-6s]" />
+      <PageHeader
+        breadcrumbs={[{ label: 'About' }]}
+        eyebrow="ABOUT NEXUS"
+        code="TEAM"
+        title="Software builders &"
+        accentText="industry operators."
+        lede="Industry operators and software engineers under one roof — building software for clients, and running NexLock and NexWarranty ourselves."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          {PILLARS.map((p) => (
+            <Link
+              key={p.id}
+              href={p.to}
+              className="glass-pill flex items-center gap-2 px-3 py-1.5 text-xs text-text-navy hover:text-primary-electric transition-colors"
+            >
+              <PillarIcon id={p.id} size="h-7 w-7" iconSize={14} />
+              <Wordmark id={p.id} className="text-xs" />
+            </Link>
+          ))}
         </div>
-        <Container className="relative z-10 max-w-[860px] text-center">
-          <p className="mb-4.5 inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.14em] text-navy uppercase before:h-px before:w-5.5 before:bg-pink-500 before:content-['']">
-            ABOUT NEXUS
-          </p>
-          <h1 className="mb-5 translate-y-6 text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.08] opacity-0 animate-fade-up">
-            One team behind <span className="text-gradient-brand">all three pillars.</span>
-          </h1>
-          <p className="mx-auto max-w-[56ch] translate-y-6 text-[clamp(1.02rem,1.5vw,1.18rem)] text-slate-600 opacity-0 animate-fade-up [animation-delay:150ms]">
-            Industry operators and software engineers under one roof — building software for clients, and running NexLock and NexWarranty ourselves.
-          </p>
-          <div className="mt-9 flex translate-y-5 flex-wrap justify-center gap-3 opacity-0 animate-fade-up [animation-delay:300ms]">
-            {PILLARS.map((p) => (
-              <Link key={p.id} href={p.to} className="glass-panel inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-1.5 shadow-glass transition hover:shadow-glass-lg">
-                <PillarIcon id={p.id} size="h-8 w-8" iconSize={16} />
-                <Wordmark id={p.id} className="text-[0.82rem]" />
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </header>
+      </PageHeader>
 
       {/* ── STORY ────────────────────────────────────────────────────── */}
-      <section className="bg-paper-raised py-24">
-        <Container>
-          <div data-reveal className={`grid grid-cols-1 items-center gap-12 md:grid-cols-2 ${reveal}`}>
-            <div className="relative aspect-5/4 overflow-hidden rounded-[18px] border border-white/80 shadow-glass-lg">
-              <img src="/assets/nexus-team.jpg" alt="The Nexus team at the headquarters office" loading="lazy" className="h-full w-full object-cover" />
-            </div>
-            <div>
-              <Eyebrow>HOW NEXUS WORKS</Eyebrow>
-              <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.5rem)] text-slate-900">Built from inside the industry, engineered in-house.</h2>
-              <p className="mb-4 text-slate-600">
-                Our leadership spent the last decade inside the warranty and device-protection industry — at Onsitego and OnAssist — and our engineering team builds the digital platforms Nexus runs on.
-              </p>
-              <p className="text-slate-600">
-                That combination is why Nexus can ship products of its own and still take on software work for clients: we build, run and maintain real systems every day.
-              </p>
-            </div>
+      <section className="bg-canvas-alt py-24 sm:py-32 border-y border-navy/5 relative overflow-hidden">
+        <Container size="wide">
+          <div className="grid grid-cols-1 items-center gap-12 lg:gap-16 md:grid-cols-2">
+            <Reveal effect="fade-scale">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/90 shadow-glass-lg">
+                <Image
+                  src="/nexus-team.jpg"
+                  alt="The Nexus team at the headquarters office"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+            </Reveal>
+
+            <Reveal effect="fade-up">
+              <div>
+                <Eyebrow code="STORY">HOW NEXUS WORKS</Eyebrow>
+                <h2 className="mb-5 text-3xl sm:text-4xl lg:text-[2.6rem] font-serif font-bold text-text-navy leading-tight">
+                  Built from inside the industry,{' '}
+                  <span className="serif-italic-accent">engineered in-house.</span>
+                </h2>
+                <p className="mb-5 text-base sm:text-lg text-text-body leading-relaxed">
+                  Nexus was formed by bringing together people who have spent years in retail distribution, consumer finance, and software engineering. We saw that the software powering device protection and retail financing was disconnected from the reality of store counters.
+                </p>
+                <p className="text-base sm:text-lg text-text-body leading-relaxed">
+                  So we built both: a dedicated engineering house for bespoke client software, and two purpose-built products that solve real problems in device financing and extended warranty.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </Container>
       </section>
 
       {/* ── LEADERSHIP ───────────────────────────────────────────────── */}
-      <section id="leadership" className="scroll-mt-24 py-24 sm:py-28">
-        <Container>
-          <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-[560px]">
-              <Eyebrow>LEADERSHIP</Eyebrow>
-              <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">The people behind Nexus.</h2>
-              <p className="text-slate-600">A team built out of the warranty and IT industry itself — not around it.</p>
+      <section className="py-24 sm:py-32 bg-canvas relative">
+        <Container size="wide">
+          <Reveal effect="fade-up">
+            <div className="mb-14 sm:mb-18 max-w-[620px]">
+              <Eyebrow code="LEADERSHIP">WHO WE ARE</Eyebrow>
+              <h2 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-text-navy tracking-tight">
+                Leadership <span className="serif-italic-accent">team.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-text-body leading-relaxed">
+                Founders and executives who stay close to both the code and the retail floor.
+              </p>
             </div>
-            <Link href="/careers" className="inline-flex items-center gap-1.5 text-[0.95rem] font-semibold text-navy transition-[gap] hover:gap-2.5">
-              Join the team &rarr;
-            </Link>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((m, i) => (
-              <article key={m.name} data-reveal data-delay={String((i % 3) * 100)} className={`group ${reveal}`}>
-                <div className="relative mb-6 aspect-4/5 overflow-hidden rounded-2xl bg-navy/5 shadow-glass">
-                  <div className="h-full w-full" style={m.crop ? { transform: `scale(${m.crop})` } : undefined}>
-                    <img
-                      src={m.photo}
-                      alt={`${m.name}, ${m.role}`}
-                      loading="lazy"
-                      style={{ objectPosition: m.focus }}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/35 to-transparent" />
-                </div>
-                <div className="border-l-2 border-pink-500 pl-4">
-                  <h3 className="text-[1.3rem] text-slate-900">{m.name}</h3>
-                  <p className="mb-3 font-mono text-[0.72rem] tracking-[0.1em] text-navy/70 uppercase">{m.role}</p>
-                  <p className="text-[0.92rem] leading-relaxed text-slate-600">{m.bio}</p>
-                </div>
-              </article>
+              <Reveal key={m.name} effect="fade-up" delay={(i % 3) * 0.1}>
+                <TiltCard maxTilt={5} scale={1.02} className="h-full">
+                  <SpotlightCard
+                    spotlightColor="rgba(37, 99, 235, 0.12)"
+                    className="h-full rounded-3xl glass-card bg-white/85 hover:bg-white p-6 border border-white/95 shadow-glass flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* Portrait Container */}
+                      <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-2xl bg-navy/5 shadow-md">
+                        <div
+                          className="h-full w-full relative"
+                          style={m.crop ? { transform: `scale(${m.crop})` } : undefined}
+                        >
+                          <Image
+                            src={m.photo}
+                            alt={`${m.name}, ${m.role}`}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            style={{ objectPosition: m.focus }}
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          />
+                        </div>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/60 to-transparent" />
+                      </div>
+
+                      {/* Info */}
+                      <div className="border-l-2 border-primary-electric pl-4">
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-text-navy group-hover:text-primary-electric transition-colors">
+                          {m.name}
+                        </h3>
+                        <p className="mb-2 font-mono text-xs tracking-wider text-primary-electric uppercase font-semibold">
+                          {m.role}
+                        </p>
+                        <p className="text-sm text-text-muted leading-relaxed">
+                          {m.bio}
+                        </p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </TiltCard>
+              </Reveal>
             ))}
           </div>
         </Container>

@@ -1,10 +1,26 @@
-'use client';
-
-import HeroSection from '../../../components/HeroSection';
-import Container from '../../../components/Container';
+import React from 'react';
+import type { Metadata } from 'next';
 import Eyebrow from '../../../components/Eyebrow';
-import useScrollReveal from '../../../hooks/useScrollReveal';
+import LegalDocumentLayout, { TocSection } from '../../../components/legal/LegalDocumentLayout';
 
+export const metadata: Metadata = {
+  title: 'NexWarranty Privacy Policy',
+  description:
+    'Privacy Policy for NexWarranty extended warranty and business support services provided by Nexus Digital Services Pvt. Ltd. under DPDP Act 2023.',
+  alternates: {
+    canonical: '/nexwarrenty/privacy',
+  },
+  openGraph: {
+    title: 'NexWarranty Privacy Policy — Nexus Digital',
+    description:
+      'Privacy Policy for NexWarranty extended warranty and business support services provided by Nexus Digital Services Pvt. Ltd. under DPDP Act 2023.',
+    url: 'https://nexusdig.in/nexwarrenty/privacy',
+  },
+};
+
+/* ─────────────────────────────────────────────────────────────
+   Sub-processor table data
+───────────────────────────────────────────────────────────── */
 const processors = [
   { no: 1, name: 'Cloud Hosting Service Providers', data: 'Personal Data, Hardware Identifiers, Location Data', purpose: "Nexus Digital's Website, Applications, Databases" },
   { no: 2, name: 'Insurance Companies', data: 'Personal Data, Hardware Identifiers', purpose: 'To cover the risk under various plans of Nexus Digital' },
@@ -19,6 +35,9 @@ const processors = [
   { no: 11, name: 'Liquidation Partner', data: 'Personal Data', purpose: 'To provide products & services under Assured Buyback (ABB) program' },
 ];
 
+/* ─────────────────────────────────────────────────────────────
+   Rights of the Data Principal
+───────────────────────────────────────────────────────────── */
 const rights = [
   {
     title: 'Right to Information',
@@ -42,6 +61,9 @@ const rights = [
   },
 ];
 
+/* ─────────────────────────────────────────────────────────────
+   Duties of Data Principal
+───────────────────────────────────────────────────────────── */
 const duties = [
   'Comply with the provisions of all applicable laws for the time being in force while exercising rights.',
   'Ensure not to impersonate another person while providing Personal Data for a specified purpose.',
@@ -50,6 +72,9 @@ const duties = [
   'Furnish only verifiably authentic information while exercising the right to correction or erasure.',
 ];
 
+/* ─────────────────────────────────────────────────────────────
+   Mobile app data collected
+───────────────────────────────────────────────────────────── */
 const appData = [
   { label: 'Phone Number', detail: 'Uniquely identifies a Nexus Digital customer.' },
   { label: 'IMEI', detail: 'Primary hardware identifier required to provide protection plans.' },
@@ -60,292 +85,452 @@ const appData = [
   { label: 'Android Advertising ID', detail: 'Used in compliance with Google Play Services guidelines solely for advertising and analytics without connecting to personally identifiable information without explicit consent.' },
 ];
 
+/* ─────────────────────────────────────────────────────────────
+   Basic Terms
+───────────────────────────────────────────────────────────── */
 const basicTerms = [
   { term: 'Applicable Law', definition: 'The applicable laws of India.' },
   { term: 'Data Fiduciary', definition: 'Any person who alone or in conjunction with other persons determines the purpose and means of processing of Personal Data.' },
   { term: 'Data Principal', definition: 'The individual to whom the Personal Data relates, including parents/guardians of children or persons with disability.' },
   { term: 'Data Processor', definition: 'Any person who processes Personal Data on behalf of a Data Fiduciary.' },
-  { term: 'Personal Data', definition: 'Any data about an individual who is identifiable by or in relation to such data.' },
-  { term: 'Processing', definition: 'A wholly or partly automated operation or set of operations performed on digital personal data.' },
+  { term: 'Hardware Identifiers', definition: 'Make, Model Number, Serial Number, IMEI number, MAC address, etc., as applicable.' },
+  { term: 'Location Data', definition: "Device's Internet Protocol (IP) Address, GPS Latitude & Longitude coordinates, etc., as applicable." },
+  { term: 'Personal Data', definition: 'Any data about an individual who is identifiable by or in relation to such data as per The Digital Personal Data Protection Act, 2023, India.' },
+  { term: 'Processing', definition: 'A wholly or partly automated operation on digital Personal Data, including collection, recording, storage, retrieval, use, sharing, disclosure, restriction, erasure, or destruction.' },
 ];
 
-function SectionHeader({ number, title }: { number: string; title: string }) {
-  return (
-    <div className="mb-4 flex items-center gap-3">
-      <span className="font-mono text-[0.72rem] tracking-[0.1em] text-indigo-500 uppercase">
-        §{number}
-      </span>
-      <h2 className="text-xl font-semibold text-navy">{title}</h2>
-    </div>
-  );
-}
+const tocSections: TocSection[] = [
+  { id: 'section-00', number: '§00', title: 'Overview' },
+  { id: 'section-01', number: '§01', title: 'Information Security Standards & Compliances' },
+  { id: 'section-02', number: '§02', title: 'Basic Terms' },
+  { id: 'section-03', number: '§03', title: 'Scope of Processing Personal Data' },
+  { id: 'section-04', number: '§04', title: 'Sharing of Personal Data with Third Parties' },
+  { id: 'section-05', number: '§05', title: 'Sub-Processing' },
+  { id: 'section-06', number: '§06', title: 'Rights of the Data Principal' },
+  { id: 'section-07', number: '§07', title: 'Grievance Redressal' },
+  { id: 'section-08', number: '§08', title: 'Duties of Data Principal' },
+  { id: 'section-09', number: '§09', title: 'Security of Processing' },
+  { id: 'section-10', number: '§10', title: 'Website & Mobile Applications' },
+  { id: 'section-11', number: '§11', title: 'Termination of Service' },
+  { id: 'section-12', number: '§12', title: 'Personal Data Purging' },
+  { id: 'section-13', number: '§13', title: 'Cross Border Transfer' },
+  { id: 'section-14', number: '§14', title: 'Personal Data Breach' },
+  { id: 'section-15', number: '§15', title: 'Cookies Policy' },
+  { id: 'section-16', number: '§16', title: 'Inquiries & Complaints' },
+];
 
 export default function NexwarrentyPrivacy() {
-  useScrollReveal();
-
   return (
-    <>
-      <HeroSection
-        compact={true}
-        eyebrow="NX–WRT–LEGAL"
-        title={
-          <>
-            <span className="text-gradient-brand">Privacy Policy</span>
-            {' '}for NexWarranty
-          </>
-        }
-        lede="This privacy policy covers collection, processing, and protection of customer personal data by Nexus Digital in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act) and applicable Indian laws."
-        ctaButtons={[{ label: '← Back to NexWarranty', to: '/nexwarrenty', secondary: true }]}
-        style={{ minHeight: '44vh', paddingTop: '120px', paddingBottom: '2rem' }}
-      />
+    <LegalDocumentLayout
+      eyebrow="NX–WRT–LEGAL"
+      code="LEGAL"
+      title="Privacy Policy"
+      accentTitle="for Nexwarrenty"
+      lede="At Nexus Digital, we maintain the highest levels of security standards. This policy explains how we collect, use, and protect your Digital Personal Data in compliance with applicable laws of India."
+      backHref="/nexwarrenty"
+      backLabel="← Back to Nexwarrenty"
+      badgeCode="Nexwarrenty — Nexus Digital"
+      effectiveDate="Last Updated: 06 July 2026"
+      sections={tocSections}
+    >
+      {/* ── §00 Overview ── */}
+      <article
+        id="section-00"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §00
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">Overview</h2>
+        </div>
+        <div className="space-y-4 text-base leading-relaxed text-text-body">
+          <p>
+            At Nexus Digital, we maintain the highest levels of security standards. Digital Personal Data Protection & Privacy is crucial as it safeguards sensitive information from unauthorized access, misuse, or disclosure. It allows individuals to control how their Personal Data is collected, used, and shared, thereby protecting their privacy and maintaining control over their personal information.
+          </p>
+          <p>
+            We collect Personal Data so that we can serve better services for the Nexus Digital Plans availed. We are fully committed to ensuring the privacy, confidentiality, and integrity of any personal information. We protect this information by maintaining lawful physical, electronic, and procedural security means.
+          </p>
+        </div>
+      </article>
 
-      <section className="py-20 bg-grid-paper">
-        <Container>
-          <div
-            data-reveal
-            className="mb-14 translate-y-6 opacity-0 transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-          >
-            <div className="glass-panel inline-flex items-center gap-3 rounded-xl px-5 py-3 shadow-glass">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-navy to-indigo-600 text-sm text-white">
-                🛡
+      {/* ── §01 Security Standards ── */}
+      <article
+        id="section-01"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §01
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Information Security Standards & Compliances
+          </h2>
+        </div>
+        <p className="mb-6 text-base text-text-body leading-relaxed">
+          Nexus Digital is audited and certified by CERT-In empanelled auditing organizations for:
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-teal-500/20 bg-teal-500/[0.04] p-6 shadow-xs">
+            <p className="mb-2 font-serif text-base font-bold text-text-navy">
+              ISO/IEC 27001 – ISMS
+            </p>
+            <p className="text-xs sm:text-sm leading-relaxed text-text-body">
+              An international standard providing a framework for establishing, implementing, maintaining, and continually improving an information security management system, ensuring confidentiality, integrity, and availability of information assets.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-teal-500/20 bg-teal-500/[0.04] p-6 shadow-xs">
+            <p className="mb-2 font-serif text-base font-bold text-text-navy">PCI-DSS</p>
+            <p className="text-xs sm:text-sm leading-relaxed text-text-body">
+              A set of security standards ensuring that all companies that accept, process, store, or transmit credit card information maintain a secure environment to protect cardholder data from theft and misuse.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      {/* ── §02 Basic Terms ── */}
+      <article
+        id="section-02"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §02
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">Basic Terms</h2>
+        </div>
+        <ul className="space-y-4">
+          {basicTerms.map((t) => (
+            <li key={t.term} className="flex gap-3 items-start">
+              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-700 text-xs font-bold">
+                ✓
               </span>
-              <div>
-                <p className="font-mono text-xs tracking-widest text-slate-500 uppercase">
-                  Nexwarrenty — Nexus Digital Services Pvt. Ltd.
-                </p>
-                <p className="text-sm font-semibold text-slate-800">
-                  Effective: August 2026 &nbsp;·&nbsp; Last updated: August 2026
-                </p>
-              </div>
-            </div>
+              <p className="text-base leading-relaxed text-text-body">
+                <strong className="text-text-navy font-semibold">{t.term}: </strong>
+                {t.definition}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* ── §03 Scope ── */}
+      <article
+        id="section-03"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §03
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Scope of Processing Personal Data
+          </h2>
+        </div>
+        <div className="space-y-4 text-base leading-relaxed text-text-body">
+          <p>
+            This policy applies to the processing of Personal Data of Customers (the Data Principal) by Nexus Digital (as a Data Fiduciary). Processing will be governed by this policy; in particular, Nexus Digital will process Personal Data only on consent given by the Data Principal with a clear affirmative action.
+          </p>
+          <p>
+            The subject matter is the Personal Data provided in respect of Services under the Plan Terms & Conditions. The duration of processing is the duration of provision of Services until disposal of Personal Data in accordance with applicable laws.
+          </p>
+        </div>
+      </article>
+
+      {/* ── §04 Data Sharing ── */}
+      <article
+        id="section-04"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §04
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Sharing of Personal Data with Third Parties
+          </h2>
+        </div>
+        <p className="text-base leading-relaxed text-text-body">
+          Nexus Digital does not publish, sell, lease, or share data to any third parties, except for performance of its service obligations or as may be required by law, or pursuant to the order of a court or regulatory authority, or in order for Nexus Digital to enforce its rights.
+        </p>
+      </article>
+
+      {/* ── §05 Sub-Processing Table ── */}
+      <article
+        id="section-05"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass overflow-hidden"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §05
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">Sub-Processing</h2>
+        </div>
+        <p className="mb-6 text-base leading-relaxed text-text-body">
+          Nexus Digital maintains a list of sub-processors engaged for processing Personal Data in accordance with this policy:
+        </p>
+        <div className="overflow-x-auto rounded-2xl border border-navy/10">
+          <table className="w-full min-w-[560px] border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr className="border-b border-navy/10 bg-navy text-white font-mono">
+                <th className="p-3.5 text-left text-xs uppercase font-bold">No.</th>
+                <th className="p-3.5 text-left text-xs uppercase font-bold">Processor</th>
+                <th className="p-3.5 text-left text-xs uppercase font-bold">Data</th>
+                <th className="p-3.5 text-left text-xs uppercase font-bold">Purpose</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-navy/5 font-sans">
+              {processors.map((p, i) => (
+                <tr key={p.no} className={i % 2 === 0 ? 'bg-teal-500/[0.03]' : ''}>
+                  <td className="p-3.5 font-mono text-teal-700 font-bold">
+                    {String(p.no).padStart(2, '0')}
+                  </td>
+                  <td className="p-3.5 font-semibold text-text-navy">{p.name}</td>
+                  <td className="p-3.5 text-text-muted">{p.data}</td>
+                  <td className="p-3.5 text-text-body">{p.purpose}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      {/* ── §06 Rights ── */}
+      <article
+        id="section-06"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §06
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Rights of the Data Principal
+          </h2>
+        </div>
+        <ul className="space-y-4">
+          {rights.map((r) => (
+            <li key={r.title} className="flex gap-3 items-start">
+              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-700 text-xs font-bold">
+                ✓
+              </span>
+              <p className="text-base leading-relaxed text-text-body">
+                <strong className="text-text-navy font-semibold">{r.title}: </strong>
+                {r.detail}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* ── §07 Grievance Redressal ── */}
+      <article
+        id="section-07"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §07
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Grievance Redressal
+          </h2>
+        </div>
+        <p className="mb-4 text-base leading-relaxed text-text-body">
+          Customers or Data Principals can raise grievances, requests, or any queries related to their personal data:
+        </p>
+        <a
+          href="mailto:happytoassist@nexusdigital.in"
+          className="inline-flex items-center gap-2 font-mono font-semibold text-primary-electric hover:underline"
+        >
+          <span>✉</span> happytoassist@nexusdigital.in
+        </a>
+      </article>
+
+      {/* ── §08 Duties ── */}
+      <article
+        id="section-08"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §08
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Duties of Data Principal
+          </h2>
+        </div>
+        <ul className="space-y-3.5">
+          {duties.map((d, i) => (
+            <li key={i} className="flex gap-3 items-start">
+              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-700 text-xs font-bold">
+                ✓
+              </span>
+              <p className="text-base leading-relaxed text-text-body">{d}</p>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* ── §09 Security of Processing ── */}
+      <article
+        id="section-09"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §09
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Security of Processing
+          </h2>
+        </div>
+        <p className="mb-4 text-base leading-relaxed text-text-body">
+          Nexus Digital implements appropriate technical and organizational measures to ensure a level of security appropriate to the risk, including:
+        </p>
+        <ul className="space-y-3.5">
+          {[
+            'Masking and encryption of Personal Data.',
+            'Ongoing confidentiality, integrity, availability, and resilience of processing systems and services.',
+            'Ability to restore availability and access to Personal Data in a timely manner after a physical or technical incident.',
+            'Risk assessment against accidental or unlawful destruction, loss, alteration, or unauthorized disclosure of Personal Data.',
+          ].map((item, i) => (
+            <li key={i} className="flex gap-3 items-start">
+              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-700 text-xs font-bold">
+                ✓
+              </span>
+              <p className="text-base leading-relaxed text-text-body">{item}</p>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* ── §10 Website & Mobile Applications ── */}
+      <article
+        id="section-10"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §10
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Nexus Digital Website &amp; Mobile Applications
+          </h2>
+        </div>
+        <div className="mb-6 space-y-3 text-base leading-relaxed text-text-body">
+          <p>
+            Nexus Digital has developed website and mobile applications targeted at Indian consumers. The website and mobile applications can be used to activate a subscription plan, renew subscriptions, interact with chat support and contact centers, and avail various value-added services.
+          </p>
+        </div>
+        <p className="mb-3 font-mono text-xs uppercase tracking-wider font-bold text-text-navy">
+          Mobile App Data Collected:
+        </p>
+        <ul className="space-y-3.5">
+          {appData.map((a) => (
+            <li key={a.label} className="flex gap-3 items-start">
+              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-700 text-xs font-bold">
+                ✓
+              </span>
+              <p className="text-base leading-relaxed text-text-body">
+                <strong className="text-text-navy font-semibold">{a.label}: </strong>
+                {a.detail}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* ── §11 to §15 ── */}
+      {[
+        {
+          id: 'section-11',
+          number: '11',
+          title: 'Termination of Service',
+          content:
+            "Upon the expiration of membership or termination of the Services, storage of Personal Data will cease unless any business partner's contractual obligations or applicable law requires continued storage.",
+        },
+        {
+          id: 'section-12',
+          number: '12',
+          title: 'Personal Data Purging',
+          content:
+            'Nexus Digital will irrevocably scramble or purge Personal Data in accordance with the Personal Data Protection Act, 2023, India, or its contractual obligations.',
+        },
+        {
+          id: 'section-13',
+          number: '13',
+          title: 'Cross Border Transfer',
+          content:
+            'To the extent any Personal Data is transferred outside India, such transfer will be subject to appropriate safeguards that provide an adequate level of protection in accordance with applicable laws.',
+        },
+        {
+          id: 'section-14',
+          number: '14',
+          title: 'Personal Data Breach',
+          content:
+            "Nexus Digital will notify Customer without undue delay after becoming aware of a Personal Data breach and will reasonably respond to Customer's request for further information.",
+        },
+        {
+          id: 'section-15',
+          number: '15',
+          title: 'Cookies Policy',
+          content:
+            'We use "Cookies" to analyze web page flow, measure promotional effectiveness, and ensure a safe experience. Cookies do not contain personal information. Users can accept, reject, or delete cookies via browser settings, though disabling them may affect website functionality.',
+        },
+      ].map((sec) => (
+        <article
+          key={sec.id}
+          id={sec.id}
+          className="scroll-mt-32 rounded-3xl glass-card bg-white/85 p-8 sm:p-10 border border-white/95 shadow-glass"
+        >
+          <div className="mb-4 flex items-center gap-3">
+            <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+              §{sec.number}
+            </span>
+            <h2 className="font-serif text-2xl font-bold text-text-navy">
+              {sec.title}
+            </h2>
           </div>
+          <p className="text-base leading-relaxed text-text-body">{sec.content}</p>
+        </article>
+      ))}
 
-          <div className="grid gap-8">
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="01" title="Security & Compliance Certifications" />
-              <p className="mb-5 text-[0.95rem] leading-relaxed text-slate-600">
-                Nexus Digital is audited and certified by CERT-In empanelled auditing organizations for:
-              </p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-5">
-                  <p className="mb-1 text-sm font-semibold text-navy">ISO/IEC 27001 – ISMS</p>
-                  <p className="text-[0.88rem] leading-relaxed text-slate-600">An international standard providing a framework for establishing, implementing, maintaining, and continually improving an information security management system, ensuring confidentiality, integrity, and availability of information assets.</p>
-                </div>
-                <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-5">
-                  <p className="mb-1 text-sm font-semibold text-navy">PCI-DSS</p>
-                  <p className="text-[0.88rem] leading-relaxed text-slate-600">A set of security standards ensuring that all companies that accept, process, store, or transmit credit card information maintain a secure environment to protect cardholder data from theft and misuse.</p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="02" title="Basic Terms" />
-              <ul className="space-y-4">
-                {basicTerms.map((t) => (
-                  <li key={t.term} className="flex gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 text-xs">✓</span>
-                    <p className="text-[0.95rem] leading-relaxed text-slate-600">
-                      <span className="font-semibold text-slate-800">{t.term}: </span>{t.definition}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="03" title="Scope of Processing Personal Data" />
-              <div className="space-y-3 text-[0.95rem] leading-relaxed text-slate-600">
-                <p>This policy applies to the processing of Personal Data of Customers (the Data Principal) by Nexus Digital (as a Data Fiduciary). Processing will be governed by this policy; in particular, Nexus Digital will process Personal Data only on consent given by the Data Principal with a clear affirmative action.</p>
-                <p>The subject matter is the Personal Data provided in respect of Services under the Plan Terms & Conditions. The duration of processing is the duration of provision of Services until disposal of Personal Data in accordance with applicable laws.</p>
-              </div>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="04" title="Sharing of Personal Data with Third Parties" />
-              <p className="text-[0.95rem] leading-relaxed text-slate-600">
-                Nexus Digital does not publish, sell, lease, or share data to any third parties, except for performance of its service obligations or as may be required by law, or pursuant to the order of a court or regulatory authority, or in order for Nexus Digital to enforce its rights.
-              </p>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 overflow-hidden rounded-2xl opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <div className="p-8 pb-4">
-                <SectionHeader number="05" title="Sub-Processing" />
-                <p className="mb-6 text-[0.95rem] leading-relaxed text-slate-600">
-                  Nexus Digital maintains a list of sub-processors engaged for processing Personal Data in accordance with this policy:
-                </p>
-              </div>
-              <div className="overflow-x-auto px-8 pb-8">
-                <table className="w-full min-w-[560px] border-collapse text-[0.88rem]">
-                  <thead>
-                    <tr className="border-b border-indigo-100">
-                      <th className="pb-3 pr-4 text-left font-mono text-xs tracking-widest text-indigo-500 uppercase">No.</th>
-                      <th className="pb-3 pr-4 text-left font-mono text-xs tracking-widest text-indigo-500 uppercase">Processor</th>
-                      <th className="pb-3 pr-4 text-left font-mono text-xs tracking-widest text-indigo-500 uppercase">Data</th>
-                      <th className="pb-3 text-left font-mono text-xs tracking-widest text-indigo-500 uppercase">Purpose</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {processors.map((p, i) => (
-                      <tr key={p.no} className={i % 2 === 0 ? 'bg-indigo-50/30' : ''}>
-                        <td className="py-2.5 pr-4 font-mono text-indigo-400">{String(p.no).padStart(2, '0')}</td>
-                        <td className="py-2.5 pr-4 font-semibold text-navy">{p.name}</td>
-                        <td className="py-2.5 pr-4 text-slate-500">{p.data}</td>
-                        <td className="py-2.5 text-slate-600">{p.purpose}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="06" title="Rights of the Data Principal" />
-              <ul className="space-y-4">
-                {rights.map((r) => (
-                  <li key={r.title} className="flex gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 text-xs">✓</span>
-                    <p className="text-[0.95rem] leading-relaxed text-slate-600">
-                      <span className="font-semibold text-slate-800">{r.title}: </span>{r.detail}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="07" title="Grievance Redressal" />
-              <p className="mb-3 text-[0.95rem] leading-relaxed text-slate-600">
-                Customers or Data Principals can raise grievances, requests, or any queries related to their personal data:
-              </p>
-              <a href="mailto:happytoassist@nexusdigital.in" className="inline-flex items-center gap-2 font-semibold text-indigo-600 transition-colors hover:text-pink-600">
-                <span>✉</span> happytoassist@nexusdigital.in
-              </a>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="08" title="Duties of Data Principal" />
-              <ul className="space-y-3">
-                {duties.map((d, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 text-xs">✓</span>
-                    <p className="text-[0.95rem] leading-relaxed text-slate-600">{d}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="09" title="Security of Processing" />
-              <p className="mb-4 text-[0.95rem] leading-relaxed text-slate-600">
-                Nexus Digital implements appropriate technical and organizational measures to ensure a level of security appropriate to the risk, including:
-              </p>
-              <ul className="space-y-3">
-                {[
-                  'Masking and encryption of Personal Data.',
-                  'Ongoing confidentiality, integrity, availability, and resilience of processing systems and services.',
-                  'Ability to restore availability and access to Personal Data in a timely manner after a physical or technical incident.',
-                  'Risk assessment against accidental or unlawful destruction, loss, alteration, or unauthorized disclosure of Personal Data.',
-                ].map((item, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 text-xs">✓</span>
-                    <p className="text-[0.95rem] leading-relaxed text-slate-600">{item}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <SectionHeader number="10" title="Nexus Digital Website & Mobile Applications" />
-              <div className="mb-6 space-y-3 text-[0.95rem] leading-relaxed text-slate-600">
-                <p>Nexus Digital has developed website and mobile applications targeted at Indian consumers. The website and mobile applications can be used to activate a subscription plan, renew subscriptions, interact with chat support and contact centers, and avail various value-added services.</p>
-              </div>
-              <p className="mb-3 text-sm font-semibold text-navy">Mobile App Data Collected:</p>
-              <ul className="space-y-3">
-                {appData.map((a) => (
-                  <li key={a.label} className="flex gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 text-xs">✓</span>
-                    <p className="text-[0.95rem] leading-relaxed text-slate-600">
-                      <span className="font-semibold text-slate-800">{a.label}: </span>{a.detail}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {[
-              { number: '11', title: 'Termination of Service', content: 'Upon the expiration of membership or termination of the Services, storage of Personal Data will cease unless any business partner\'s contractual obligations or applicable law requires continued storage.' },
-              { number: '12', title: 'Personal Data Purging', content: 'Nexus Digital will irrevocably scramble or purge Personal Data in accordance with the Personal Data Protection Act, 2023, India, or its contractual obligations.' },
-              { number: '13', title: 'Cross Border Transfer', content: 'To the extent any Personal Data is transferred outside India, such transfer will be subject to appropriate safeguards that provide an adequate level of protection in accordance with applicable laws.' },
-              { number: '14', title: 'Personal Data Breach', content: 'Nexus Digital will notify Customer without undue delay after becoming aware of a Personal Data breach and will reasonably respond to Customer\'s request for further information.' },
-              { number: '15', title: 'Cookies Policy', content: 'We use "Cookies" to analyze web page flow, measure promotional effectiveness, and ensure a safe experience. Cookies do not contain personal information. Users can accept, reject, or delete cookies via browser settings, though disabling them may affect website functionality.' },
-            ].map((sec) => (
-              <div
-                key={sec.number}
-                data-reveal
-                className="glass-panel translate-y-6 rounded-2xl p-8 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-              >
-                <SectionHeader number={sec.number} title={sec.title} />
-                <p className="text-[0.95rem] leading-relaxed text-slate-600">{sec.content}</p>
-              </div>
-            ))}
-
-            <div
-              data-reveal
-              className="glass-panel translate-y-6 overflow-hidden rounded-2xl opacity-0 shadow-glass-lg transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
-            >
-              <div className="badge-stripe" />
-              <div className="p-8">
-                <SectionHeader number="16" title="Inquiries & Complaints" />
-                <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
-                  <div>
-                    <Eyebrow>Company</Eyebrow>
-                    <p className="mt-1 font-semibold text-slate-800">Nexus Digital</p>
-                  </div>
-                  <div>
-                    <Eyebrow>Email</Eyebrow>
-                    <a href="mailto:info@nexusdig.in" className="mt-1 inline-block font-semibold text-indigo-600 transition-colors hover:text-pink-600">
-                      info@nexusdig.in
-                    </a>
-                  </div>
-                </div>
-                <p className="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/60 px-5 py-3 text-[0.88rem] text-slate-600">
-                  Nexus Digital reserves the right to modify this policy periodically. Significant changes will be communicated via prominent notifications on the website, login screen, or by email.
-                </p>
-              </div>
-            </div>
+      {/* ── §16 Inquiries & Complaints ── */}
+      <article
+        id="section-16"
+        className="scroll-mt-32 rounded-3xl glass-card bg-white/90 p-8 sm:p-10 border border-white/95 shadow-glass-lg relative overflow-hidden"
+      >
+        <div className="h-1.5 -mx-10 -mt-10 mb-8 bg-gradient-to-r from-teal-600 via-emerald-400 to-navy" />
+        <div className="mb-6 flex items-center gap-3">
+          <span className="font-mono text-xs tracking-wider text-teal-700 uppercase font-bold">
+            §16
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-text-navy">
+            Inquiries &amp; Complaints
+          </h2>
+        </div>
+        <div className="flex flex-col gap-6 sm:flex-row sm:gap-14 mb-6">
+          <div>
+            <Eyebrow code="ENTITY">Company</Eyebrow>
+            <p className="mt-1.5 text-base font-bold text-text-navy font-serif">
+              Nexus Digital
+            </p>
           </div>
-        </Container>
-      </section>
-    </>
+          <div>
+            <Eyebrow code="DIRECT">Email</Eyebrow>
+            <a
+              href="mailto:info@nexusdig.in"
+              className="mt-1.5 inline-block text-base font-semibold text-teal-700 hover:underline font-mono"
+            >
+              info@nexusdig.in
+            </a>
+          </div>
+        </div>
+        <p className="rounded-2xl border border-navy/10 bg-navy/[0.03] p-5 text-sm text-text-body leading-relaxed">
+          Nexus Digital reserves the right to modify this policy periodically. Significant changes will be communicated via prominent notifications on the website, login screen, or by email.
+        </p>
+      </article>
+    </LegalDocumentLayout>
   );
 }

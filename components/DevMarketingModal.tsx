@@ -1,7 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import Button from './Button';
 
 const SHOW_DELAY_MS = 1400; // let the Nexus loader finish first
 
@@ -27,56 +30,111 @@ export default function DevMarketingModal() {
     };
   }, [open]);
 
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-[900] flex items-center justify-center bg-navy/50 p-5 backdrop-blur-sm" onClick={close}>
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="devmarketing-title"
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[460px] translate-y-0 overflow-hidden rounded-2xl bg-white text-center shadow-[0_30px_80px_rgba(5,10,18,0.35)] animate-fade-up opacity-100"
-      >
-        <div className="h-1.5 bg-gradient-to-r from-navy via-indigo-600 to-cyan-500" />
-        <button
-          type="button"
-          onClick={close}
-          aria-label="Close"
-          className="absolute top-3.5 right-3.5 flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-navy"
+    <AnimatePresence>
+      {open && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="devmarketing-title"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        </button>
+          {/* Backdrop with Frosted Blur */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={close}
+            className="fixed inset-0 bg-navy/50 backdrop-blur-md"
+            aria-hidden="true"
+          />
 
-        <div className="px-8 pt-10 pb-8">
-          <p className="mb-5 font-mono text-[0.7rem] tracking-[0.14em] text-pink-700 uppercase">New partnership</p>
-          <img src="/assets/dev-marketing-logo.png" alt="Dev Marketing" className="mx-auto mb-6 h-auto w-[150px] object-contain" />
-          <h2 id="devmarketing-title" className="mb-3 text-[1.6rem] leading-tight text-slate-900">
-            We've collaborated with <span className="text-gradient-brand">Dev Marketing</span> for NexLock
-          </h2>
-          <p className="mx-auto mb-7 max-w-[38ch] text-[0.95rem] text-slate-600">
-            NexLock training has been delivered to the Top 10 stores across Mumbai.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Link
-              href="/brands/dev-marketing"
-              onClick={close}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-navy px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-indigo-600"
-            >
-              See the partnership &rarr;
-            </Link>
+          {/* Glass Modal Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[480px] rounded-3xl glass-card bg-white/90 backdrop-blur-2xl p-8 sm:p-10 text-center shadow-2xl border border-white/95 overflow-hidden z-10"
+          >
+            {/* Specular Top Gradient Line */}
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-navy via-primary-electric to-accent-cyan" />
+
+            {/* Close Button */}
             <button
               type="button"
               onClick={close}
-              className="inline-flex items-center justify-center rounded-lg border border-navy/20 px-6 py-3 font-semibold text-navy transition hover:border-navy"
+              aria-label="Close"
+              className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full glass-pill text-slate-500 transition hover:text-navy hover:bg-white"
             >
-              Close
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
             </button>
-          </div>
+
+            {/* Eyebrow */}
+            <p className="mb-5 font-mono text-[0.72rem] tracking-[0.14em] text-accent-pink uppercase font-semibold">
+              New partnership
+            </p>
+
+            {/* Logo */}
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/assets/dev-marketing-logo.png"
+                alt="Dev Marketing"
+                width={160}
+                height={60}
+                className="h-auto w-[160px] object-contain drop-shadow-sm"
+              />
+            </div>
+
+            {/* Title */}
+            <h2
+              id="devmarketing-title"
+              className="mb-3 text-2xl sm:text-[1.7rem] font-serif font-bold text-text-navy leading-tight"
+            >
+              We've collaborated with{' '}
+              <span className="serif-italic-accent">Dev Marketing</span> for NexLock
+            </h2>
+
+            {/* Description */}
+            <p className="mx-auto mb-8 max-w-[38ch] text-sm sm:text-base text-text-body leading-relaxed">
+              NexLock training has been delivered to the Top 10 stores across Mumbai.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                href="/brands/dev-marketing"
+                onClick={close}
+                variant="primary"
+                size="md"
+              >
+                See the partnership
+              </Button>
+              <Button
+                onClick={close}
+                variant="outline-glass"
+                size="md"
+                arrow={false}
+              >
+                Close
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }

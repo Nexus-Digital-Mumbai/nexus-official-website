@@ -25,6 +25,7 @@ interface HeroSectionProps {
   showSeal?: boolean;
   aside?: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
   children?: React.ReactNode;
 }
 
@@ -38,11 +39,14 @@ export default function HeroSection({
   showSeal = false,
   aside = null,
   style = {},
+  className = '',
   children,
 }: HeroSectionProps) {
   return (
     <header
-      className={`relative overflow-hidden pt-[150px] pb-16 ${compact ? 'min-h-[62vh] pb-12 text-center' : 'min-h-screen'}`}
+      className={`relative overflow-hidden pt-28 sm:pt-36 pb-16 ${
+        compact ? 'min-h-[58vh] pb-12 text-center' : 'min-h-[90vh]'
+      } ${className}`.trim()}
       style={style}
       id="home"
     >
