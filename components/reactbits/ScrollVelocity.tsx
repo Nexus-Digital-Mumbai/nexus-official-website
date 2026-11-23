@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   motion,
   useScroll,
@@ -9,6 +9,7 @@ import {
   useVelocity,
   useAnimationFrame,
   useMotionValue,
+  useReducedMotion,
 } from 'framer-motion';
 
 export interface ScrollVelocityProps {
@@ -19,13 +20,16 @@ export interface ScrollVelocityProps {
 
 /**
  * ScrollVelocity — React Bits component (MIT License)
- * Smooth continuous text/logo marquee that accelerates and reacts to page scroll velocity.
+ * Smooth continuous text/logo marquee that accelerates and reacts to page scroll velocity,
+ * and cleanly pauses when hovered.
  */
 export default function ScrollVelocity({
   children,
   baseVelocity = 2,
   className = '',
 }: ScrollVelocityProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -42,6 +46,8 @@ export default function ScrollVelocity({
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((_, delta) => {
+    if (isHovered || shouldReduceMotion) return;
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
     if (velocityFactor.get() < 0) {
@@ -55,12 +61,23 @@ export default function ScrollVelocity({
   });
 
   return (
-    <div className={`overflow-hidden whitespace-nowrap flex flex-nowrap ${className}`}>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`overflow-hidden whitespace-nowrap flex flex-nowrap ${className}`}
+    >
       <motion.div className="flex flex-nowrap shrink-0 gap-8" style={{ x }}>
-        {children}
-        {children}
-        {children}
-        {children}
+        {[0, 1, 2, 3].map((copyIndex) => (
+          <React.Fragment key={copyIndex}>
+            {React.Children.map(children, (child, itemIndex) =>
+              React.isValidElement(child)
+                ? React.cloneElement(child, {
+                    key: `velocity-${copyIndex}-${child.key ?? itemIndex}`,
+                  } as any)
+                : child
+            )}
+          </React.Fragment>
+        ))}
       </motion.div>
     </div>
   );

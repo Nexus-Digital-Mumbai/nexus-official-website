@@ -7,29 +7,42 @@ export interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
   maxTilt?: number;
   perspective?: number;
   scale?: number;
+  spotlight?: boolean;
   glare?: boolean;
   className?: string;
 }
 
+/**
+ * <TiltCard> — Interactive 3D perspective tilt card with cursor spotlight.
+ * - Hardware-accelerated 3D transform (rotateX, rotateY, scale3d)
+ * - Cursor spotlight & glare beam that follows pointer
+ * - Automatically disabled on touch / mobile and prefers-reduced-motion
+ * - will-change set only while active
+ */
 export default function TiltCard({
   children,
-  maxTilt = 8,
-  perspective = 1000,
-  scale = 1.02,
+  maxTilt = 7,
+  perspective = 1100,
+  scale = 1.015,
+  spotlight = true,
   glare = true,
   className = '',
   ...rest
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [style, setStyle] = useState<React.CSSProperties>({});
-  const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({ opacity: 0 });
+  const [spotlightStyle, setSpotlightStyle] = useState<React.CSSProperties>({ opacity: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const hasSpotlight = spotlight || glare;
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // Disable on touch or reduced motion
+      // Disable on touch devices or prefers-reduced-motion
       if (
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-        window.matchMedia('(pointer: coarse)').matches
+        typeof window !== 'undefined' &&
+        (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          window.matchMedia('(pointer: coarse)').matches)
       ) {
         return;
       }
@@ -49,49 +62,53 @@ export default function TiltCard({
 
       setStyle({
         transform: `perspective(${perspective}px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`,
-        transition: 'transform 0.1s ease-out',
+        transition: 'transform 0.08s ease-out',
       });
 
-      if (glare) {
-        const glareX = (x / rect.width) * 100;
-        const glareY = (y / rect.height) * 100;
-        setGlareStyle({
-          opacity: 0.35,
-          background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 65%)`,
+      if (hasSpotlight) {
+        setSpotlightStyle({
+          opacity: 1,
+          background: `radial-gradient(circle 240px at ${x}px ${y}px, rgba(37, 99, 235, 0.12), rgba(6, 182, 212, 0.06), transparent 70%)`,
           transition: 'opacity 0.15s ease-out',
         });
       }
     },
-    [maxTilt, perspective, scale, glare]
+    [maxTilt, perspective, scale, hasSpotlight]
   );
 
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
+  }, []);
+
   const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
     setStyle({
       transform: `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`,
-      transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+      transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
     });
-    if (glare) {
-      setGlareStyle({
+    if (hasSpotlight) {
+      setSpotlightStyle({
         opacity: 0,
-        transition: 'opacity 0.4s ease-out',
+        transition: 'opacity 0.35s ease-out',
       });
     }
-  }, [perspective, glare]);
+  }, [perspective, hasSpotlight]);
 
   return (
     <div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
-      className={`relative will-change-transform ${className}`.trim()}
+      className={`relative ${isHovered ? 'will-change-transform' : ''} ${className}`.trim()}
       {...rest}
     >
       {children}
-      {glare && (
+      {hasSpotlight && (
         <div
           className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden"
-          style={glareStyle}
+          style={spotlightStyle}
           aria-hidden="true"
         />
       )}

@@ -12,10 +12,17 @@ export interface CountUpProps {
   className?: string;
 }
 
+/**
+ * <CountUp> — High-performance numeric counter with tabular figures.
+ * - Triggered via IntersectionObserver
+ * - Exponential ease-out curve
+ * - Tabular numbers to prevent layout jitter
+ * - Instant fallback for prefers-reduced-motion
+ */
 export default function CountUp({
   to,
   from = 0,
-  duration = 2,
+  duration = 1.8,
   separator = ',',
   prefix = '',
   suffix = '',
@@ -44,7 +51,7 @@ export default function CountUp({
           const animate = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / totalDuration, 1);
-            // Ease-out expo
+            // Ease-out expo curve
             const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
             const current = Math.floor(from + (to - from) * easeOut);
 
@@ -58,9 +65,10 @@ export default function CountUp({
           };
 
           requestAnimationFrame(animate);
+          observer.unobserve(el);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     observer.observe(el);
@@ -71,7 +79,7 @@ export default function CountUp({
   const formatted = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 
   return (
-    <span ref={elementRef} className={className}>
+    <span ref={elementRef} className={`tabular-nums ${className}`.trim()}>
       {prefix}
       {formatted}
       {suffix}

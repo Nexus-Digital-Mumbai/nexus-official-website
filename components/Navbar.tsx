@@ -23,8 +23,27 @@ const navItems: NavItem[] = [
   { to: '/about', label: 'About' },
   { to: '/careers', label: 'Careers' },
   { to: '/collaborate', label: 'Collaborate' },
-  { to: '/contact', label: 'Contact' },
 ];
+
+const drawerListVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const drawerItemVariants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,9 +53,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 40);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -53,16 +73,19 @@ export default function Navbar() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 inset-x-0 z-[1000] flex justify-center px-4 transition-all duration-300 pointer-events-none ${
           isScrolled ? 'pt-2 sm:pt-3' : 'pt-4 sm:pt-5'
         }`}
       >
         <nav
-          className={`pointer-events-auto flex items-center justify-between w-full max-w-[1180px] px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
+          className={`pointer-events-auto flex items-center justify-between w-full max-w-[1180px] px-4 sm:px-6 transition-all duration-300 ${
             isScrolled
-              ? 'glass-pill bg-white/85 shadow-glass-lg border border-white/90 backdrop-blur-3xl'
-              : 'glass-pill bg-white/70 shadow-glass border border-white/80 backdrop-blur-2xl'
+              ? 'py-2 rounded-full glass-pill bg-white/90 shadow-glass-lg border border-white/95 backdrop-blur-3xl'
+              : 'py-2.5 rounded-full glass-pill bg-white/75 shadow-glass border border-white/80 backdrop-blur-2xl'
           }`}
           aria-label="Main Navigation"
         >
@@ -135,7 +158,7 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                          className="absolute top-full left-0 mt-2 min-w-[240px] p-2 glass-card rounded-2xl shadow-glass-lg border border-white/90 z-50 bg-white/85 backdrop-blur-2xl"
+                          className="absolute top-full left-0 mt-2 min-w-[240px] p-2 glass-card rounded-2xl shadow-glass-lg border border-white/90 z-50 bg-white/95 backdrop-blur-2xl"
                         >
                           <div className="px-3 py-1.5 text-[0.68rem] font-mono uppercase tracking-wider text-text-muted border-b border-navy/5 mb-1">
                             Brand Collaborations
@@ -198,10 +221,10 @@ export default function Navbar() {
               href="/contact"
               variant="dark-pill"
               size="sm"
-              arrow={false}
+              arrow={true}
               className="hidden sm:inline-flex text-xs px-4 py-1.5"
             >
-              Get in Touch
+              Contact
             </Button>
 
             {/* Mobile Menu Hamburger */}
@@ -230,19 +253,19 @@ export default function Navbar() {
             </button>
           </div>
         </nav>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop (Dark Overlay, No Fullscreen Backdrop Filter) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMenu}
-              className="fixed inset-0 z-[998] bg-navy/40 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[998] bg-navy/50 md:hidden"
             />
 
             {/* Drawer Sheet */}
@@ -273,12 +296,17 @@ export default function Navbar() {
                   </button>
                 </div>
 
-                <ul className="space-y-1.5">
+                <motion.ul
+                  variants={drawerListVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="space-y-1.5"
+                >
                   {navItems.map((item) => {
                     const active = isRouteActive(item.to);
 
                     return (
-                      <li key={item.to}>
+                      <motion.li key={item.to} variants={drawerItemVariants}>
                         <Link
                           href={item.to}
                           onClick={closeMenu}
@@ -316,16 +344,16 @@ export default function Navbar() {
                             ))}
                           </div>
                         )}
-                      </li>
+                      </motion.li>
                     );
                   })}
-                </ul>
+                </motion.ul>
               </div>
 
               {/* Drawer Footer CTA */}
               <div className="pt-6 border-t border-navy/8">
-                <Button href="/contact" variant="primary" size="md" className="w-full" onClick={closeMenu}>
-                  Get in Touch
+                <Button href="/contact" variant="dark-pill" size="md" arrow={true} className="w-full" onClick={closeMenu}>
+                  Contact
                 </Button>
                 <div className="mt-4 text-center font-mono text-[0.7rem] text-text-muted">
                   GSTIN: 27ABAFN2902R1ZZ

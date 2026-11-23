@@ -6,6 +6,7 @@ import PageLoader from '../components/PageLoader';
 import ScrollToTop from '../components/ScrollToTop';
 import SmoothScroll from '../components/motion/SmoothScroll';
 import CursorGlow from '../components/motion/CursorGlow';
+import ScrollProgress from '../components/motion/ScrollProgress';
 
 export const viewport: Viewport = {
   themeColor: '#092147',
@@ -123,6 +124,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <SmoothScroll>
+          <ScrollProgress />
           <CursorGlow />
           <ScrollToTop />
           <PageLoader />

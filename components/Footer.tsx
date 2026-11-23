@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Container from './Container';
+import FooterCredit from './FooterCredit';
+import Reveal from './motion/Reveal';
 import { PILLARS } from '../data/pillars';
 
 const companyLinks = [
@@ -45,7 +47,7 @@ export default function Footer() {
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1.1fr] gap-10 pb-16 border-b border-white/8 relative z-10">
           {/* Brand & Overview */}
-          <div className="lg:pr-8">
+          <Reveal from="up" distance={24} delay={0} className="lg:pr-8">
             <Link
               href="/"
               className="inline-flex items-center px-3.5 py-2 rounded-xl bg-white/95 shadow-md border border-white/20 mb-6 group"
@@ -68,10 +70,10 @@ export default function Footer() {
               <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               <span className="font-mono text-xs text-slate-400">All Systems Operational</span>
             </div>
-          </div>
+          </Reveal>
 
           {/* Column 1: Services */}
-          <div>
+          <Reveal from="up" distance={24} delay={0.06}>
             <p className="mb-4 font-mono text-[0.72rem] tracking-[0.14em] text-cyan-400 uppercase font-semibold">
               Services
             </p>
@@ -103,10 +105,10 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </Reveal>
 
           {/* Column 2: Products */}
-          <div>
+          <Reveal from="up" distance={24} delay={0.12}>
             <p className="mb-4 font-mono text-[0.72rem] tracking-[0.14em] text-cyan-400 uppercase font-semibold">
               Products
             </p>
@@ -125,10 +127,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
 
           {/* Column 3: Company */}
-          <div>
+          <Reveal from="up" distance={24} delay={0.18}>
             <p className="mb-4 font-mono text-[0.72rem] tracking-[0.14em] text-cyan-400 uppercase font-semibold">
               Company
             </p>
@@ -144,10 +146,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
 
           {/* Column 4: Connect */}
-          <div>
+          <Reveal from="up" distance={24} delay={0.24}>
             <p className="mb-4 font-mono text-[0.72rem] tracking-[0.14em] text-cyan-400 uppercase font-semibold">
               Connect
             </p>
@@ -175,30 +177,42 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
         </div>
 
-        {/* Bottom Legal & Meta Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400 relative z-10">
-          <div className="flex flex-wrap items-center gap-3">
-            <p>&copy; 2026 NEXUS. All rights reserved.</p>
-            <span className="hidden sm:inline text-slate-600">|</span>
-            <p className="font-mono text-slate-400">GSTIN: 27ABAFN2902R1ZZ</p>
-          </div>
+        {/* Bottom Legal & Meta Bar (2-Column on Desktop >= 1024px, Stacked on Tablet & Mobile) */}
+        <Reveal from="none" delay={0.1}>
+          <div className="pt-8 relative z-10 flex flex-col lg:grid lg:grid-cols-[1fr_auto] gap-4 lg:gap-8 items-start justify-between">
+            {/* Left Column: Row 1 (Copyright & GSTIN) and Row 2 (Legal Links) */}
+            <div className="flex flex-col gap-4 lg:gap-2.5">
+              {/* Row 1: Copyright & GSTIN */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs text-slate-400">
+                <p>&copy; 2026 NEXUS. All rights reserved.</p>
+                <span className="text-slate-600">|</span>
+                <p className="font-mono text-slate-400">GSTIN: 27ABAFN2902R1ZZ</p>
+              </div>
 
-          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[0.78rem]">
-            {legalLinks.map((l) => (
-              <li key={l.to}>
-                <Link
-                  href={l.to}
-                  className="hover:text-cyan-400 transition-colors"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+              {/* Row 2: Legal Links */}
+              <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.78rem] text-slate-400">
+                {legalLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link
+                      href={l.to}
+                      className="hover:text-cyan-400 transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right Column: DIMISI Credit (Desktop: aligned with Row 1 baseline; Tablet/Mobile: stacked below with 16px gap, left-aligned) */}
+            <div className="flex items-center lg:justify-end text-xs text-slate-400 leading-normal">
+              <FooterCredit />
+            </div>
+          </div>
+        </Reveal>
       </Container>
     </footer>
   );

@@ -41,11 +41,10 @@ export default function SplitText({
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
+    hidden: { opacity: 0, y: 18 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
         duration,
         ease: [0.16, 1, 0.3, 1] as [number, number, number, number],

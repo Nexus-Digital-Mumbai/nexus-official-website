@@ -7,9 +7,15 @@ import Button from '../../components/Button';
 import Chip from '../../components/Chip';
 import Eyebrow from '../../components/Eyebrow';
 import Reveal from '../../components/motion/Reveal';
+import RevealGroup from '../../components/motion/RevealGroup';
 import TiltCard from '../../components/motion/TiltCard';
 import Magnetic from '../../components/motion/Magnetic';
+import MagneticButton from '../../components/motion/MagneticButton';
 import CountUp from '../../components/motion/CountUp';
+import SplitHeading from '../../components/motion/SplitHeading';
+import ParallaxLayer from '../../components/motion/ParallaxLayer';
+import ScrollProgress from '../../components/motion/ScrollProgress';
+import CursorGlow from '../../components/motion/CursorGlow';
 import SplitText from '../../components/reactbits/SplitText';
 import BlurText from '../../components/reactbits/BlurText';
 import ShinyText from '../../components/reactbits/ShinyText';
@@ -521,7 +527,146 @@ export default function DesignSystemPage() {
             </TiltCard>
           </div>
         </section>
+
+        {/* 7. MOTION & INTERACTION PRIMITIVES KIT */}
+        <section className="mt-20 pt-16 border-t border-navy/10">
+          <SectionHeading
+            eyebrow="Motion Kit / 07"
+            code="MOT"
+            title="Reusable Motion Primitives"
+            accent="& Physics Engine Lab"
+            description="Hardware-accelerated Framer Motion & GSAP animation kit. Zero reflow, prefers-reduced-motion safe, and strictly scoped."
+          />
+
+          <div className="mt-12 space-y-16">
+            {/* SplitHeading Demo */}
+            <div className="glass-panel p-8 rounded-2xl">
+              <span className="text-xs font-mono uppercase text-primary-electric font-semibold block mb-3">
+                1. SplitHeading (GSAP SplitText with Full Aria-Label Preservation)
+              </span>
+              <SplitHeading as="h3" className="text-2xl sm:text-3xl font-serif font-bold text-text-navy">
+                Engineering precision software for business — and our own products.
+              </SplitHeading>
+              <p className="mt-2 text-xs font-mono text-text-muted">
+                Inspect DOM: Character spans are animated cleanly with power2.out; full text is intact on parent element.
+              </p>
+            </div>
+
+            {/* Reveal Directions Showcase */}
+            <div>
+              <span className="text-xs font-mono uppercase text-primary-electric font-semibold block mb-4">
+                2. Reveal Primitives (LazyMotion + domAnimation)
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Reveal from="up" distance={40}>
+                  <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                    <span className="text-xs font-mono text-primary-electric font-semibold">from=&quot;up&quot;</span>
+                    <p className="mt-1 text-sm font-semibold text-text-navy">Entrance from bottom</p>
+                  </div>
+                </Reveal>
+                <Reveal from="down" distance={40}>
+                  <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                    <span className="text-xs font-mono text-accent-cyan font-semibold">from=&quot;down&quot;</span>
+                    <p className="mt-1 text-sm font-semibold text-text-navy">Entrance from top</p>
+                  </div>
+                </Reveal>
+                <Reveal from="left" distance={40}>
+                  <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                    <span className="text-xs font-mono text-accent-violet font-semibold">from=&quot;left&quot;</span>
+                    <p className="mt-1 text-sm font-semibold text-text-navy">Entrance from left</p>
+                  </div>
+                </Reveal>
+                <Reveal from="right" distance={40}>
+                  <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                    <span className="text-xs font-mono text-accent-teal font-semibold">from=&quot;right&quot;</span>
+                    <p className="mt-1 text-sm font-semibold text-text-navy">Entrance from right</p>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+
+            {/* RevealGroup with Alternating Directions */}
+            <div>
+              <span className="text-xs font-mono uppercase text-primary-electric font-semibold block mb-4">
+                3. RevealGroup (Staggered 0.08s with Alternating Left/Right Directions)
+              </span>
+              <RevealGroup stagger={0.08} alternate className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                  <span className="text-xs font-mono text-text-muted">Item 01 (Left)</span>
+                  <p className="mt-1 text-sm font-semibold text-text-navy">Staggered Item</p>
+                </div>
+                <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                  <span className="text-xs font-mono text-text-muted">Item 02 (Right)</span>
+                  <p className="mt-1 text-sm font-semibold text-text-navy">Staggered Item</p>
+                </div>
+                <div className="glass-card p-5 rounded-xl border border-navy/10 text-center">
+                  <span className="text-xs font-mono text-text-muted">Item 03 (Left)</span>
+                  <p className="mt-1 text-sm font-semibold text-text-navy">Staggered Item</p>
+                </div>
+              </RevealGroup>
+            </div>
+
+            {/* Interactive Physics & Numbers: MagneticButton, TiltCard, CountUp, ParallaxLayer */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* TiltCard with Cursor Spotlight */}
+              <TiltCard maxTilt={8} scale={1.03} spotlight className="glass-card p-6 rounded-2xl border border-navy/10">
+                <span className="text-xs font-mono uppercase text-primary-electric font-semibold">
+                  4. TiltCard &amp; Spotlight
+                </span>
+                <h4 className="mt-3 text-lg font-serif font-bold text-text-navy">
+                  3D Perspective Hover
+                </h4>
+                <p className="mt-2 text-xs text-text-body">
+                  Moves on pointer coordinates with interactive radial spotlight glare.
+                </p>
+              </TiltCard>
+
+              {/* CountUp Tabular Numbers */}
+              <div className="glass-card p-6 rounded-2xl border border-navy/10 flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-mono uppercase text-accent-cyan font-semibold">
+                    5. CountUp Numbers
+                  </span>
+                  <h4 className="mt-3 text-3xl font-serif font-bold text-text-navy">
+                    <CountUp to={10000} duration={2} suffix="+" />
+                  </h4>
+                  <p className="mt-1 text-xs text-text-body">
+                    Protected devices across retail partners in India.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-navy/8 text-xs font-mono text-text-muted">
+                  Tabular-nums expo easing
+                </div>
+              </div>
+
+              {/* MagneticButton & ParallaxLayer */}
+              <div className="glass-card p-6 rounded-2xl border border-navy/10 flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-mono uppercase text-accent-violet font-semibold">
+                    6. MagneticButton &amp; Parallax
+                  </span>
+                  <div className="mt-4 flex items-center justify-center">
+                    <MagneticButton strength={0.35}>
+                      <button
+                        type="button"
+                        className="px-5 py-2.5 rounded-full bg-primary-electric text-white text-xs font-semibold shadow-md hover:bg-primary-hover transition-colors cursor-pointer"
+                      >
+                        Magnetic Pull Hover
+                      </button>
+                    </MagneticButton>
+                  </div>
+                </div>
+                <ParallaxLayer speed={0.15} className="mt-4 pt-3 border-t border-navy/8 text-center text-xs font-mono text-text-muted">
+                  ✦ Floating Parallax Layer (Speed: 0.15)
+                </ParallaxLayer>
+              </div>
+            </div>
+          </div>
+        </section>
       </Container>
+      {/* Top Reading Progress Bar & Cursor Ambient Glow */}
+      <ScrollProgress />
+      <CursorGlow size={320} />
     </div>
   );
 }

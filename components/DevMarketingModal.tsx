@@ -39,14 +39,14 @@ export default function DevMarketingModal() {
           aria-modal="true"
           aria-labelledby="devmarketing-title"
         >
-          {/* Backdrop with Frosted Blur */}
+          {/* Backdrop (Dark Overlay, No Fullscreen Backdrop Filter) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
-            className="fixed inset-0 bg-navy/50 backdrop-blur-md"
+            className="fixed inset-0 bg-navy/60"
             aria-hidden="true"
           />
 
