@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import AnimatedBackground from './components/AnimatedBackground';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PageLoader from './components/PageLoader';
@@ -36,11 +37,31 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const urlTheme = new URLSearchParams(window.location.search).get('theme');
+      if (urlTheme === 'dark') return true;
+      if (urlTheme === 'light') return false;
+      return document.documentElement.dataset.theme === 'dark';
+    }
+    return false;
+  });
+
+  function toggleTheme() {
+    const next = !dark;
+    document.documentElement.dataset.theme = next ? 'dark' : 'light';
+    setDark(next);
+    try {
+      localStorage.setItem('nexus-theme', next ? 'dark' : 'light');
+    } catch { /* Keep the selection for this session. */ }
+  }
+
   return (
     <BrowserRouter>
+      <AnimatedBackground dark={dark} />
       <ScrollToTop />
       <PageLoader />
-      <Navbar />
+      <Navbar dark={dark} onToggleTheme={toggleTheme} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/it-solutions" element={<ITSolutions />} />

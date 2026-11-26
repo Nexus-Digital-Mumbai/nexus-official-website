@@ -1,13 +1,29 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Container from './Container';
-import { PILLARS } from '../data/pillars';
+import useScrollAnimation from '../animations/useScrollAnimation';
 
-const company = [
-  { to: '/about', label: 'About & leadership' },
-  { to: '/brands', label: 'Brands' },
-  { to: '/careers', label: 'Careers' },
-  { to: '/collaborate', label: 'Collaborate' },
-  { to: '/contact', label: 'Contact' },
+import { PILLARS } from '../data/pillars';
+import './Footer.css';
+
+const serviceLinks = PILLARS.filter(p => p.kind === 'services').map(p => ({to: p.to, label: p.name}));
+const productLinks = PILLARS.filter(p => p.kind === 'product').map(p => ({to: p.to, label: p.name}));
+
+const columns = [
+  { title: 'Services', links: [
+    ...serviceLinks,
+    { to: '/it-solutions#services', label: 'All services' },
+    { to: '/collaborate?type=it-existing', label: 'Existing software help' },
+  ] },
+  { title: 'Products', links: productLinks },
+  { title: 'Company', links: [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'About & leadership' },
+    { to: '/brands', label: 'Brands' },
+    { to: '/careers', label: 'Careers' },
+    { to: '/collaborate', label: 'Collaborate' },
+    { to: '/contact', label: 'Contact' },
+  ] },
 ];
 
 const legal = [
@@ -17,68 +33,96 @@ const legal = [
   { to: '/nexwarrenty/terms', label: 'NexWarranty Terms & Conditions' },
 ];
 
-function Column({ title, children }) {
-  return (
-    <div>
-      <p className="mb-4 font-mono text-[0.7rem] tracking-[0.14em] text-slate-500 uppercase">{title}</p>
-      <ul className="flex flex-col gap-2.5">{children}</ul>
-    </div>
-  );
-}
-
-const linkCls = 'text-sm transition-colors hover:text-cyan-500';
-
 export default function Footer() {
-  const services = PILLARS.filter((p) => p.kind === 'services');
-  const products = PILLARS.filter((p) => p.kind === 'product');
+  const currentYear = new Date().getFullYear();
+  const footerRef = useRef(null);
+
+  useScrollAnimation(footerRef, (gsap) => {
+    const cols = footerRef.current.querySelectorAll('[data-footer-col]');
+    gsap.fromTo(
+      cols,
+      { opacity: 0, y: 25 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 85%',
+        },
+      }
+    );
+  });
 
   return (
-    <footer className="bg-ink px-6 pt-14 pb-8 text-slate-300">
-      <Container className="grid grid-cols-2 gap-10 border-b border-white/8 pb-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="col-span-2 md:col-span-1">
-          <Link to="/" className="inline-flex rounded-[10px] bg-white px-4 py-2">
-            <img src="/logo.png" alt="NEXUS" className="h-10 w-auto object-contain" />
-          </Link>
-          <p className="mt-5 max-w-[34ch] text-sm text-slate-400">
-            A technology company: software engineering for businesses, and products of our own — NexLock and NexWarranty.
-          </p>
+    <footer ref={footerRef} className="mountain-footer relative overflow-hidden text-slate-300">
+      {/* ── Decorative Background Emblem Watermark ── */}
+      <div
+        className="pointer-events-none absolute right-[-5%] bottom-[-15%] w-[480px] h-[480px] opacity-[0.035] select-none transition-transform duration-1000 hover:scale-105"
+        aria-hidden="true"
+      >
+        <img
+          src="/nexus-emblem.png"
+          alt=""
+          className="w-full h-full object-contain filter grayscale invert"
+        />
+      </div>
+
+      <Container className="mountain-footer__glass relative z-10">
+        {/* Main 4-column Grid */}
+        <div className="grid grid-cols-2 gap-x-5 gap-y-5 border-b border-white/10 pb-5 lg:grid-cols-12 lg:gap-8">
+          {/* Col 1: Logo & Tagline (lg: 5 cols) */}
+          <div data-footer-col className="lg:col-span-5 text-left">
+            <Link to="/" className="inline-block transition-transform duration-200 hover:scale-[1.02]">
+              <img
+                src="/nexus-logo-white.png"
+                alt="NEXUS"
+                className="h-9 w-auto object-contain"
+              />
+            </Link>
+            <p className="mt-2 max-w-[34ch] text-xs text-slate-400 leading-relaxed">
+              A technology company: software engineering for businesses, and products of our own — NexLock and NexWarranty.
+            </p>
+          </div>
+
+          {columns.map(({title, links}, index) => (
+            <div key={title} data-footer-col className={index === 2 ? 'lg:col-span-3 text-left' : 'lg:col-span-2 text-left'}>
+              <p className="mb-2 font-display text-sm font-bold text-white tracking-wide">{title}</p>
+              <ul className="flex flex-col gap-0.5">
+                {links.map(({to, label}) => (
+                  <li key={to}>
+                    <Link to={to} className="text-xs text-slate-400 transition-colors hover:text-cyan-400 hover:translate-x-0.5 inline-block">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <Column title="Services">
-          {services.map((p) => (
-            <li key={p.id}><Link to={p.to} className={linkCls}>{p.name}</Link></li>
-          ))}
-          <li><Link to="/it-solutions#services" className={linkCls}>All services</Link></li>
-          <li><Link to="/collaborate?type=it-existing" className={linkCls}>Existing software help</Link></li>
-        </Column>
+        {/* Bottom Bar: Copyright, GSTIN, Legal links, and Tagline */}
+        <div className="mt-4 flex flex-col items-start justify-between gap-3 text-xs text-slate-400 sm:flex-row">
+          <div className="flex flex-wrap items-center gap-4">
+            <p>&copy; {currentYear} NEXUS. All rights reserved.</p>
+            <span className="hidden text-slate-600 sm:inline">|</span>
+            <span className="font-mono text-slate-400">GSTIN: 27ABAFN2902R1ZZ</span>
+          </div>
 
-        <Column title="Products">
-          {products.map((p) => (
-            <li key={p.id}><Link to={p.to} className={linkCls}>{p.name}</Link></li>
-          ))}
-        </Column>
-
-        <Column title="Company">
-          <li><Link to="/" className={linkCls}>Home</Link></li>
-          {company.map((l) => (
-            <li key={l.to}><Link to={l.to} className={linkCls}>{l.label}</Link></li>
-          ))}
-        </Column>
-      </Container>
-
-      <Container className="mt-6 flex flex-wrap items-center justify-between gap-4 max-[640px]:flex-col max-[640px]:text-center">
-        <div className="flex flex-col gap-2 text-[0.8rem] sm:flex-row sm:items-center sm:gap-4">
-          <p>&copy; 2026 NEXUS. All rights reserved.</p>
-          <span className="hidden text-slate-500 sm:inline">|</span>
-          <p className="font-mono text-slate-400">GSTIN: 27ABAFN2902R1ZZ</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <ul className="flex flex-wrap gap-x-4 gap-y-1">
+              {legal.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="transition-colors hover:text-cyan-400">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <ul className="flex flex-wrap justify-center gap-5">
-          {legal.map((l) => (
-            <li key={l.to}>
-              <Link to={l.to} className="text-[0.78rem] text-slate-400 transition-colors hover:text-cyan-500">{l.label}</Link>
-            </li>
-          ))}
-        </ul>
       </Container>
     </footer>
   );

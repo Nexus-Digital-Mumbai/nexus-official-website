@@ -1,0 +1,14 @@
+.specular-button {
+  position: relative;
+  isolation: isolate;
+}
+
+.specular-button__light {
+  position: absolute;
+  inset: -24px;
+  z-index: -1;
+  display: block;
+  width: calc(100% + 48px);
+  height: calc(100% + 48px);
+  pointer-events: none;
+}

@@ -1,199 +1,291 @@
+import SpecularButton from './SpecularButton';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
 import Container from './Container';
+import Hero3DVisual from './Hero3DVisual';
+import useMagnetic from '../animations/useMagnetic';
+import { isReducedMotion } from '../animations/motionTokens';
 
-function SealSVG() {
+function MagneticButton({ to, primary, children }) {
+  const ButtonLink = primary ? SpecularButton : Link;
+  const btnRef = useMagnetic(0.25);
   return (
-    <svg className="h-auto w-[min(420px,90%)]" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1" />
-          <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2" />
-          <feMerge>
-            <feMergeNode in="blur2" />
-            <feMergeNode in="blur1" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-        <linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="var(--color-cyan-500)" />
-          <stop offset="100%" stopColor="var(--color-indigo-600)" />
-        </linearGradient>
-      </defs>
-
-      {/* Rotating data rings */}
-      <g className="origin-[200px_200px] animate-seal-spin">
-        <circle cx="200" cy="200" r="186" fill="none" stroke="var(--color-cyan-500)" strokeWidth="1" strokeDasharray="4 8" opacity="0.4" />
-        <circle cx="200" cy="200" r="172" fill="none" stroke="var(--color-indigo-600)" strokeWidth="2" strokeDasharray="30 20 5 20" opacity="0.6" />
-      </g>
-
-      {/* Nested Hexagons */}
-      <polygon
-        className="animate-seal-draw [stroke-dasharray:900] [stroke-dashoffset:900] [animation-delay:200ms]"
-        points="200,50 336,125 336,275 200,350 64,275 64,125"
-        fill="none"
-        stroke="url(#hex-grad)"
-        strokeWidth="2"
-        filter="url(#neon-glow)"
-      />
-      <polygon points="200,70 318,137 318,263 200,330 82,263 82,137" fill="none" stroke="var(--color-cyan-500)" strokeWidth="1" opacity="0.3" strokeDasharray="10 5" />
-
-      {/* Connecting lines */}
-      <g stroke="var(--color-cyan-500)" strokeWidth="2" filter="url(#neon-glow)" opacity="0.8">
-        <line x1="200" y1="50" x2="200" y2="14" />
-        <line x1="336" y1="125" x2="368" y2="107" />
-        <line x1="336" y1="275" x2="368" y2="293" />
-        <line x1="200" y1="350" x2="200" y2="386" />
-        <line x1="64" y1="275" x2="32" y2="293" />
-        <line x1="64" y1="125" x2="32" y2="107" />
-      </g>
-
-      {/* Glowing Nodes */}
-      <g fill="var(--color-cyan-500)" filter="url(#neon-glow)">
-        <circle className="animate-seal-pulse" cx="200" cy="14" r="6" />
-        <circle className="animate-seal-pulse [animation-delay:400ms]" cx="368" cy="107" r="6" />
-        <circle className="animate-seal-pulse [animation-delay:800ms]" cx="368" cy="293" r="6" />
-        <circle className="animate-seal-pulse" cx="200" cy="386" r="6" />
-        <circle className="animate-seal-pulse [animation-delay:400ms]" cx="32" cy="293" r="6" />
-        <circle className="animate-seal-pulse [animation-delay:800ms]" cx="32" cy="107" r="6" />
-      </g>
-
-      {/* High-tech Lock */}
-      <g filter="url(#neon-glow)">
-        <rect x="156" y="196" width="88" height="64" rx="8" fill="none" stroke="var(--color-navy)" strokeWidth="4" />
-        <rect x="160" y="200" width="80" height="56" rx="6" fill="var(--color-navy)" opacity="0.9" />
-        <path d="M174 196 v-24 a26 26 0 0 1 52 0 v24" fill="none" stroke="var(--color-cyan-500)" strokeWidth="6" strokeLinecap="round" />
-        <circle className="animate-seal-pulse" cx="200" cy="222" r="7" fill="var(--color-cyan-500)" />
-        <rect className="animate-seal-pulse [animation-delay:200ms]" x="196" y="222" width="8" height="18" rx="3" fill="var(--color-cyan-500)" />
-      </g>
-
-      {/* Scanning line effect */}
-      <line x1="140" y1="196" x2="260" y2="196" stroke="var(--color-cyan-500)" strokeWidth="2" filter="url(#neon-glow)">
-        <animate attributeName="y1" values="196;260;196" dur="3s" repeatCount="indefinite" />
-        <animate attributeName="y2" values="196;260;196" dur="3s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" />
-      </line>
-    </svg>
+    <ButtonLink
+      ref={btnRef}
+      to={to}
+      className={`inline-flex items-center gap-2 rounded-full px-6 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-[0.95rem] font-semibold transition-colors duration-300 ${
+        primary
+          ? 'bg-[#061A40] text-white shadow-[0_8px_24px_rgba(6,26,64,0.25)] hover:bg-[#0057D9] hover:shadow-[0_12px_32px_rgba(0,87,217,0.4)]'
+          : 'shimmer-sweep border border-[#061A40]/15 bg-white/85 text-[#061A40] shadow-[0_4px_16px_rgba(6,26,64,0.06)] hover:border-[#0057D9]/50 hover:bg-white hover:text-[#0057D9]'
+      }`}
+    >
+      {children}
+    </ButtonLink>
   );
 }
 
 export default function HeroSection({
   compact = false,
-  eyebrow,
-  title,
-  lede,
-  ctaButtons = [],
-  stats = [],
-  showSeal = false,
+  eyebrow = 'NEXUS · TECHNOLOGY COMPANY',
+  title = null,
+  lede = (
+    <>
+      Innovative solutions. Stronger security.<br />
+      A smarter tomorrow.
+    </>
+  ),
+  ctaButtons = [
+    { label: 'Explore the three pillars', to: '/#pillars', primary: true },
+    { label: 'Start a software project', to: '/collaborate?type=it-new', secondary: true },
+  ],
+  stats = [
+    { countTo: 3, label: 'Pillars' },
+    { countTo: 2, label: 'Own products' },
+    { countTo: 10, suffix: '+', label: 'Years leadership experience' },
+  ],
   aside = null,
   style = {},
   children,
 }) {
+  const heroRef = useRef(null);
+  const eyebrowRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+  const titleRef = useRef(null);
+  const ledeRef = useRef(null);
+  const ctaRef = useRef(null);
+  const statsRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const reduced = isReducedMotion();
+
+    const ctx = gsap.context(() => {
+      if (reduced) {
+        gsap.set(
+          [
+            eyebrowRef.current,
+            line1Ref.current,
+            line2Ref.current,
+            line3Ref.current,
+            titleRef.current,
+            ledeRef.current,
+            ctaRef.current,
+            statsRef.current,
+          ].filter(Boolean),
+          { opacity: 1, y: 0 }
+        );
+        return;
+      }
+
+      // ── Master Hero Entrance Timeline ──
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
+
+      // Eyebrow reveal
+      if (eyebrowRef.current) {
+        tl.fromTo(
+          eyebrowRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          0.2
+        );
+      }
+
+      // Kinetic headline line-by-line reveal
+      const lines = [line1Ref.current, line2Ref.current, line3Ref.current].filter(Boolean);
+      if (lines.length) {
+        tl.fromTo(
+          lines,
+          { y: '115%', opacity: 0 },
+          { y: '0%', opacity: 1, duration: 0.95, stagger: 0.14, ease: 'power3.out' },
+          0.35
+        );
+      } else if (titleRef.current) {
+        tl.fromTo(
+          titleRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' },
+          0.35
+        );
+      }
+
+      // Supporting lede fade-up
+      if (ledeRef.current) {
+        tl.fromTo(
+          ledeRef.current,
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.8 },
+          0.75
+        );
+      }
+
+      // Action buttons stagger
+      if (ctaRef.current && ctaRef.current.children.length) {
+        tl.fromTo(
+          ctaRef.current.children,
+          { opacity: 0, y: 20, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.12, ease: 'back.out(1.4)' },
+          0.9
+        );
+      }
+
+      // Stats row reveal
+      if (statsRef.current && statsRef.current.children.length) {
+        tl.fromTo(
+          statsRef.current.children,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 },
+          1.05
+        );
+      }
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <header
-      className={`relative overflow-hidden pt-[150px] pb-16 ${compact ? 'min-h-[62vh] pb-12 text-center' : 'min-h-screen'}`}
+      ref={heroRef}
+      className={`relative overflow-hidden pt-8 pb-16 sm:pb-20 ${
+        compact ? 'min-h-[400px] text-center' : 'min-h-[680px] lg:min-h-[760px] flex items-center'
+      }`}
       style={style}
       id="home"
     >
-      {(showSeal || aside) && (
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-50 -left-50 h-150 w-150 animate-drift rounded-full bg-cyan-500 opacity-25 mix-blend-multiply blur-[120px]" />
-          <div className="absolute -right-25 -bottom-25 h-125 w-125 animate-drift rounded-full bg-pink-500 opacity-25 mix-blend-multiply blur-[120px] [animation-delay:-6s]" />
-          <div className="absolute top-[30%] right-[10%] h-100 w-100 animate-drift rounded-full bg-indigo-600 opacity-20 mix-blend-multiply blur-[140px] [animation-direction:alternate-reverse]" />
-        </div>
-      )}
 
-      <Container
-        className={`relative z-10 grid items-center gap-8 ${
-          compact ? '' : 'min-[900px]:grid-cols-[1.1fr_0.9fr]'
-        }`}
-      >
+      <Container className="relative z-10 w-full">
         <div
-          className={
-            compact
-              ? 'mx-auto max-w-[720px] text-center'
-              : 'mx-auto max-w-[720px] text-center min-[900px]:mx-0 min-[900px]:max-w-none min-[900px]:text-left'
-          }
+          className={`grid items-center gap-12 lg:gap-8 ${
+            compact ? 'grid-cols-1 justify-center' : 'grid-cols-1 lg:grid-cols-12'
+          }`}
         >
-          {eyebrow && (
-            <p className="mb-4.5 inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.14em] text-navy uppercase before:h-px before:w-5.5 before:bg-pink-500 before:content-['']">
-              {eyebrow}
-            </p>
-          )}
-          {title && (
-            <h1 className="mb-4.5 translate-y-7 text-[clamp(2.4rem,4.6vw,4.2rem)] leading-[1.05] opacity-0 animate-fade-up">
-              {title}
-            </h1>
-          )}
-          {lede && (
-            <p
-              className={`mx-auto mb-9 max-w-[46ch] translate-y-6 text-[clamp(1.05rem,1.6vw,1.25rem)] text-slate-600 opacity-0 animate-fade-up [animation-delay:150ms] ${
-                compact ? '' : 'min-[900px]:mx-0'
-              }`}
-            >
-              {lede}
-            </p>
-          )}
-          {children}
+          {/* Left Column: Typography & CTAs */}
+          <div
+            className={
+              compact
+                ? 'mx-auto max-w-[760px] text-center'
+                : 'lg:col-span-6 xl:col-span-7 text-left'
+            }
+          >
+            {/* Eyebrow with horizontal dash */}
+            {eyebrow && (
+              <div ref={eyebrowRef} className="mb-5 inline-flex items-center gap-3">
+                <span className="font-mono text-[0.74rem] sm:text-[0.78rem] tracking-[0.16em] text-[#061A40] font-semibold uppercase">
+                  {eyebrow}
+                </span>
+                <span className="h-px w-8 bg-[#007BFF]/60" aria-hidden="true" />
+              </div>
+            )}
 
-          {ctaButtons.length > 0 && (
-            <div
-              className={`mb-12 flex translate-y-5 flex-wrap gap-4 opacity-0 animate-fade-up [animation-delay:300ms] ${
-                compact ? 'justify-center' : ''
-              }`}
+            {/* Kinetic Main Headline */}
+            <h1
+              ref={titleRef}
+              className="mb-5 text-[clamp(2.35rem,4.4vw,4.1rem)] font-serif font-bold text-[#061A40] leading-[1.08] tracking-tight"
             >
-              {ctaButtons.map((btn, i) => (
-                <Link
-                  key={i}
-                  to={btn.to}
-                  className={
-                    btn.secondary
-                      ? 'inline-flex items-center gap-2 rounded-lg border border-line px-8 py-3.5 text-base font-semibold text-navy transition hover:border-navy hover:bg-paper-raised hover:backdrop-blur-2xl'
-                      : 'inline-flex items-center gap-2 rounded-lg bg-navy px-8 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_rgba(9,33,71,0.2)] transition hover:-translate-y-0.75 hover:bg-indigo-600 hover:shadow-glass-lg'
-                  }
-                >
-                  {btn.label}
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {stats.length > 0 && (
-            <div
-              className={`flex translate-y-5 flex-wrap gap-9.5 opacity-0 animate-fade-up [animation-delay:450ms] ${
-                compact ? 'justify-center' : ''
-              }`}
-            >
-              {stats.map((stat, i) => (
-                <div className="border-l-2 border-pink-500 pl-3.5" key={i}>
-                  <span
-                    className="block font-mono text-[1.6rem] font-semibold text-navy"
-                    data-count-to={stat.countTo}
-                    data-prefix={stat.prefix || ''}
-                    data-suffix={stat.suffix || ''}
-                  >
-                    {stat.prefix || ''}
-                    {0}
-                    {stat.suffix || ''}
+              {title ? (
+                title
+              ) : (
+                <>
+                  <span className="block overflow-hidden py-0.5">
+                    <span ref={line1Ref} className="block will-change-transform">
+                      We build technology
+                    </span>
                   </span>
-                  <span className="text-[0.8rem] tracking-[0.04em] text-slate-600 uppercase">{stat.label}</span>
-                </div>
-              ))}
+                  <span className="block overflow-hidden py-0.5">
+                    <span ref={line2Ref} className="block will-change-transform">
+                      for businesses —
+                    </span>
+                  </span>
+                  <span className="block overflow-hidden py-0.5">
+                    <span
+                      ref={line3Ref}
+                      className="inline-block will-change-transform italic font-serif text-gradient-hero"
+                    >
+                      and our own products.
+                    </span>
+                  </span>
+                </>
+              )}
+            </h1>
+
+            {/* Supporting Lede */}
+            {lede && (
+              <p
+                ref={ledeRef}
+                className="mb-8 max-w-[52ch] text-[clamp(1.02rem,1.5vw,1.18rem)] leading-relaxed text-[#52627A]"
+              >
+                {lede}
+              </p>
+            )}
+
+            {children}
+
+            {/* Action Buttons with Magnetic micro-interaction */}
+            {ctaButtons.length > 0 && (
+              <div ref={ctaRef} className="mb-12 flex flex-wrap items-center gap-4">
+                {ctaButtons.map((btn, i) => (
+                  <MagneticButton key={i} to={btn.to} primary={btn.primary || !btn.secondary}>
+                    <span>{btn.label}</span>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </MagneticButton>
+                ))}
+              </div>
+            )}
+
+            {/* Statistics Row */}
+            {stats.length > 0 && (
+              <div ref={statsRef} className="flex flex-wrap items-center gap-6 sm:gap-8 pt-2">
+                {stats.map((stat, i) => (
+                  <div key={i} className="flex items-center gap-6 sm:gap-8">
+                    <div>
+                      <span
+                        className="block font-serif text-[1.85rem] sm:text-[2.1rem] font-bold text-[#061A40] leading-none"
+                        data-count-to={stat.countTo}
+                        data-prefix={stat.prefix || ''}
+                        data-suffix={stat.suffix || ''}
+                      >
+                        {stat.prefix || ''}
+                        {stat.countTo}
+                        {stat.suffix || ''}
+                      </span>
+                      <span className="mt-1.5 block font-mono text-[0.68rem] sm:text-[0.72rem] tracking-[0.1em] text-[#52627A] uppercase">
+                        {stat.label}
+                      </span>
+                    </div>
+                    {i < stats.length - 1 && (
+                      <span className="h-10 w-px bg-slate-300/60" aria-hidden="true" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Right Column: 3D NEXUS Visual */}
+          {!compact && (
+            <div className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end">
+              {aside ? aside : <Hero3DVisual />}
             </div>
           )}
         </div>
-
-        {showSeal && (
-          <div className="relative z-10 flex justify-center" aria-hidden="true">
-            <SealSVG />
-          </div>
-        )}
-
-        {aside && (
-          <div className="relative z-10 flex translate-y-6 justify-center opacity-0 animate-fade-up [animation-delay:300ms]">
-            {aside}
-          </div>
-        )}
       </Container>
+
     </header>
   );
 }

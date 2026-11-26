@@ -1,3 +1,4 @@
+import GradientText from '../components/GradientText';
 import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
@@ -33,10 +34,6 @@ export default function About() {
     <>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <header className="relative overflow-hidden pt-[150px] pb-20">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-40 -left-40 h-130 w-130 animate-drift rounded-full bg-cyan-500 opacity-20 mix-blend-multiply blur-[120px]" />
-          <div className="absolute -right-30 bottom-0 h-110 w-110 animate-drift rounded-full bg-pink-500 opacity-15 mix-blend-multiply blur-[130px] [animation-delay:-6s]" />
-        </div>
         <Container className="relative z-10 max-w-[860px] text-center">
           <p className="mb-4.5 inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.14em] text-navy uppercase before:h-px before:w-5.5 before:bg-pink-500 before:content-['']">
             ABOUT NEXUS
@@ -59,7 +56,7 @@ export default function About() {
       </header>
 
       {/* ── STORY ────────────────────────────────────────────────────── */}
-      <section className="bg-paper-raised py-24">
+      <section className="py-24">
         <Container>
           <div data-reveal className={`grid grid-cols-1 items-center gap-12 md:grid-cols-2 ${reveal}`}>
             <div className="relative aspect-5/4 overflow-hidden rounded-[18px] border border-white/80 shadow-glass-lg">
@@ -67,7 +64,7 @@ export default function About() {
             </div>
             <div>
               <Eyebrow>HOW NEXUS WORKS</Eyebrow>
-              <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.5rem)] text-slate-900">Built from inside the industry, engineered in-house.</h2>
+              <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.5rem)] text-slate-900"><GradientText>Built from inside the industry, engineered in-house.</GradientText></h2>
               <p className="mb-4 text-slate-600">
                 Our leadership spent the last decade inside the warranty and device-protection industry — at Onsitego and OnAssist — and our engineering team builds the digital platforms Nexus runs on.
               </p>
@@ -85,7 +82,7 @@ export default function About() {
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-[560px]">
               <Eyebrow>LEADERSHIP</Eyebrow>
-              <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">The people behind Nexus.</h2>
+              <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>The people behind Nexus.</GradientText></h2>
               <p className="text-slate-600">A team built out of the warranty and IT industry itself — not around it.</p>
             </div>
             <Link to="/careers" className="inline-flex items-center gap-1.5 text-[0.95rem] font-semibold text-navy transition-[gap] hover:gap-2.5">
