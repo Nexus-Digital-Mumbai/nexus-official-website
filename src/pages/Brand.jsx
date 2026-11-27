@@ -1,18 +1,13 @@
 import GlassButton from '../components/GlassButton';
 import GradientText from '../components/GradientText';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { brandBySlug } from '../data/brands';
 import top10Logo from '../assets/brands/top-10-logo.png';
 
-export default function Brand() {
+export default function Brand({ brand }) {
   useScrollReveal();
-  const { slug } = useParams();
-  const brand = brandBySlug(slug);
-
-  if (!brand) return <Navigate to="/brands" replace />;
 
   return (
     <>

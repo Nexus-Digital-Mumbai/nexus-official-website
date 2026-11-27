@@ -28,10 +28,8 @@ export default function PageLoader() {
         setTimeout(() => boot.remove(), 500);
       }, wait);
     };
-    if (document.readyState === 'complete') finish();
-    else window.addEventListener('load', finish, { once: true });
+    finish();
     return () => {
-      window.removeEventListener('load', finish);
       clearTimeout(removeTimer);
     };
   }, []);

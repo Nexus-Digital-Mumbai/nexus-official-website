@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/prerender.jsx --outDir node_modules/.cache/nexus-render && node scripts/prerender.mjs",
+    "test": "node scripts/check-seo.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },

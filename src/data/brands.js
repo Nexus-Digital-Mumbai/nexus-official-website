@@ -24,6 +24,6 @@ export const brands = [
       'Nexus has collaborated with Dev Marketing to bring NexLock to retailers. NexLock training has been delivered to all of the Top 10 stores across Mumbai.',
     stores: trainingStores,
   },
-];
+].filter(record => record.published !== false);
 
 export const brandBySlug = (slug) => brands.find((b) => b.slug === slug);

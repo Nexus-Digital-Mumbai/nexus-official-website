@@ -1,3 +1,4 @@
+import { leadership } from '../data/team';
 import GradientText from '../components/GradientText';
 import { Link } from 'react-router-dom';
 import Container from '../components/Container';
@@ -5,27 +6,10 @@ import Eyebrow from '../components/Eyebrow';
 import { PillarIcon, Wordmark } from '../components/PillarMarks';
 import { PILLARS } from '../data/pillars';
 import useScrollReveal from '../hooks/useScrollReveal';
-import teamSagar from '../assets/team-sagar.jpg';
-import teamKunal from '../assets/team-kunal.jpg';
-import teamKetan from '../assets/team-ketan.jpg';
-import teamAshish from '../assets/team-ashish.jpg';
-import teamJanak from '../assets/team-janak.jpg';
-import teamVivek from '../assets/team-vivek.jpg';
 import nexusTeam from '../assets/nexus-team.jpg';
 
 const reveal =
   'translate-y-6 opacity-0 transition-all duration-700 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100';
-
-// `focus` sets the object-position so each face sits well inside the portrait crop;
-// `crop` zooms past a border baked into the source photo.
-const leadership = [
-  { name: 'Sagar', role: 'Chief Executive Officer', bio: 'Working for the past 10 years in IT and Business Development fields.', photo: teamSagar, focus: 'center 20%' },
-  { name: 'Kunal Kurmi', role: 'Chief Operating Officer', bio: 'B.Tech graduate of Thakur College of Engineering and Technology. Experienced with Spectrum, driving OnAssist and VWarranty.', photo: teamKunal, focus: 'center 25%' },
-  { name: 'Ketan', role: 'Chief Strategy Officer', bio: 'Worked with Onsitego, bringing 8 years of deep expertise in the extended warranty field.', photo: teamKetan, focus: 'center 20%', crop: 1.07 },
-  { name: 'Vivek Gupta', role: 'Lead Software Developer', bio: 'The architect behind the tech — driving digital platforms, web systems, and engineering infrastructure.', photo: teamVivek, focus: 'center 18%' },
-  { name: 'Ashish', role: 'Chief Financial Officer / Advisor', bio: 'Our dedicated financial advisor, ensuring robust economic growth and stability.', photo: teamAshish, focus: 'center 25%' },
-  { name: 'Janak Shah', role: 'Investor', bio: 'Strategic investor backing our vision for the future of IT and EMI security.', photo: teamJanak, focus: 'center 20%' },
-];
 
 export default function About() {
   useScrollReveal();
@@ -106,7 +90,7 @@ export default function About() {
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-navy/35 to-transparent" />
                 </div>
                 <div className="border-l-2 border-pink-500 pl-4">
-                  <h3 className="text-[1.3rem] text-slate-900">{m.name}</h3>
+                  <h3 className="text-[1.3rem] text-slate-900"><Link to={`/team/${m.slug}`}>{m.name}</Link></h3>
                   <p className="mb-3 font-mono text-[0.72rem] tracking-[0.1em] text-navy/70 uppercase">{m.role}</p>
                   <p className="text-[0.92rem] leading-relaxed text-slate-600">{m.bio}</p>
                 </div>

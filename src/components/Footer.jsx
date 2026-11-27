@@ -19,6 +19,7 @@ const columns = [
   { title: 'Company', links: [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About & leadership' },
+    { to: '/team', label: 'Team directory' },
     { to: '/brands', label: 'Brands' },
     { to: '/careers', label: 'Careers' },
     { to: '/collaborate', label: 'Collaborate' },
@@ -72,9 +73,9 @@ export default function Footer() {
 
       <div className="mountain-footer__glass relative z-10 mx-auto max-w-[1480px]">
         {/* Main 4-column Grid */}
-        <div className="grid grid-cols-2 gap-x-5 gap-y-5 border-b border-white/10 pb-5 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-4 border-b border-white/10 pb-5 lg:grid-cols-12 lg:gap-8">
           {/* Col 1: Logo & Tagline (lg: 5 cols) */}
-          <div data-footer-col className="lg:col-span-5 text-left">
+          <div data-footer-col className="col-span-2 lg:col-span-5 text-left">
             <Link to="/" className="inline-block transition-transform duration-200 hover:scale-[1.02]">
               <img
                 src="/nexus-logo-white.png"
@@ -82,24 +83,24 @@ export default function Footer() {
                 className="h-9 w-auto object-contain"
               />
             </Link>
-            <p className="mt-2 max-w-[34ch] text-xs text-slate-400 leading-relaxed">
+            <p className="mt-2 lg:max-w-[34ch] text-xs text-slate-400 leading-relaxed">
               A technology company: software engineering for businesses, and products of our own — NexLock and NexWarranty.
             </p>
-            <p className="mt-4 flex flex-wrap items-center gap-x-2 text-xs text-slate-400">
+            <p className="mt-2 lg:mt-4 flex flex-wrap items-center gap-x-2 text-xs text-slate-400">
               Design And Developed by
-              <a href="https://www.dimisi.tech/" className="inline-flex min-h-11 items-center rounded">
-                <img src={dimisiLogo} alt="Dimisi" className="h-auto w-28" />
+              <a href="https://www.dimisi.tech/" className="inline-flex min-h-6 lg:min-h-11 items-center rounded">
+                <img src={dimisiLogo} alt="Dimisi" className="h-auto w-20 lg:w-28" />
               </a>
             </p>
           </div>
 
           {columns.map(({title, links}, index) => (
-            <div key={title} data-footer-col className={index === 2 ? 'lg:col-span-3 text-left' : 'lg:col-span-2 text-left'}>
+            <div key={title} data-footer-col className={index === 2 ? 'col-span-2 lg:col-span-3 text-left' : 'lg:col-span-2 text-left'}>
               <p className="mb-2 font-display text-sm font-bold text-white tracking-wide">{title}</p>
-              <ul className="flex flex-col gap-0.5">
+              <ul className={title === 'Company' ? 'grid grid-cols-2 gap-x-4 sm:grid-cols-3 lg:flex lg:flex-col lg:gap-0.5' : 'flex flex-col lg:gap-0.5'}>
                 {links.map(({to, label}) => (
                   <li key={to}>
-                    <Link to={to} className="text-xs text-slate-400 transition-colors hover:text-cyan-400 hover:translate-x-0.5 inline-block">
+                    <Link to={to} className="inline-flex min-h-6 items-center text-xs text-slate-400 transition-colors hover:text-cyan-400">
                       {label}
                     </Link>
                   </li>
@@ -110,18 +111,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright, GSTIN, Legal links, and Tagline */}
-        <div className="mt-4 flex flex-col items-start justify-between gap-3 text-xs text-slate-400 sm:flex-row">
-          <div className="flex flex-wrap items-center gap-4">
+        <div className="mt-4 flex flex-col items-start justify-between gap-3 text-xs text-slate-400 lg:flex-row">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <p>&copy; {currentYear} NEXUS. All rights reserved.</p>
             <span className="hidden text-slate-600 sm:inline">|</span>
             <span className="font-mono text-slate-400">GSTIN: 27ABAFN2902R1ZZ</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            <ul className="grid grid-cols-2 items-start gap-x-4 gap-y-1 lg:flex lg:flex-wrap">
               {legal.map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="transition-colors hover:text-cyan-400">
+                  <Link to={l.to} className="inline-flex min-h-6 items-center transition-colors hover:text-cyan-400">
                     {l.label}
                   </Link>
                 </li>

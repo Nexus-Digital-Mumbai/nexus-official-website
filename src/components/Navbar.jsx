@@ -105,7 +105,6 @@ export default function Navbar({ dark, onToggleTheme }) {
     { label: 'About', href: '/about' },
     { label: 'Careers', href: '/careers' },
     { label: 'Collaborate', href: '/collaborate' },
-    { label: 'Contact us', href: '/contact' },
   ];
 
   // Brand logo element

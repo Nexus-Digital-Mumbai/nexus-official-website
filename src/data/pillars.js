@@ -89,6 +89,6 @@ export const PILLARS = [
       gradientText: 'from-teal-600 to-emerald-500',
     },
   },
-];
+].filter(record => record.published !== false);
 
 export const pillarById = (id) => PILLARS.find((p) => p.id === id);

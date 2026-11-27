@@ -1,51 +1,15 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import AnimatedBackground from './components/AnimatedBackground';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PageLoader from './components/PageLoader';
-import Home from './pages/Home';
-import ITSolutions from './pages/ITSolutions';
-import About from './pages/About';
-import Nexwarrenty from './pages/Nexwarrenty';
-import Nexlock from './pages/Nexlock';
-import Careers from './pages/Careers';
-import Contact from './pages/Contact';
-import Collaborate from './pages/Collaborate';
-import Brands from './pages/Brands';
-import Brand from './pages/Brand';
-import NexlockPrivacy from './pages/NexlockPrivacy';
-import NexlockTerms from './pages/NexlockTerms';
-import NexwarrentyPrivacy from './pages/NexwarrentyPrivacy';
-import NexwarrentyTerms from './pages/NexwarrentyTerms';
+import PageContent from './components/PageContent';
 
-function ScrollToTop() {
-  const { pathname, hash } = useLocation();
-
+export default function App({ views }) {
+  const [dark, setDark] = useState(false);
   useEffect(() => {
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
-  }, [pathname, hash]);
-
-  return null;
-}
-
-export default function App() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const urlTheme = new URLSearchParams(window.location.search).get('theme');
-      if (urlTheme === 'dark') return true;
-      if (urlTheme === 'light') return false;
-      return document.documentElement.dataset.theme === 'dark';
-    }
-    return false;
-  });
+    setDark(document.documentElement.dataset.theme === 'dark');
+  }, []);
 
   function toggleTheme() {
     const next = !dark;
@@ -57,29 +21,13 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
+      <a className="sr-only focus:not-sr-only focus:fixed focus:z-[100001] focus:bg-white focus:p-4" href="#main-content">Skip to content</a>
       <AnimatedBackground dark={dark} />
-      <ScrollToTop />
       <PageLoader />
       <Navbar dark={dark} onToggleTheme={toggleTheme} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/it-solutions" element={<ITSolutions />} />
-        <Route path="/nexwarrenty" element={<Nexwarrenty />} />
-        <Route path="/nexwarranty" element={<Navigate to="/nexwarrenty" replace />} />
-        <Route path="/nexlock" element={<Nexlock />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/collaborate" element={<Collaborate />} />
-        <Route path="/brands" element={<Brands />} />
-        <Route path="/brands/:slug" element={<Brand />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/nexlock/privacy" element={<NexlockPrivacy />} />
-        <Route path="/nexlock/terms" element={<NexlockTerms />} />
-        <Route path="/nexwarrenty/privacy" element={<NexwarrentyPrivacy />} />
-        <Route path="/nexwarrenty/terms" element={<NexwarrentyTerms />} />
-      </Routes>
+      <PageContent views={views} />
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }

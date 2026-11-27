@@ -38,7 +38,7 @@ export default function Collaborate() {
     designation: '',
     email: '',
     phone: '',
-    partnershipType: typeFromParam[searchParams.get('type')] || partnershipTypes[0],
+    partnershipType: partnershipTypes[0],
     message: '',
   });
 

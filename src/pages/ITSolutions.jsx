@@ -1,3 +1,4 @@
+import { serviceQuestions } from '../data/serviceQuestions';
 import GlassButton from '../components/GlassButton';
 import GradientText from '../components/GradientText';
 import { Link } from 'react-router-dom';
@@ -117,17 +118,12 @@ export default function ITSolutions() {
       </header>
 
       {/* ── POSITIONING STRIP ────────────────────────────────────────── */}
-      <section className="nexus-motion-surface glass-callout py-14 text-navy">
-        <Container className="grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto_1fr]">
-          <div>
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.14em] text-slate-600 uppercase">Starting from zero?</p>
-            <p className="font-display text-[1.35rem] leading-snug">We design and build it with you — web, mobile, backend and everything in between.</p>
-          </div>
-          <span className="hidden h-16 w-px bg-[var(--glass-edge)] md:block" />
-          <div>
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.14em] text-[var(--glass-active)] uppercase">Already have software?</p>
-            <p className="font-display text-[1.35rem] leading-snug">We take it over, fix what's broken, add what's missing and keep it running.</p>
-          </div>
+      <section id="questions" aria-label="Software project questions" className="nexus-motion-surface glass-callout py-14 text-navy">
+        <Container className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
+          {serviceQuestions.map(({question, answer}) => <div key={question}>
+            <h2 className="mb-2 text-xl">{question}</h2>
+            <p className="font-display text-[1.35rem] leading-snug">{answer}</p>
+          </div>)}
         </Container>
       </section>
 
