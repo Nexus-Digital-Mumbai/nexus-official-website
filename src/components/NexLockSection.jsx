@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom';
+import { PillarBadge } from './PillarMarks';
+import { FeatureGrid, ProblemSolution, Audience } from './ProductDetails';
+import { pillarById } from '../data/pillars';
 import SpecularButton from './SpecularButton';
 import GradientText from './GradientText';
 import { useRef } from 'react';
@@ -5,6 +9,13 @@ import Container from './Container';
 import { SmartphoneLockVisual } from './Pillar3DVisuals';
 import useScrollAnimation from '../animations/useScrollAnimation';
 import useMagnetic from '../animations/useMagnetic';
+
+const NEXLOCK_FEATURES = [
+  { title: 'One QR scan', desc: 'Link a device to the dashboard and customer account in a single scan.' },
+  { title: 'Auto lock', desc: 'Access is restricted automatically when an EMI falls overdue.' },
+  { title: 'Remote unlock', desc: 'Restore the device from the dashboard once payment is confirmed.' },
+  { title: 'SIM swap detection', desc: 'SIM removal or replacement triggers a security alert.' },
+];
 
 function MagneticLearnMoreButton() {
   const btnRef = useMagnetic(0.25);
@@ -14,7 +25,7 @@ function MagneticLearnMoreButton() {
       to="/nexlock"
       className="inline-flex items-center gap-2 rounded-full bg-[#061A40] px-7 py-3 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(6,26,64,0.22)] transition-colors duration-300 hover:bg-[#0057D9] hover:shadow-[0_10px_25px_rgba(0,87,217,0.35)]"
     >
-      <span>Learn more</span>
+      <span>Explore NexLock</span>
       <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
     </SpecularButton>
   );
@@ -64,8 +75,10 @@ export default function NexLockSection() {
           <div data-text-col className="lg:col-span-6 text-left order-1 lg:order-2">
             {/* Eyebrow */}
             <span className="mb-2 block font-mono text-[0.72rem] tracking-[0.16em] uppercase text-[#007BFF] font-semibold">
-              NX-LCK
+              Pillar 02 · NX-LCK
             </span>
+
+            <PillarBadge kind="product" className="mb-3" />
 
             {/* Heading */}
             <h2 className="mb-4 font-serif text-[clamp(2.1rem,3.4vw,3.2rem)] font-bold text-[#061A40] leading-[1.1] tracking-tight"><GradientText>
@@ -74,12 +87,22 @@ export default function NexLockSection() {
 
             {/* Supporting description */}
             <p className="mb-8 max-w-[44ch] text-[clamp(1.05rem,1.5vw,1.2rem)] leading-relaxed text-[#52627A]">
-              Recover device finance EMIs without field agents or repossession.
+              Recover device-finance EMIs without field agents or repossession.
             </p>
 
+            <p className="mb-5 leading-relaxed text-slate-600">NexLock is an Android app and management dashboard built by Nexus for businesses that sell or finance phones on EMI.</p>
+            <ProblemSolution
+              accent={pillarById('nexlock').accent}
+              problem="When an EMI on a financed phone goes unpaid, recovery means reminders, field visits and, at worst, repossession."
+              solution="NexLock restricts the device automatically once an EMI is overdue, and restores it the moment payment is confirmed."
+            />
+            <FeatureGrid items={NEXLOCK_FEATURES} accent={pillarById('nexlock').accent} />
+            <Audience label="Built for" items={['NBFCs', 'Fintech lenders', 'Mobile retailers', 'Distributors']} />
+
             {/* CTA Button */}
-            <div>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <MagneticLearnMoreButton />
+              <Link to="/collaborate?type=nexlock" className="font-semibold text-[#0057D9] hover:underline">Become a NexLock partner</Link>
             </div>
           </div>
         </div>

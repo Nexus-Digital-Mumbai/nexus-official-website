@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Container from './Container';
+import dimisiLogo from '../assets/dimisi-silver-logo.png';
 import useScrollAnimation from '../animations/useScrollAnimation';
 
 import { PILLARS } from '../data/pillars';
@@ -70,7 +70,7 @@ export default function Footer() {
         />
       </div>
 
-      <Container className="mountain-footer__glass relative z-10">
+      <div className="mountain-footer__glass relative z-10 mx-auto max-w-[1480px]">
         {/* Main 4-column Grid */}
         <div className="grid grid-cols-2 gap-x-5 gap-y-5 border-b border-white/10 pb-5 lg:grid-cols-12 lg:gap-8">
           {/* Col 1: Logo & Tagline (lg: 5 cols) */}
@@ -84,6 +84,12 @@ export default function Footer() {
             </Link>
             <p className="mt-2 max-w-[34ch] text-xs text-slate-400 leading-relaxed">
               A technology company: software engineering for businesses, and products of our own — NexLock and NexWarranty.
+            </p>
+            <p className="mt-4 flex flex-wrap items-center gap-x-2 text-xs text-slate-400">
+              Design And Developed by
+              <a href="https://www.dimisi.tech/" className="inline-flex min-h-11 items-center rounded">
+                <img src={dimisiLogo} alt="Dimisi" className="h-auto w-28" />
+              </a>
             </p>
           </div>
 
@@ -123,7 +129,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

@@ -7,8 +7,8 @@ import useTiltCard from '../animations/useTiltCard';
 
 const CTA_OPTIONS = [
   {
-    title: 'Build a custom solution',
-    desc: 'Scale your ideas with us.',
+    title: 'I need software built, fixed or maintained',
+    desc: 'Start a project',
     to: '/collaborate?type=it-new',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,8 +18,8 @@ const CTA_OPTIONS = [
     ),
   },
   {
-    title: 'Integrate NexLock',
-    desc: 'Secure what matters.',
+    title: 'I finance or sell phones on EMI',
+    desc: 'See NexLock',
     to: '/nexlock',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -29,8 +29,8 @@ const CTA_OPTIONS = [
     ),
   },
   {
-    title: 'Explore NexWarranty',
-    desc: "Protect what's yours.",
+    title: 'I want to protect an appliance or device',
+    desc: "See NexWarranty plans",
     to: '/nexwarrenty',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -124,9 +124,11 @@ export default function ContactCTASection() {
           <div className="relative z-10 mx-auto max-w-[960px]">
             {/* Heading */}
             <div className="mb-12 text-center">
+              <p className="mb-2 font-mono text-xs text-slate-500">WHERE TO START</p>
               <h2 className="text-[clamp(2.1rem,3.8vw,3.3rem)] font-serif font-bold text-navy tracking-tight"><GradientText glow={0.15}>
                 Tell us what you're <span className="italic font-serif">working on.</span>
               </GradientText></h2>
+              <p className="mt-4 text-slate-600">Pick the part of Nexus that fits — or just get in touch and we'll route you.</p>
             </div>
 
             {/* 3 Interactive Cards Row */}

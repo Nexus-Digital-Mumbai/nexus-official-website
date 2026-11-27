@@ -57,7 +57,7 @@ function PillarCard({ pillar }) {
           {PILLAR_ICONS[pillar.id]}
         </span>
         <span className="font-mono text-[0.66rem] tracking-[0.12em] uppercase text-slate-400 font-semibold">
-          {pillar.code}
+          {pillar.kindLabel}
         </span>
       </div>
 
@@ -66,14 +66,16 @@ function PillarCard({ pillar }) {
         <h3 className="mb-2 text-xl font-bold font-display text-[#061A40] tracking-tight group-hover:text-[#0057D9] transition-colors duration-200">
           {pillar.name.toUpperCase()}
         </h3>
+        <p className="mb-2 font-semibold text-navy">{pillar.tagline}</p>
         <p className="text-[0.92rem] leading-relaxed text-[#52627A]">
-          {pillar.id === 'it-solutions'
-            ? 'Custom software development, product engineering and tech consulting.'
-            : pillar.id === 'nexlock'
-            ? 'Smart device lock & EMI recovery platform.'
-            : 'Extended warranty for home appliances & electronics.'}
+          {pillar.summary}
         </p>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
+          {pillar.points.map(point => <li key={point}>{point}</li>)}
+        </ul>
       </div>
+
+      <span className="font-mono text-xs text-slate-500">{pillar.code}</span>
 
       {/* Bottom Row: Link on Left + 3D Visual on Right */}
       <div className="mt-auto flex items-end justify-between pt-4">
@@ -81,7 +83,7 @@ function PillarCard({ pillar }) {
           to={pillar.to}
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0057D9] transition-all duration-300 group-hover:gap-2.5 group-hover:text-[#007BFF]"
         >
-          <span>Explore</span>
+          <span>{pillar.cta}</span>
           <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
         </Link>
 
@@ -142,9 +144,11 @@ export default function ThreePillarsSection() {
       <Container>
         {/* Section Heading */}
         <div className="mx-auto mb-16 max-w-[720px] text-center">
+          <p className="mb-2 font-mono text-xs text-slate-500">01 · WHAT NEXUS DOES</p>
           <h2 className="text-[clamp(2.1rem,3.6vw,3.2rem)] font-serif font-bold text-[#061A40] tracking-tight opacity-0"><GradientText>
             One company. <span className="italic font-serif">Three pillars.</span>
           </GradientText></h2>
+          <p className="mt-4 text-slate-600">We engineer software for other businesses, and we build technology products of our own. Each pillar has its own focus — all three share the same Nexus team and standards.</p>
         </div>
 
         {/* 3 Pillar Cards in Responsive Grid */}
@@ -153,6 +157,11 @@ export default function ThreePillarsSection() {
             <PillarCard key={p.id} pillar={p} />
           ))}
         </div>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 text-center text-[0.88rem] text-slate-600 sm:flex-row sm:gap-8">
+            <p><span className="mr-2 font-mono text-[0.68rem] tracking-[0.12em] text-cyan-700 uppercase">Services</span>We build and maintain software for you.</p>
+            <span className="hidden h-4 w-px bg-navy/15 sm:block" />
+            <p><span className="mr-2 font-mono text-[0.68rem] tracking-[0.12em] text-blue-700 uppercase">Products</span>Technology Nexus owns, builds and operates.</p>
+          </div>
       </Container>
     </section>
   );

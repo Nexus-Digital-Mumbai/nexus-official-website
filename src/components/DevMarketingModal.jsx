@@ -83,14 +83,14 @@ export default function DevMarketingModal() {
               onClick={close}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#061A40] px-6 py-2.5 text-xs font-semibold text-white shadow-md hover:bg-[#0057D9] transition-all"
             >
-              See training stores &rarr;
+              See the partnership &rarr;
             </SpecularButton>
             <button
               type="button"
               onClick={close}
               className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-5 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
             >
-              Dismiss
+              Close
             </button>
           </div>
         </div>

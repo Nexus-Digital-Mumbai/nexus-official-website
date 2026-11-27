@@ -29,12 +29,7 @@ export default function HeroSection({
   compact = false,
   eyebrow = 'NEXUS · TECHNOLOGY COMPANY',
   title = null,
-  lede = (
-    <>
-      Innovative solutions. Stronger security.<br />
-      A smarter tomorrow.
-    </>
-  ),
+  lede = "Nexus IT Solutions builds and maintains software for clients. NexLock and NexWarranty are products Nexus has built and runs itself. Three pillars, one technology company.",
   ctaButtons = [
     { label: 'Explore the three pillars', to: '/#pillars', primary: true },
     { label: 'Start a software project', to: '/collaborate?type=it-new', secondary: true },

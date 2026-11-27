@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { PillarBadge } from './PillarMarks';
 import SpecularButton from './SpecularButton';
 import GradientText from './GradientText';
 import { useRef } from 'react';
@@ -5,6 +7,9 @@ import Container from './Container';
 import { ITCodeVisual } from './Pillar3DVisuals';
 import useScrollAnimation from '../animations/useScrollAnimation';
 import useMagnetic from '../animations/useMagnetic';
+
+const IT_BUILD = ['Websites', 'Web applications', 'Mobile applications', 'Custom business software', 'CRM development', 'APIs & backends'];
+const IT_EXISTING = ['CRM & software maintenance', 'Bug fixing', 'New feature development', 'UI/UX modernization', 'Legacy modernization', 'Integrations & performance'];
 
 function MagneticDiscoverButton() {
   const btnRef = useMagnetic(0.25);
@@ -14,7 +19,7 @@ function MagneticDiscoverButton() {
       to="/it-solutions"
       className="inline-flex items-center gap-2 rounded-full bg-[#061A40] px-7 py-3 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(6,26,64,0.22)] transition-colors duration-300 hover:bg-[#0057D9] hover:shadow-[0_10px_25px_rgba(0,87,217,0.35)]"
     >
-      <span>Discover more</span>
+      <span>Explore IT Solutions</span>
       <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
     </SpecularButton>
   );
@@ -71,8 +76,10 @@ export default function ITSolutionsSection() {
           <div data-text-col className="lg:col-span-5 text-left">
             {/* Eyebrow */}
             <span className="mb-2 block font-mono text-[0.72rem] tracking-[0.16em] uppercase text-[#007BFF] font-semibold">
-              NX-ITS
+              Pillar 01 · NX-ITS
             </span>
+
+            <PillarBadge kind="services" className="mb-3" />
 
             {/* Heading */}
             <h2 className="mb-3 font-serif text-[clamp(2.1rem,3.4vw,3.2rem)] font-bold text-[#061A40] leading-[1.1] tracking-tight"><GradientText>
@@ -81,7 +88,7 @@ export default function ITSolutionsSection() {
 
             {/* Subheading */}
             <p className="mb-6 font-display text-[1.12rem] font-semibold text-[#0057D9]">
-              Build. Innovate. Scale.
+              New software when you need it. A dependable team for the software you already run.
             </p>
 
             {/* Feature Badges */}
@@ -112,9 +119,26 @@ export default function ITSolutionsSection() {
               </span>
             </div>
 
+            <p className="mb-5 leading-relaxed text-slate-600">Most businesses already have a website, an app or a CRM that needs attention. Nexus IT Solutions builds new systems from scratch — and takes on existing ones: fixing bugs, adding features, modernizing the UI and keeping them running long-term.</p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-navy/10 bg-white/60 p-5">
+                <p className="mb-3 font-mono text-[0.68rem] tracking-[0.14em] text-slate-500 uppercase">Build new</p>
+                <ul className="space-y-1.5 text-[0.9rem] text-slate-700">
+                  {IT_BUILD.map((s) => <li key={s}>{s}</li>)}
+                </ul>
+              </div>
+              <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/8 p-5">
+                <p className="mb-3 font-mono text-[0.68rem] tracking-[0.14em] text-cyan-700 uppercase">Work with what exists</p>
+                <ul className="space-y-1.5 text-[0.9rem] text-slate-800">
+                  {IT_EXISTING.map((s) => <li key={s}>{s}</li>)}
+                </ul>
+              </div>
+            </div>
+
             {/* CTA Button */}
-            <div>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <MagneticDiscoverButton />
+              <Link to="/collaborate?type=it-existing" className="font-semibold text-[#0057D9] hover:underline">Get help with existing software</Link>
             </div>
           </div>
 

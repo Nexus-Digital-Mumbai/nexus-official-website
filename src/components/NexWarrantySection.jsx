@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom';
+import { PillarBadge } from './PillarMarks';
+import { FeatureGrid, ProblemSolution, Audience } from './ProductDetails';
+import { pillarById } from '../data/pillars';
 import SpecularButton from './SpecularButton';
 import GradientText from './GradientText';
 import { useRef } from 'react';
@@ -5,6 +9,13 @@ import Container from './Container';
 import { WarrantyCertificateVisual } from './Pillar3DVisuals';
 import useScrollAnimation from '../animations/useScrollAnimation';
 import useMagnetic from '../animations/useMagnetic';
+
+const NEXWARRANTY_FEATURES = [
+  { title: '100% parts & labour', desc: 'Mechanical and electrical breakdowns after the brand warranty expires.' },
+  { title: 'Zero depreciation', desc: 'Full claim value with no deduction.' },
+  { title: 'Doorstep service', desc: 'Free pickup and drop, with complimentary transportation.' },
+  { title: 'Authorized repairs', desc: 'Claims route to brand-authorized service centers.' },
+];
 
 function MagneticExplorePlansButton() {
   const btnRef = useMagnetic(0.25);
@@ -14,7 +25,7 @@ function MagneticExplorePlansButton() {
       to="/nexwarrenty"
       className="inline-flex items-center gap-2 rounded-full bg-[#061A40] px-7 py-3 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(6,26,64,0.22)] transition-colors duration-300 hover:bg-[#0057D9] hover:shadow-[0_10px_25px_rgba(0,87,217,0.35)]"
     >
-      <span>Explore plans</span>
+      <span>Explore NexWarranty</span>
       <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
     </SpecularButton>
   );
@@ -71,8 +82,10 @@ export default function NexWarrantySection() {
           <div data-text-col className="lg:col-span-5 xl:col-span-6 text-left">
             {/* Eyebrow */}
             <span className="mb-2 block font-mono text-[0.72rem] tracking-[0.16em] uppercase text-[#007BFF] font-semibold">
-              NX-WRT
+              Pillar 03 · NX-WRT
             </span>
+
+            <PillarBadge kind="product" className="mb-3" />
 
             {/* Heading */}
             <h2 className="mb-3 font-serif text-[clamp(2.1rem,3.4vw,3.2rem)] font-bold text-[#061A40] leading-[1.1] tracking-tight"><GradientText>
@@ -81,7 +94,7 @@ export default function NexWarrantySection() {
 
             {/* Subhead */}
             <p className="mb-6 font-display text-[1.12rem] font-semibold text-[#0057D9]">
-              Cover that lasts.
+              Cover that begins where the brand warranty ends.
             </p>
 
             {/* Feature Pills */}
@@ -106,9 +119,19 @@ export default function NexWarrantySection() {
               </span>
             </div>
 
+            <p className="mb-5 leading-relaxed text-slate-600">NexWarranty is Nexus's extended warranty for home appliances and electronics — 1 to 4 year plans for devices worth up to ₹20 lakh, priced as a simple percentage of device value.</p>
+            <ProblemSolution
+              accent={pillarById('nexwarranty').accent}
+              problem="Once the manufacturer's warranty expires, every breakdown becomes an out-of-pocket repair bill."
+              solution="NexWarranty pays for parts and labour in full, with zero depreciation and doorstep pickup and drop."
+            />
+            <FeatureGrid items={NEXWARRANTY_FEATURES} accent={pillarById('nexwarranty').accent} />
+            <Audience label="Built for" items={['Households', 'Appliance & electronics retailers']} />
+
             {/* CTA Button */}
-            <div>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <MagneticExplorePlansButton />
+              <Link to="/nexwarrenty#calculator" className="font-semibold text-[#0057D9] hover:underline">Calculate a plan price</Link>
             </div>
           </div>
 
