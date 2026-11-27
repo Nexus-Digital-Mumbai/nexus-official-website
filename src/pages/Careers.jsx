@@ -1,3 +1,5 @@
+import GlassButton from '../components/GlassButton';
+import GradientText from '../components/GradientText';
 import HeroSection from '../components/HeroSection';
 import PhotoBand from '../components/PhotoBand';
 import CertCard from '../components/CertCard';
@@ -40,7 +42,7 @@ export default function Careers() {
         <Container>
           <div className="mb-12">
             <Eyebrow>OPEN POSITIONS</Eyebrow>
-            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Current Openings</h2>
+            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>Current Openings</GradientText></h2>
             <p className="max-w-[60ch] text-slate-600">
               To apply, send your resume to{' '}
               <a href="mailto:careers@nexusdig.in" className="font-semibold text-navy underline decoration-pink-500/60 underline-offset-4 hover:text-pink-700">
@@ -76,17 +78,16 @@ export default function Careers() {
             />
           </div>
 
-          <div className="mt-14 flex flex-col items-start justify-between gap-5 rounded-2xl bg-ink px-7 py-8 text-slate-50 sm:flex-row sm:items-center sm:px-10">
+          <div className="mt-14 flex flex-col items-start justify-between gap-5 rounded-2xl glass-callout px-7 py-8 text-navy sm:flex-row sm:items-center sm:px-10">
             <div>
-              <p className="mb-1 font-mono text-[0.7rem] tracking-[0.14em] text-cyan-400 uppercase">Don't see your role?</p>
+              <p className="mb-1 font-mono text-[0.7rem] tracking-[0.14em] text-[var(--glass-active)] uppercase">Don't see your role?</p>
               <p className="font-display text-[1.2rem]">Send your resume to careers@nexusdig.in — we're always glad to hear from good people.</p>
             </div>
-            <a
+            <GlassButton
               href="mailto:careers@nexusdig.in?subject=Resume%20%E2%80%94%20General%20application"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-ink transition hover:bg-cyan-400"
-            >
+              className="shrink-0">
               Email your resume &rarr;
-            </a>
+            </GlassButton>
           </div>
         </Container>
       </section>

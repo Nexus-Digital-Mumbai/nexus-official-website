@@ -1,3 +1,4 @@
+import GradientText from '../components/GradientText';
 import HeroSection from '../components/HeroSection';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
@@ -100,7 +101,7 @@ export default function NexlockPrivacy() {
         style={{ minHeight: '44vh', paddingTop: '120px', paddingBottom: '2rem' }}
       />
 
-      <section className="py-20 bg-grid-paper">
+      <section className="py-20">
         <Container>
           {/* Intro badge */}
           <div
@@ -134,7 +135,7 @@ export default function NexlockPrivacy() {
                   <span className="font-mono text-[0.72rem] tracking-[0.1em] text-indigo-500 uppercase">
                     §{sec.number}
                   </span>
-                  <h2 className="text-xl font-semibold text-navy">{sec.title}</h2>
+                  <h2 className="text-xl font-semibold text-navy"><GradientText>{sec.title}</GradientText></h2>
                 </div>
 
                 {sec.content && (
@@ -172,7 +173,7 @@ export default function NexlockPrivacy() {
                   <span className="font-mono text-[0.72rem] tracking-[0.1em] text-indigo-500 uppercase">
                     §10
                   </span>
-                  <h2 className="text-xl font-semibold text-navy">Contact Information</h2>
+                  <h2 className="text-xl font-semibold text-navy"><GradientText>Contact Information</GradientText></h2>
                 </div>
                 <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
                   <div>

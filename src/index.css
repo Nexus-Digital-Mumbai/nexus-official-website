@@ -1,23 +1,36 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   NEXUS — Tailwind theme
-   Brand tokens only; everything else (spacing, layout, color scale) comes
-   straight from Tailwind's utility classes in each component.
+   NEXUS — Brand Design System & Tokens
+   Inspired by the official NEXUS 3D metallic emblem & Target Reference Design
    ========================================================================== */
 @theme {
-  --color-ink: #050a12;
-  --color-navy: #092147;
-  --color-paper: #f4f6fc;
-  --color-paper-raised: rgba(255, 255, 255, 0.6);
-  --color-line: rgba(9, 33, 71, 0.08);
+  --color-ink: #061A40;
+  --color-navy: #061A40;
+  --color-navy-dark: #03112B;
+  --color-midnight: #03112B;
+  --color-royal: #0057D9;
+  --color-electric: #007BFF;
+  --color-cyan: #00C8FF;
+  --color-cyan-glow: #00E5FF;
+  --color-ice: #DDF5FF;
+  --color-sky: #EAF7FF;
+  --color-dark-text: #101A33;
+  --color-muted-text: #52627A;
 
-  --font-display: "Space Grotesk", "Outfit", sans-serif;
-  --font-body: "Inter", "Outfit", sans-serif;
+  --color-paper: #F8FBFE;
+  --color-paper-raised: rgba(255, 255, 255, 0.85);
+  --color-line: rgba(6, 26, 64, 0.08);
+
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Plus Jakarta Sans", "Space Grotesk", sans-serif;
+  --font-body: "Inter", "Plus Jakarta Sans", sans-serif;
   --font-mono: "IBM Plex Mono", "Menlo", monospace;
 
-  --shadow-glass: 0 10px 30px rgba(79, 70, 229, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
-  --shadow-glass-lg: 0 20px 50px rgba(6, 182, 212, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  --shadow-glass: 0 10px 30px rgba(0, 123, 255, 0.07), inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+  --shadow-glass-lg: 0 20px 50px rgba(0, 200, 255, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+  --shadow-card-hover: 0 25px 60px rgba(0, 87, 217, 0.12), 0 0 30px rgba(0, 200, 255, 0.1);
+  --shadow-pill: 0 8px 30px rgba(6, 26, 64, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
 
   --blur-glass: 20px;
 
@@ -27,6 +40,11 @@
   --animate-seal-draw: seal-draw 1.8s ease-out forwards;
   --animate-seal-pulse: seal-pulse 2.4s ease-in-out infinite;
   --animate-drift: drift 14s ease-in-out infinite alternate;
+  --animate-orbit-cw: orbit-cw 24s linear infinite;
+  --animate-orbit-ccw: orbit-ccw 20s linear infinite;
+  --animate-float-slow: float-slow 5s ease-in-out infinite;
+  --animate-float-delayed: float-slow 6s ease-in-out 2s infinite;
+  --animate-pulse-glow: pulse-glow 3.5s ease-in-out infinite;
 }
 
 @layer base {
@@ -39,7 +57,7 @@
     overflow-x: hidden;
   }
   h1, h2, h3, h4 {
-    @apply font-display font-semibold tracking-tight;
+    @apply tracking-tight;
   }
   a {
     color: inherit;
@@ -49,7 +67,7 @@
     max-width: 100%;
   }
   :focus-visible {
-    outline: 2px solid var(--color-cyan-500);
+    outline: 2px solid var(--color-electric);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -61,6 +79,112 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* ==========================================================================
+   Typography utilities
+   ========================================================================== */
+@utility font-serif {
+  font-family: var(--font-serif);
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility text-electric-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #007BFF;
+}
+
+@utility text-cyan-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #00C8FF;
+}
+
+@utility text-gradient-metallic {
+  background: linear-gradient(135deg, #0057D9 0%, #007BFF 28%, #00C8FF 55%, #FFFFFF 75%, #007BFF 100%);
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: metallic-shift 6s ease-in-out infinite alternate;
+}
+
+@utility text-gradient-hero {
+  background: linear-gradient(120deg, #0057D9 0%, #007BFF 35%, #00E5FF 70%, #0057D9 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: metallic-shift 5s ease-in-out infinite alternate;
+}
+
+@utility card-spotlight {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(
+      450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(0, 200, 255, 0.35),
+      rgba(0, 87, 217, 0.15) 35%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+@utility shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.28) 50%,
+      transparent 100%
+    );
+    transform: translateX(-120%) rotate(25deg);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    animation: light-sweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes metallic-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes light-sweep {
+  0% { transform: translateX(-120%) rotate(25deg); }
+  100% { transform: translateX(250%) rotate(25deg); }
 }
 
 /* ==========================================================================
@@ -93,7 +217,7 @@
 }
 
 @utility glass-panel {
-  background: var(--color-paper-raised);
+  background: #fff;
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -168,6 +292,70 @@
 @keyframes seal-draw { to { stroke-dashoffset: 0; } }
 @keyframes seal-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
 @keyframes drift { to { transform: translate(24px, 30px) scale(1.08); } }
+
+@keyframes orbit-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.06); }
+}
+
+@utility glass-nav-pill {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 200, 255, 0.22);
+  box-shadow: 0 10px 35px rgba(0, 87, 217, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+@utility glass-card-futuristic {
+  background: #fff;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 35px rgba(0, 123, 255, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    border-color: rgba(0, 200, 255, 0.45);
+    box-shadow: 0 22px 50px rgba(0, 87, 217, 0.12), 0 0 25px rgba(0, 200, 255, 0.15);
+    transform: translateY(-4px);
+  }
+}
+
+@utility futuristic-cta-box {
+  background: linear-gradient(180deg, #061A40 0%, #03112B 100%);
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  box-shadow: 0 25px 60px rgba(3, 17, 43, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+@utility futuristic-cta-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(0, 200, 255, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 200, 255, 0.15);
+    transform: translateY(-3px);
+  }
+}
 
 /* ==========================================================================
    NexLock / Dark-section utilities
@@ -313,3 +501,13 @@
   100% { transform: translateX(-50%); }
 }
 
+
+#root {
+  isolation: isolate;
+}
+
+.nexus-motion-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: #071426;
+}

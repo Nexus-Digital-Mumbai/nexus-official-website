@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const BOOT_MIN_MS = 700; // keep the refresh loader up long enough to read as intentional
-const ROUTE_MS = 550; // brief brand beat when moving between pages
+const BOOT_MIN_MS = 150; // fast responsive boot loader
+const ROUTE_MS = 250; // brief brand beat when moving between pages
 
 /*
  * Nexus page loader.
@@ -28,10 +28,8 @@ export default function PageLoader() {
         setTimeout(() => boot.remove(), 500);
       }, wait);
     };
-    if (document.readyState === 'complete') finish();
-    else window.addEventListener('load', finish, { once: true });
+    finish();
     return () => {
-      window.removeEventListener('load', finish);
       clearTimeout(removeTimer);
     };
   }, []);

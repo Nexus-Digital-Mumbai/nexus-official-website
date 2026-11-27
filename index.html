@@ -7,15 +7,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nexus &mdash; IT Solutions, NexLock &amp; NexWarranty</title>
-    <meta
-      name="description"
-      content="Nexus is a technology company. Nexus IT Solutions builds and maintains software for businesses; NexLock and NexWarranty are Nexus's own products."
-    />
+    <script>
+      try {
+        const urlTheme = new URLSearchParams(window.location.search).get('theme');
+        if (urlTheme === 'dark' || (!urlTheme && localStorage.getItem('nexus-theme') === 'dark')) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch { /* The theme toggle also works without storage. */ }
+    </script>
+    <!--page-head-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -30,6 +34,9 @@
           #f4f6fc;
         transition: opacity 0.45s ease, visibility 0.45s ease;
       }
+      html[data-theme="dark"] { color-scheme: dark; background: #071426; }
+      html[data-theme="dark"] .nx-loader { background: #071426; }
+      html[data-theme="dark"] .nx-loader__word { color: #eaf7ff; }
       .nx-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
       .nx-loader__mark { position: relative; width: 112px; height: 112px; display: grid; place-items: center; }
       .nx-loader__ring {
@@ -59,7 +66,7 @@
       @keyframes nx-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.96); } }
       @keyframes nx-sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
       @media (prefers-reduced-motion: reduce) {
-        .nx-loader__ring, .nx-loader__halo, .nx-loader__bar::after { animation-duration: 3s; }
+        .nx-loader__ring, .nx-loader__halo, .nx-loader__bar::after { animation: none; }
       }
     </style>
   </head>
@@ -73,7 +80,8 @@
       <div class="nx-loader__word">NEXUS</div>
       <div class="nx-loader__bar"></div>
     </div>
-    <div id="root"></div>
+    <noscript><style>#boot-loader{display:none} [data-reveal],.opacity-0{opacity:1!important;transform:none!important}</style></noscript>
+    <div id="root"><!--page-body--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

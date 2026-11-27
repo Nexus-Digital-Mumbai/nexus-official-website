@@ -1,3 +1,5 @@
+import GlassButton from '../components/GlassButton';
+import GradientText from '../components/GradientText';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
@@ -36,7 +38,7 @@ export default function Collaborate() {
     designation: '',
     email: '',
     phone: '',
-    partnershipType: typeFromParam[searchParams.get('type')] || partnershipTypes[0],
+    partnershipType: partnershipTypes[0],
     message: '',
   });
 
@@ -94,7 +96,7 @@ export default function Collaborate() {
         <Container>
           <div className="mb-14 text-center">
             <Eyebrow>WHY PARTNER WITH NEXUS?</Eyebrow>
-            <h2 className="mt-2 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Ways to work with Nexus</h2>
+            <h2 className="mt-2 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>Ways to work with Nexus</GradientText></h2>
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -133,7 +135,7 @@ export default function Collaborate() {
         </Container>
       </section>
 
-      <section className="bg-paper-raised/40 py-20 border-y border-white/60">
+      <section className="py-20 border-y border-white/60">
         <Container>
           <div className="mx-auto max-w-3xl">
             <div data-reveal className="glass-panel translate-y-6 rounded-2xl p-8 sm:p-12 opacity-0 shadow-glass-lg transition-all duration-700 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100">
@@ -149,20 +151,19 @@ export default function Collaborate() {
               </div>
 
               {submitted && (
-                <div className="mb-8 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-5 text-center text-slate-800">
+                <div className="glass-notice mb-8 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-5 text-center text-slate-800">
                   <span className="text-2xl">✅</span>
                   <h4 className="mt-2 font-semibold text-navy">Proposal Prepared!</h4>
                   <p className="mt-1 text-sm text-slate-600">
                     If your email app didn't open automatically, click below to send your details directly:
                   </p>
-                  <a
+                  <GlassButton
                     href={`mailto:info@nexusdig.in?subject=${encodeURIComponent(`Collaboration Request from ${formData.companyName}`)}&body=${encodeURIComponent(
                       `Company Name: ${formData.companyName}\nContact Person: ${formData.contactName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nPartnership Type: ${formData.partnershipType}\n\nMessage:\n${formData.message}`
                     )}`}
-                    className="mt-3 inline-flex items-center gap-2 rounded-lg bg-navy px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cyan-600"
-                  >
+                    className="mt-3 text-sm">
                     ✉️ Send Email to info@nexusdig.in
-                  </a>
+                  </GlassButton>
                 </div>
               )}
 
@@ -279,12 +280,11 @@ export default function Collaborate() {
                 </div>
 
                 <div className="pt-2 text-center">
-                  <button
+                  <GlassButton
                     type="submit"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-10 py-4 font-semibold text-white shadow-lg transition hover:bg-cyan-600 hover:shadow-cyan-500/20 active:scale-[0.99] cursor-pointer"
-                  >
+                    className="w-full sm:w-auto">
                     <span>🤝 Submit Collaboration Proposal</span>
-                  </button>
+                  </GlassButton>
                   <p className="mt-3 text-xs text-slate-500">
                     Submitting will open your mail client to send structured details to{' '}
                     <strong className="text-navy">info@nexusdig.in</strong>
