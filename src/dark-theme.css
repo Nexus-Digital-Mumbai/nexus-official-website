@@ -1,0 +1,63 @@
+﻿/* Dark theme uses the same navy surfaces and cool highlights as the NEXUS emblem. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #071426;
+  --color-paper-raised: #13253b;
+  --color-line: #2a4159;
+  --night-panel: #11233a;
+  --night-ink: #eef6ff;
+  --night-muted: #b4c6db;
+  --nexlock-accent: #81c9ff;
+
+  body, .nexus-lightfall { background-color: var(--color-paper); }
+  body { color: var(--night-ink); }
+
+  :is(.glass-panel, .glass-card-futuristic, .glass-nav-pill, .bg-white,
+      .bg-white\/60, .bg-white\/70, .bg-white\/80, .bg-white\/85,
+      .bg-white\/90, .bg-white\/95, select, textarea) {
+    background-color: var(--night-panel);
+  }
+  :is(.glass-panel, .glass-card-futuristic, .glass-nav-pill, nav, input, select, textarea) {
+    border-color: #314760;
+  }
+  :is(.bg-blue-50, .bg-indigo-50, .bg-cyan-50, .bg-amber-50,
+      .bg-blue-50\/50, .bg-indigo-50\/60, .bg-indigo-50\/30, .bg-cyan-50\/70,
+      .bg-navy\/10, .bg-navy\/5) { background-color: #18314a; }
+  .bg-red-100 { background-color: #432537; }
+  :is(.border-slate-100, .border-slate-200, .border-slate-300, .border-blue-200,
+      .border-indigo-100, .border-white\/80, .border-white\/60,
+      .border-navy\/8, .border-navy\/10, .border-navy\/15, .border-navy\/20) {
+    border-color: #344961;
+  }
+  :is(.text-ink, .text-navy, .text-slate-900, .text-slate-800, .text-indigo-900,
+      .text-\[\#061A40\], .text-\[\#0c1b33\]) { color: var(--night-ink); }
+  :is(.text-navy\/70, .text-slate-500, .text-slate-600, .text-slate-700,
+      .text-\[\#52627A\]) { color: var(--night-muted); }
+  :is(.text-blue-600, .text-blue-700, .text-indigo-600, .text-indigo-500,
+      .text-\[\#0057D9\], .text-\[\#007BFF\]) { color: var(--nexlock-accent); }
+  :is(.text-cyan-600, .text-cyan-700) { color: #72dcec; }
+  .text-pink-700 { color: #f5a7d9; }
+  .text-amber-600 { color: #f6c977; }
+  .text-emerald-600 { color: #73e4bd; }
+  :is(.text-red-500, .text-red-600) { color: #ff9fae; }
+
+  :is(.hover\:bg-white, .hover\:bg-slate-100, .hover\:bg-cyan-50):hover,
+  .focus\:bg-white:focus { background-color: #203952; }
+  :is(.hover\:text-navy, .hover\:text-\[\#0057D9\]):hover { color: #8cddff; }
+  .from-\[\#f0f5ff\], .from-indigo-50 { --tw-gradient-from: #17304c; }
+  .to-\[\#dfe8fd\], .to-blue-100\/70 { --tw-gradient-to: #152842; }
+
+  .specular-button { background-color: #173a65; }
+  .specular-button:hover { background-color: #205185; }
+  :focus-visible { outline-color: #72dfff; }
+  ::placeholder { color: #93a8c2; }
+  .gradient-text {
+    --gt-base: #80b7ff;
+    --gt-accent: #71deff;
+    --gt-highlight: #ddf5ff;
+  }
+  :is(.text-gradient-brand, .text-gradient-hero, .text-gradient-metallic) {
+    background-image: linear-gradient(115deg, #82b4ff, #55d8ff 45%, #ddf5ff 72%, #81b4ff);
+  }
+  .logo-backplate { background-color: #f3f8fd; }
+}

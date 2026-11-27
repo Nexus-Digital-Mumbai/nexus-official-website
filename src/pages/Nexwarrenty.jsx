@@ -1,5 +1,6 @@
+import GlassButton from '../components/GlassButton';
+import GradientText from '../components/GradientText';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PhotoBand from '../components/PhotoBand';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
@@ -64,10 +65,6 @@ export default function Nexwarrenty() {
     <>
       {/* ── PRODUCT HERO ─────────────────────────────────────────── */}
       <header className="relative overflow-hidden pt-[150px] pb-24">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-40 -right-30 h-130 w-130 animate-drift rounded-full bg-teal-400 opacity-20 mix-blend-multiply blur-[120px]" />
-          <div className="absolute bottom-0 -left-30 h-110 w-110 animate-drift rounded-full bg-cyan-500 opacity-15 mix-blend-multiply blur-[130px] [animation-delay:-6s]" />
-        </div>
         <Container className="relative z-10 grid items-center gap-16 min-[960px]:grid-cols-[1.05fr_0.95fr]">
           <div className="translate-y-6 opacity-0 animate-fade-up">
             <PillarBadge kind="product" className="mb-6" />
@@ -87,18 +84,16 @@ export default function Nexwarrenty() {
               ))}
             </ul>
             <div className="flex flex-wrap gap-4">
-              <a
+              <GlassButton
                 href="#calculator"
-                className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-[#092147] to-teal-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_rgba(9,33,71,0.2)] transition hover:-translate-y-0.5"
-              >
+                className="text-base">
                 Calculate your plan price &rarr;
-              </a>
-              <Link
+              </GlassButton>
+              <GlassButton
                 to="/collaborate?type=nexwarranty"
-                className="inline-flex items-center gap-2 rounded-lg border border-navy/20 bg-white/60 px-7 py-3.5 text-base font-semibold text-navy transition hover:border-navy"
-              >
+                className="text-base">
                 Offer NexWarranty in your store
-              </Link>
+              </GlassButton>
             </div>
           </div>
           <div className="flex translate-y-6 justify-center opacity-0 animate-fade-up [animation-delay:250ms]">
@@ -108,14 +103,14 @@ export default function Nexwarrenty() {
       </header>
 
       {/* ── PROBLEM / SOLUTION ───────────────────────────────────────── */}
-      <section className="bg-ink py-16 text-slate-50">
+      <section className="nexus-motion-surface glass-callout py-16 text-navy">
         <Container className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div>
-            <p className="mb-3 font-mono text-[0.7rem] tracking-[0.14em] text-slate-400 uppercase">The problem</p>
+            <p className="mb-3 font-mono text-[0.7rem] tracking-[0.14em] text-slate-600 uppercase">The problem</p>
             <p className="font-display text-[1.4rem] leading-snug">When the manufacturer's warranty expires, every breakdown becomes an out-of-pocket repair bill — and some plans deduct depreciation from what they pay.</p>
           </div>
           <div>
-            <p className="mb-3 font-mono text-[0.7rem] tracking-[0.14em] text-teal-300 uppercase">How NexWarranty solves it</p>
+            <p className="mb-3 font-mono text-[0.7rem] tracking-[0.14em] text-[var(--glass-active)] uppercase">How NexWarranty solves it</p>
             <p className="font-display text-[1.4rem] leading-snug">Mechanical and electrical breakdowns are covered in full: parts, labour and transport, with repair or replacement guaranteed and no depreciation deducted.</p>
           </div>
         </Container>
@@ -133,7 +128,7 @@ export default function Nexwarrenty() {
         <Container>
           <div className="mb-12">
             <Eyebrow>COVERAGE</Eyebrow>
-            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">What's in the certificate.</h2>
+            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>What's in the certificate.</GradientText></h2>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             <div data-reveal data-tilt className="glass-panel translate-y-6 rounded-2xl p-9.5 opacity-0 shadow-glass transition-all duration-500 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100">
@@ -164,11 +159,11 @@ export default function Nexwarrenty() {
         </Container>
       </section>
 
-      <section className="bg-paper-raised py-28">
+      <section className="py-28">
         <Container>
           <div className="mb-12">
             <Eyebrow>PRICING</Eyebrow>
-            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Plan price as % of device value.</h2>
+            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>Plan price as % of device value.</GradientText></h2>
             <p className="max-w-[56ch] text-slate-600">Choose your coverage duration. All prices are a percentage of device purchase price.</p>
           </div>
 
@@ -220,7 +215,7 @@ export default function Nexwarrenty() {
             </div>
             <div className="order-1 md:order-1">
               <Eyebrow>HOW A CLAIM ACTUALLY WORKS</Eyebrow>
-              <h2 className="mb-4 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Upload the invoice. We take it from there.</h2>
+              <h2 className="mb-4 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>Upload the invoice. We take it from there.</GradientText></h2>
               <p className="mb-4 text-slate-600">Share your purchase invoice and IMEI or serial number, and we route the device to a brand-authorized center — same parts, same standards as the manufacturer.</p>
               <p className="text-slate-600">No paperwork chase, no back-and-forth on cost. If it's covered, it's fixed.</p>
             </div>
@@ -228,11 +223,11 @@ export default function Nexwarrenty() {
         </Container>
       </section>
 
-      <section className="bg-paper-raised py-28">
+      <section className="py-28">
         <Container>
           <div className="mb-12">
             <Eyebrow>WHY NEXWARRANTY</Eyebrow>
-            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">The NexWarranty advantage</h2>
+            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>The NexWarranty advantage</GradientText></h2>
           </div>
 
           <div data-reveal className="glass-panel grid translate-y-6 grid-cols-1 gap-5.5 rounded-2xl p-10.5 opacity-0 shadow-glass transition-all duration-700 ease-out data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100 sm:grid-cols-2 lg:grid-cols-3">
@@ -258,15 +253,14 @@ export default function Nexwarrenty() {
             </div>
           </div>
 
-          <div className="mt-10 rounded-2xl bg-navy p-9.5 text-center text-white shadow-glass">
+          <div className="mt-10 rounded-2xl glass-callout p-9.5 text-center text-navy shadow-glass">
             <h3 className="mb-3 font-display text-[1.4rem] tracking-[0.04em]">📞 RAISE A SERVICE REQUEST</h3>
             <p className="mb-6 opacity-90">Have an issue with your device? Call our support desk directly to register a service request.</p>
-            <a
+            <GlassButton
               href="tel:7710070322"
-              className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-9 py-3.5 text-xl font-bold text-navy no-underline shadow-[0_4px_12px_rgba(34,211,238,0.3)]"
-            >
+              className="text-xl">
               <span>📞</span> 7710070322
-            </a>
+            </GlassButton>
           </div>
         </Container>
       </section>
@@ -312,7 +306,7 @@ function WarrantyCalculator() {
       <Container>
         <div className="mb-12">
           <Eyebrow>CALCULATOR</Eyebrow>
-          <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">Calculate Your Warranty Price</h2>
+          <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>Calculate Your Warranty Price</GradientText></h2>
           <p className="max-w-[56ch] text-slate-600">
             Select your product category, enter the device purchase price, and instantly see the warranty cost for each plan.
           </p>

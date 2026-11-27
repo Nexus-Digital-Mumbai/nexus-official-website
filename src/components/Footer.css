@@ -1,0 +1,44 @@
+﻿.mountain-footer {
+  --ridge-sky: rgb(81 135 181 / 44%);
+  --ridge-shade: rgb(6 27 56 / 62%);
+  --ridge-glass: rgb(9 31 54 / 79%);
+  isolation: isolate;
+  padding: clamp(1.5rem, 3vw, 3rem) clamp(.75rem, 3vw, 3rem) clamp(.75rem, 1.5vw, 1.5rem);
+  background: linear-gradient(165deg, #34546d, #102941 65%, #091d31);
+}
+/* Crop the photograph at its native width, then blend its edges into the surrounding navy. */
+.mountain-footer::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  max-width: 800px;
+  margin-inline: auto;
+  pointer-events: none;
+  background:
+    linear-gradient(175deg, var(--ridge-sky), var(--ridge-shade)),
+    url('../assets/footer-ridges.png') center 44% / 100% auto no-repeat;
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+[data-theme='dark'] .mountain-footer {
+  --ridge-sky: rgb(19 44 74 / 62%);
+  --ridge-shade: rgb(3 17 38 / 79%);
+  --ridge-glass: rgb(6 22 43 / 83%);
+  background: linear-gradient(165deg, #223b51, #0a1a2b 68%, #061423);
+}
+.mountain-footer__glass {
+  padding: clamp(1rem, 1.8vw, 1.6rem) clamp(1rem, 2.5vw, 2.25rem);
+  border: 1px solid rgb(205 230 250 / 34%);
+  border-radius: clamp(1rem, 1.6vw, 1.5rem);
+  background: linear-gradient(145deg, rgb(188 222 250 / 11%), transparent 52%), var(--ridge-glass);
+  box-shadow: inset 0 1px rgb(255 255 255 / 15%), 0 10px 28px -18px #04102191;
+}
+@media (max-width: 800px) {
+  .mountain-footer::before {
+    background-position: center, center -12vw;
+    mask-image: linear-gradient(black, black 12vw, transparent 34vw);
+  }
+}
+.mountain-footer .text-slate-400 { color: #d1dfed; }
+.mountain-footer a:hover { color: #9eeaff; }
+.mountain-footer a:focus-visible { outline: 2px solid #9eeaff; outline-offset: 4px; }

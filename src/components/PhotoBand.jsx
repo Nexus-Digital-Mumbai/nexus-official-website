@@ -1,3 +1,4 @@
+import GradientText from './GradientText';
 import Container from './Container';
 
 export default function PhotoBand({ backgroundImage, stamp, eyebrow, heading, description, style = {} }) {
@@ -21,7 +22,7 @@ export default function PhotoBand({ backgroundImage, stamp, eyebrow, heading, de
           <p className="mb-4.5 inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.14em] text-cyan-500 uppercase before:h-px before:w-5.5 before:bg-pink-500 before:content-['']">
             {eyebrow}
           </p>
-          <h2 className="mb-2.5 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-50">{heading}</h2>
+          <h2 className="mb-2.5 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-50"><GradientText className="gradient-text--on-dark">{heading}</GradientText></h2>
           {description && <p className="max-w-[52ch] text-[1.02rem] text-slate-300">{description}</p>}
         </div>
       </Container>

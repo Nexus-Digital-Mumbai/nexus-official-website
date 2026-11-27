@@ -1,22 +1,19 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import GlassButton from '../components/GlassButton';
+import GradientText from '../components/GradientText';
+import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { brandBySlug } from '../data/brands';
 import top10Logo from '../assets/brands/top-10-logo.png';
 
-export default function Brand() {
+export default function Brand({ brand }) {
   useScrollReveal();
-  const { slug } = useParams();
-  const brand = brandBySlug(slug);
-
-  if (!brand) return <Navigate to="/brands" replace />;
 
   return (
     <>
       <header className="relative overflow-hidden pt-[150px] pb-20">
         <Container className="grid grid-cols-1 items-center gap-12 md:grid-cols-[0.8fr_1.2fr]">
-          <div className="glass-panel flex items-center justify-center rounded-2xl bg-white p-10 shadow-glass-lg">
+          <div className="logo-backplate glass-panel flex items-center justify-center rounded-2xl bg-white p-10 shadow-glass-lg">
             <img src={brand.logo} alt={brand.name} className="h-auto w-full max-w-[240px] object-contain" />
           </div>
           <div>
@@ -29,25 +26,24 @@ export default function Brand() {
             </h1>
             <p className="mb-8 max-w-[52ch] text-[clamp(1.02rem,1.5vw,1.18rem)] text-slate-600">{brand.summary}</p>
             <div className="flex flex-wrap gap-4">
-              <Link
+              <GlassButton
                 to={`/collaborate?type=${brand.partner.toLowerCase()}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-navy px-7 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_rgba(9,33,71,0.2)] transition hover:-translate-y-0.5 hover:bg-indigo-600"
-              >
+                className="text-base">
                 Partner with Nexus &rarr;
-              </Link>
+              </GlassButton>
             </div>
           </div>
         </Container>
       </header>
 
       {brand.stores?.length > 0 && (
-        <section className="bg-paper-raised py-24">
+        <section className="py-24">
           <Container>
             <div className="mb-12 max-w-[640px]">
               <Eyebrow>TRAINING ACROSS MUMBAI</Eyebrow>
               <h2 className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">
                 <img src={top10Logo} alt="Top-10" className="h-[0.85em] w-auto" />
-                <span>branches, trained on {brand.partner}.</span>
+                <GradientText>branches, trained on {brand.partner}.</GradientText>
               </h2>
             </div>
             <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">

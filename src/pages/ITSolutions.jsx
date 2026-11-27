@@ -1,3 +1,6 @@
+import { serviceQuestions } from '../data/serviceQuestions';
+import GlassButton from '../components/GlassButton';
+import GradientText from '../components/GradientText';
 import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
@@ -82,10 +85,6 @@ export default function ITSolutions() {
     <>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <header className="relative overflow-hidden pt-[150px] pb-24">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-40 -left-40 h-130 w-130 animate-drift rounded-full bg-cyan-500 opacity-20 mix-blend-multiply blur-[120px]" />
-          <div className="absolute -right-25 bottom-0 h-110 w-110 animate-drift rounded-full bg-indigo-600 opacity-15 mix-blend-multiply blur-[130px] [animation-delay:-6s]" />
-        </div>
         <Container className="relative z-10 grid items-center gap-16 min-[960px]:grid-cols-[1.05fr_0.95fr]">
           <div className="translate-y-6 opacity-0 animate-fade-up">
             <PillarBadge kind="services" className="mb-6" />
@@ -100,18 +99,16 @@ export default function ITSolutions() {
               We build websites, web and mobile applications, custom software and CRMs. And we don't only start from scratch: bring us the software you already have, and we'll maintain it, fix it, extend it and modernize it.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
+              <GlassButton
                 to="/collaborate?type=it-new"
-                className="inline-flex items-center gap-2 rounded-lg bg-navy px-7 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_rgba(9,33,71,0.2)] transition hover:-translate-y-0.5 hover:bg-indigo-600"
-              >
+                className="text-base">
                 Discuss a new project &rarr;
-              </Link>
-              <Link
+              </GlassButton>
+              <GlassButton
                 to="/collaborate?type=it-existing"
-                className="inline-flex items-center gap-2 rounded-lg border border-navy/20 bg-white/60 px-7 py-3.5 text-base font-semibold text-navy transition hover:border-navy"
-              >
+                className="text-base">
                 Get help with existing software
-              </Link>
+              </GlassButton>
             </div>
           </div>
           <div className="flex translate-y-6 justify-center opacity-0 animate-fade-up [animation-delay:250ms]">
@@ -121,17 +118,12 @@ export default function ITSolutions() {
       </header>
 
       {/* ── POSITIONING STRIP ────────────────────────────────────────── */}
-      <section className="bg-ink py-14 text-slate-50">
-        <Container className="grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto_1fr]">
-          <div>
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.14em] text-slate-400 uppercase">Starting from zero?</p>
-            <p className="font-display text-[1.35rem] leading-snug">We design and build it with you — web, mobile, backend and everything in between.</p>
-          </div>
-          <span className="hidden h-16 w-px bg-white/15 md:block" />
-          <div>
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.14em] text-cyan-400 uppercase">Already have software?</p>
-            <p className="font-display text-[1.35rem] leading-snug">We take it over, fix what's broken, add what's missing and keep it running.</p>
-          </div>
+      <section id="questions" aria-label="Software project questions" className="nexus-motion-surface glass-callout py-14 text-navy">
+        <Container className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
+          {serviceQuestions.map(({question, answer}) => <div key={question}>
+            <h2 className="mb-2 text-xl">{question}</h2>
+            <p className="font-display text-[1.35rem] leading-snug">{answer}</p>
+          </div>)}
         </Container>
       </section>
 
@@ -140,7 +132,7 @@ export default function ITSolutions() {
         <Container>
           <div className="mb-14 max-w-[680px]">
             <Eyebrow>SERVICES</Eyebrow>
-            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">What we do for clients.</h2>
+            <h2 className="mb-3 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>What we do for clients.</GradientText></h2>
             <p className="text-slate-600">Grouped by where you're starting from — a blank page, a system that needs work, or software that needs to connect and keep running.</p>
           </div>
 
@@ -173,11 +165,11 @@ export default function ITSolutions() {
       </section>
 
       {/* ── WHEN TO CALL US ──────────────────────────────────────────── */}
-      <section className="bg-paper-raised py-24 sm:py-28">
+      <section className="py-24 sm:py-28">
         <Container className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <Eyebrow>WHEN TO CALL US</Eyebrow>
-            <h2 className="mb-4 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">If any of these sound familiar, we can help.</h2>
+            <h2 className="mb-4 text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>If any of these sound familiar, we can help.</GradientText></h2>
             <p className="text-slate-600">You don't need a full specification to get started. Tell us where things stand and we'll suggest the next step.</p>
           </div>
           <ul data-reveal className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${reveal}`}>
@@ -198,7 +190,7 @@ export default function ITSolutions() {
         <Container>
           <div className="mb-12 max-w-[640px]">
             <Eyebrow>HOW WE WORK</Eyebrow>
-            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900">From first conversation to long-term support.</h2>
+            <h2 className="text-[clamp(1.9rem,3vw,2.6rem)] text-slate-900"><GradientText>From first conversation to long-term support.</GradientText></h2>
           </div>
           <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map((s, i) => (
@@ -213,12 +205,12 @@ export default function ITSolutions() {
       </section>
 
       {/* ── SAME TEAM AS OUR PRODUCTS ────────────────────────────────── */}
-      <section className="bg-paper-raised py-24 sm:py-28">
+      <section className="py-24 sm:py-28">
         <Container>
           <div data-reveal className={`grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_0.9fr] ${reveal}`}>
             <div>
               <Eyebrow>PART OF NEXUS</Eyebrow>
-              <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] text-slate-900">We build and run software of our own, too.</h2>
+              <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] text-slate-900"><GradientText>We build and run software of our own, too.</GradientText></h2>
               <p className="text-slate-600">
                 Nexus IT Solutions sits alongside Nexus's own products, NexLock and NexWarranty. Building and operating live products every day is what we bring to client work: we know what it takes to keep software working after launch.
               </p>
@@ -245,19 +237,19 @@ export default function ITSolutions() {
       {/* ── CTA ──────────────────────────────────────────────────────── */}
       <section className="py-24 sm:py-28">
         <Container>
-          <div data-reveal className={`relative overflow-hidden rounded-[20px] bg-ink px-6 py-14 text-center text-slate-50 sm:px-12 ${reveal}`}>
+          <div data-reveal className={`relative overflow-hidden rounded-[20px] glass-callout px-6 py-14 text-center text-navy sm:px-12 ${reveal}`}>
             <div className="bg-grid-ink pointer-events-none absolute inset-0 opacity-15" />
             <div className="relative">
-              <Eyebrow onDark>START A CONVERSATION</Eyebrow>
-              <h2 className="mb-3.5 text-slate-50">New project or existing system — tell us about it.</h2>
-              <p className="mx-auto mb-8 max-w-[52ch] text-slate-300">Share what you need and what you already have. We'll reply with questions and a suggested next step.</p>
+              <Eyebrow>START A CONVERSATION</Eyebrow>
+              <h2 className="mb-3.5 text-navy"><GradientText>New project or existing system — tell us about it.</GradientText></h2>
+              <p className="mx-auto mb-8 max-w-[52ch] text-slate-600">Share what you need and what you already have. We'll reply with questions and a suggested next step.</p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/collaborate?type=it-new" className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-7 py-3.5 text-base font-semibold text-ink transition hover:bg-cyan-400">
+                <GlassButton to="/collaborate?type=it-new" className="text-base">
                   Discuss a new project &rarr;
-                </Link>
-                <Link to="/collaborate?type=it-existing" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-7 py-3.5 text-base font-semibold text-slate-50 transition hover:border-white/60">
+                </GlassButton>
+                <GlassButton to="/collaborate?type=it-existing" className="text-base">
                   Get help with existing software
-                </Link>
+                </GlassButton>
               </div>
             </div>
           </div>

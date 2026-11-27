@@ -1,3 +1,4 @@
+import GradientText from '../components/GradientText';
 import HeroSection from '../components/HeroSection';
 import Container from '../components/Container';
 import Eyebrow from '../components/Eyebrow';
@@ -120,7 +121,7 @@ export default function NexwarrentyTerms() {
         style={{ minHeight: '44vh', paddingTop: '120px', paddingBottom: '2rem' }}
       />
 
-      <section className="py-20 bg-grid-paper">
+      <section className="py-20">
         <Container>
 
           {/* Meta badge */}
@@ -216,7 +217,7 @@ function SectionHeader({ number, title }) {
       <span className="font-mono text-[0.72rem] tracking-[0.1em] text-indigo-500 uppercase">
         §{number}
       </span>
-      <h2 className="text-xl font-semibold text-navy">{title}</h2>
+      <h2 className="text-xl font-semibold text-navy"><GradientText>{title}</GradientText></h2>
     </div>
   );
 }
